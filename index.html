@@ -112,33 +112,51 @@
     </div>
   </section>
 
-  <!-- SEÇÃO 2: VEJA DE PERTO (MINIMALIST APPLE SLOT MACHINE / ODOMETER STYLE) -->
-  <section id="nova-secao" class="py-24 lg:py-36 px-4 sm:px-6 relative bg-[#F5F5F7] font-sans border-t border-black/5 overflow-hidden">
-    <div class="max-w-7xl mx-auto">
+  <!-- SEÇÃO 2: VEJA DE PERTO (LIGHT MODE APPLE VISION PRO GLASSMORPHISM & GOLD LUXURY) -->
+  <section id="nova-secao" class="py-24 lg:py-36 px-4 sm:px-6 relative bg-[#F8F9FA] text-[#1D1D1F] font-sans border-t border-black/5 overflow-hidden">
+    <!-- Glow Radial Dourado Sutil de Fundo (Aura de Alta Costura Claro) -->
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(197,160,89,0.08)_0%,_transparent_70%)] pointer-events-none"></div>
 
-      <!-- Section Title Header (Apple Headline Style) -->
-      <div class="mb-12 lg:mb-16 text-center lg:text-left">
-        <div class="bg-[#1D1D1F] text-white rounded-full px-5 py-2 text-xs font-bold uppercase tracking-wider inline-block mb-4 shadow-sm">
-          Interatividade & Portfólio
+    <div class="max-w-7xl mx-auto relative z-10">
+
+      <!-- Section Title Header (Luxury Gold & Apple Headline Style com Text Reveal - Centralizado & Aproximado) -->
+      <div class="mb-6 sm:mb-8 text-center flex flex-col items-center mx-auto">
+        <div class="gold-kicker-badge rounded-full px-5 py-2 text-xs font-bold uppercase tracking-[2px] inline-flex items-center gap-2 mb-3.5 shadow-sm backdrop-blur-md">
+          <i class="fa-solid fa-crown text-[#C5A059] text-xs"></i>
+          <span class="shimmer-gold-text">Interatividade & Portfólio</span>
         </div>
-        <h2 class="text-4xl sm:text-6xl lg:text-7xl font-medium tracking-tight text-[#1D1D1F] leading-[1.05]">
-          Veja de perto.
+        <h2 class="section-title-reveal text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-[#1D1D1F] leading-[1.15] text-center">
+          Encontre o imóvel <span class="shimmer-gold-text font-normal">certo para você.</span>
         </h2>
-        <p class="text-[#86868B] text-base sm:text-xl max-w-2xl mt-4 font-light leading-relaxed">
-          Conheça em detalhes os imóveis exclusivos do nosso portfólio.
+        <p class="section-desc-reveal text-[#6E6E73] text-base sm:text-lg max-w-2xl mt-2.5 font-light leading-relaxed text-center">
+          Explore por tipo e descubra o espaço perfeito para o seu próximo capítulo.
         </p>
       </div>
 
-      <!-- Container Principal Apple Glassmorphism (Branco Espelhado / Vidro Fosco Luxuoso) -->
+      <!-- Container Principal Apple Glassmorphism Claro (Vidro Jateado Frosted Glass / Vision Pro Style) -->
       <div class="apple-glass-card relative w-full rounded-[36px] sm:rounded-[48px] p-6 sm:p-10 lg:p-14 overflow-hidden">
         
         <!-- Grid de 2 Colunas (Desktop: Botões ~33% lg:col-span-4 | Vídeo ~67% lg:col-span-8) -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
 
           <!-- Coluna da Esquerda / Botões Pílula Minimalistas (Desktop: col-span-4 ~33% | Mobile: ordem 2) -->
-          <div class="lg:col-span-4 order-2 lg:order-1 flex flex-col justify-between space-y-4">
+          <div class="lg:col-span-4 order-2 lg:order-1 flex flex-col h-full min-h-full justify-between">
             
-            <div class="flex flex-col space-y-3 sm:space-y-3.5">
+            <!-- Kicker Slot (Topo da Coluna Esquerda - Centralizado Perfeitamente) -->
+            <div class="left-column-kicker-slot pt-1 pb-4 text-center flex flex-col items-center">
+              <span class="inline-block text-[11px] font-bold uppercase tracking-[2.5px] text-[#C5A059] px-3.5 py-1.5 rounded-full gold-kicker-badge mb-3 font-sans">
+                <i class="fa-solid fa-compass text-[10px] mr-1.5 text-[#C5A059]"></i> O que você procura?
+              </span>
+              <h3 class="text-lg sm:text-xl font-medium text-[#1D1D1F] tracking-tight leading-snug">
+                Categorias em Destaque
+              </h3>
+              <p class="text-xs sm:text-sm text-[#6E6E73] mt-1.5 font-light leading-relaxed max-w-xs mx-auto">
+                Selecione uma opção abaixo para navegar pelo nosso portfólio.
+              </p>
+            </div>
+
+            <!-- Bloco de Categorias Empurrado para Baixo (mt-auto libera o topo para o Kicker | mb-6 cria respiro de 24px) -->
+            <div class="flex flex-col space-y-3 sm:space-y-3.5 mt-auto mb-6">
               <!-- Botão 1: Casas (Ativo por Padrão) -->
               <button type="button" data-video="casas.mp4" class="closer-look-btn active group w-full text-left py-4 px-6 rounded-full flex items-center justify-between transition-all duration-500 cursor-pointer overflow-hidden">
                 <span class="slot-machine-title relative h-[22px] overflow-hidden block font-bold text-sm sm:text-base">
@@ -147,66 +165,66 @@
                     <span class="block h-[22px] flex items-center">Casas</span>
                   </span>
                 </span>
-                <span class="category-arrow-btn w-7 h-7 rounded-full bg-white text-[#1C1C1E] flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
+                <span class="category-arrow-btn w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
                   ↗
                 </span>
               </button>
 
               <!-- Botão 2: Casas em condomínios -->
-              <button type="button" data-video="casas-em-condominios.mp4" class="closer-look-btn group w-full text-left py-4 px-6 rounded-full bg-white text-[#1D1D1F] border border-black/5 hover:bg-gray-100 flex items-center justify-between transition-all duration-500 cursor-pointer overflow-hidden shadow-xs">
+              <button type="button" data-video="casas-em-condominios.mp4" class="closer-look-btn group w-full text-left py-4 px-6 rounded-full flex items-center justify-between transition-all duration-500 cursor-pointer overflow-hidden shadow-xs">
                 <span class="slot-machine-title relative h-[22px] overflow-hidden block font-bold text-sm sm:text-base">
                   <span class="slot-wrapper block transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
                     <span class="block h-[22px] flex items-center">Casas em condomínios</span>
                     <span class="block h-[22px] flex items-center">Casas em condomínios</span>
                   </span>
                 </span>
-                <span class="category-arrow-btn w-7 h-7 rounded-full bg-white text-[#1C1C1E] flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
+                <span class="category-arrow-btn w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
                   ↗
                 </span>
               </button>
 
               <!-- Botão 3: Apartamentos -->
-              <button type="button" data-video="Apartamentos.mp4" class="closer-look-btn group w-full text-left py-4 px-6 rounded-full bg-white text-[#1D1D1F] border border-black/5 hover:bg-gray-100 flex items-center justify-between transition-all duration-500 cursor-pointer overflow-hidden shadow-xs">
+              <button type="button" data-video="Apartamentos.mp4" class="closer-look-btn group w-full text-left py-4 px-6 rounded-full flex items-center justify-between transition-all duration-500 cursor-pointer overflow-hidden shadow-xs">
                 <span class="slot-machine-title relative h-[22px] overflow-hidden block font-bold text-sm sm:text-base">
                   <span class="slot-wrapper block transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
                     <span class="block h-[22px] flex items-center">Apartamentos</span>
                     <span class="block h-[22px] flex items-center">Apartamentos</span>
                   </span>
                 </span>
-                <span class="category-arrow-btn w-7 h-7 rounded-full bg-white text-[#1C1C1E] flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
+                <span class="category-arrow-btn w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
                   ↗
                 </span>
               </button>
 
               <!-- Botão 4: Chácaras -->
-              <button type="button" data-video="chácaras.mp4" class="closer-look-btn group w-full text-left py-4 px-6 rounded-full bg-white text-[#1D1D1F] border border-black/5 hover:bg-gray-100 flex items-center justify-between transition-all duration-500 cursor-pointer overflow-hidden shadow-xs">
+              <button type="button" data-video="chácaras.mp4" class="closer-look-btn group w-full text-left py-4 px-6 rounded-full flex items-center justify-between transition-all duration-500 cursor-pointer overflow-hidden shadow-xs">
                 <span class="slot-machine-title relative h-[22px] overflow-hidden block font-bold text-sm sm:text-base">
                   <span class="slot-wrapper block transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
                     <span class="block h-[22px] flex items-center">Chácaras</span>
                     <span class="block h-[22px] flex items-center">Chácaras</span>
                   </span>
                 </span>
-                <span class="category-arrow-btn w-7 h-7 rounded-full bg-white text-[#1C1C1E] flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
+                <span class="category-arrow-btn w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
                   ↗
                 </span>
               </button>
 
               <!-- Botão 5: Barracões comerciais -->
-              <button type="button" data-video="barracões-comerciais.mp4" class="closer-look-btn group w-full text-left py-4 px-6 rounded-full bg-white text-[#1D1D1F] border border-black/5 hover:bg-gray-100 flex items-center justify-between transition-all duration-500 cursor-pointer overflow-hidden shadow-xs">
+              <button type="button" data-video="barracões-comerciais.mp4" class="closer-look-btn group w-full text-left py-4 px-6 rounded-full flex items-center justify-between transition-all duration-500 cursor-pointer overflow-hidden shadow-xs">
                 <span class="slot-machine-title relative h-[22px] overflow-hidden block font-bold text-sm sm:text-base">
                   <span class="slot-wrapper block transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
                     <span class="block h-[22px] flex items-center">Barracões comerciais</span>
                     <span class="block h-[22px] flex items-center">Barracões comerciais</span>
                   </span>
                 </span>
-                <span class="category-arrow-btn w-7 h-7 rounded-full bg-white text-[#1C1C1E] flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
+                <span class="category-arrow-btn w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
                   ↗
                 </span>
               </button>
             </div>
 
-            <!-- Botão Conversão Esquerda: Acessar o App (Glassmorphism Permanente, Centralizado & Alinhado Simetricamente) -->
-            <div class="pt-4 pb-2 flex justify-center w-full">
+            <!-- Botão Conversão Esquerda: Acessar o App (Alinhamento Simétrico Perfeito com bottom-8 / pb-8 = 32px) -->
+            <div class="pb-8 flex justify-center w-full">
               <a href="#appSection" class="btn-app-glass group inline-flex items-center justify-center gap-2.5 py-3.5 px-7 rounded-full font-extrabold text-xs uppercase tracking-widest text-white shadow-2xl transition-all duration-300">
                 <i class="fa-solid fa-mobile-screen-button text-sm btn-app-icon"></i>
                 <span>Acessar o App</span>
@@ -216,7 +234,7 @@
           </div>
 
           <!-- Coluna da Direita / Display do Vídeo EXPANDIDO (~67% de largura | Desktop: col-span-8 | Mobile: ordem 1) -->
-          <div class="lg:col-span-8 order-1 lg:order-2 w-full h-full min-h-[380px] sm:min-h-[480px] lg:min-h-[560px] rounded-[28px] sm:rounded-[36px] bg-[#F5F5F7] apple-video-wrapper relative overflow-hidden flex items-center justify-center group">
+          <div class="lg:col-span-8 order-1 lg:order-2 w-full h-full min-h-[380px] sm:min-h-[480px] lg:min-h-[560px] rounded-[28px] sm:rounded-[36px] bg-[#F0F0F4] apple-video-wrapper relative overflow-hidden flex items-center justify-center group">
             
             <!-- Vídeo sem Loop, Muted, Playsinline com object-fit: cover limpo e Hairline de Separação -->
             <video id="closerLookVideo" muted playsinline class="w-full h-full object-cover rounded-[28px] sm:rounded-[36px]">
@@ -237,121 +255,109 @@
     </div>
   </section>
 
-  <!-- SESSÃO 2: SOBRE A EMPRESA & ESPECIFICAÇÕES DA LAMBORGHINI SVJ (MINIMALIST HERO DESIGN) -->
+  <!-- SESSÃO 3: SOBRE A EMPRESA & ESPECIFICAÇÕES (COMPACT HORIZONTAL DESIGN) -->
   <section id="sobre"
-    class="relative z-10 min-h-screen py-20 lg:py-32 px-6 overflow-hidden bg-[#F5F5F7] flex items-center font-sans border-t border-black/5">
-    <div class="max-w-7xl mx-auto w-full">
-      <!-- Section Header -->
-      <div class="mb-10 lg:mb-14">
-        <!-- Tag Superior / Pill Badge (Estilo Seção 1) -->
-        <div
-          class="bg-[#1D1D1F] text-white rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wider inline-block mb-4 shadow-sm">
-          História & Engenharia
+    class="relative z-10 py-12 lg:py-20 px-4 sm:px-6 overflow-hidden bg-[#F5F5F7] font-sans border-t border-black/5">
+    <div class="max-w-5xl mx-auto w-full">
+      <!-- Section Header (Exatamente no Padrão de Design, Tipografia e Cores da Seção 2) -->
+      <div class="mb-6 sm:mb-8 text-center flex flex-col items-center justify-center mx-auto">
+        <!-- 1. Tag Superior (Badge Pill com Ícone de Coroa e Shimmer Dourado) -->
+        <div class="gold-kicker-badge rounded-full px-5 py-2 text-xs font-bold uppercase tracking-[2px] inline-flex items-center gap-2 mb-3.5 shadow-sm backdrop-blur-md">
+          <i class="fa-solid fa-crown text-[#C5A059] text-xs"></i>
+          <span class="shimmer-gold-text">SOBRE A NOSSA ESSÊNCIA</span>
         </div>
-        <!-- Título Principal (Estilo Seção 1) -->
-        <h2 class="text-4xl sm:text-6xl font-medium tracking-tight text-[#1D1D1F] leading-[1.1]">
-          Sobre a A3 Estética
+        <!-- 2. Título Principal (Duas Cores: Escuro + Destaque Dourado Shimmer) -->
+        <h2 class="section-title-reveal text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-[#1D1D1F] leading-[1.15] text-center">
+          Conheça a imobiliária <span class="shimmer-gold-text font-normal">certa para você.</span>
         </h2>
+        <!-- 3. Subtítulo (Mesma Tipografia e Cor Cinza Suave da Seção 2) -->
+        <p class="section-desc-reveal text-[#6E6E73] text-base sm:text-lg max-w-2xl mt-2.5 font-light leading-relaxed text-center">
+          Uma trajetória construída com confiança, transparência e resultados exclusivos.
+        </p>
       </div>
 
-      <!-- 2 Columns Grid Container (Apple-style Twin Vertical Cards: align-items: stretch) -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-[30px] items-stretch">
+      <!-- 2 Columns Grid Container (Equal Height Mirror Match: md:grid-cols-2 items-stretch) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 items-stretch">
 
-        <!-- Card 1 (Esquerda): Vídeo BMW (Card Vertical min-h 550px no desktop, border-radius 24px) -->
+        <!-- Card 1 (Esquerda): Vídeo Limpo com Botão de Replay Centralizado na Base -->
         <div id="aboutCar3D"
-          class="relative w-full h-full min-h-[400px] lg:min-h-[550px] rounded-[24px] overflow-hidden bg-white border border-black/10 shadow-[0_10px_30px_rgba(0,0,0,0.04)] group">
-          <!-- Tag <video> (position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;) -->
-          <video muted playsinline id="bmwVideoElement"
-            class="absolute top-0 left-0 w-full h-full object-cover z-0 rounded-[24px] transition-transform duration-700 group-hover:scale-105 shadow-md">
-            <source src="bmw-video.mp4" type="video/mp4">
+          class="relative w-full h-full min-h-[300px] md:min-h-0 rounded-[20px] sm:rounded-[24px] overflow-hidden bg-white border border-black/10 shadow-[0_8px_24px_rgba(0,0,0,0.04)] group">
+          
+          <!-- Tag <video> (src="avião.mp4", muted, playsinline, w-full h-full object-cover absolute inset-0) -->
+          <video id="section3Video" muted playsinline src="avião.mp4" class="w-full h-full object-cover absolute inset-0 z-0 rounded-[20px] sm:rounded-[24px]">
           </video>
 
-          <!-- Overlay de Informações na Base do Vídeo (z-index: 20 sobreposto ao vídeo) -->
-          <div
-            class="absolute z-20 bottom-5 left-5 right-5 bg-black/80 backdrop-blur-md border border-white/10 rounded-[14px] p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs font-sans">
-            <div>
-              <div class="text-white font-semibold tracking-wide">BMW PERFORMANCE</div>
-              <div class="text-white/70 text-[11px]">CERAMIC COATING 9H PRO + PPF</div>
-            </div>
-            <div class="sm:text-right">
-              <div class="text-white font-semibold tracking-wide">100% REFLEXÃO</div>
-              <div class="text-white/70 text-[11px]">STATUS: PROTEGIDO</div>
-            </div>
-          </div>
+          <!-- Botão de Restart Discreto Centralizado na Base (bottom-6 left-1/2 -translate-x-1/2) -->
+          <button id="btnSection3Replay" type="button" aria-label="Replay Vídeo" class="btn-replay-720 absolute bottom-6 left-1/2 -translate-x-1/2 z-30 w-11 h-11 rounded-full bg-black/60 backdrop-blur-md border border-white/30 text-white flex items-center justify-center shadow-2xl transition-transform duration-300 hover:scale-110 hidden">
+            <i class="fa-solid fa-arrow-rotate-right text-sm"></i>
+          </button>
         </div>
 
-        <!-- Card 2 (Direita): Especificações & História (Simétrico ao Card 1 com border-radius 24px) -->
+        <!-- Card 2 (Direita): Especificações & História (Real Estate / Imobiliária) -->
         <div id="aboutStoryCard"
-          class="reveal-card w-full h-full min-h-[400px] lg:min-h-[550px] bg-white rounded-[24px] p-6 sm:p-10 border border-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.04)] flex flex-col justify-between font-sans text-[#1D1D1F]">
-          <div>
+          class="reveal-card w-full h-full bg-white rounded-[20px] sm:rounded-[24px] p-5 sm:p-7 border border-black/5 shadow-[0_8px_24px_rgba(0,0,0,0.04)] flex flex-col justify-between items-center text-center font-sans text-[#1D1D1F]">
+          <div class="flex flex-col items-center text-center w-full">
             <!-- 1º Badge/Tag -->
             <div
-              class="reveal-item reveal-item-1 bg-[#1D1D1F] text-white rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wider inline-block mb-4 shadow-sm">
-              Especificação de Elite
+              class="reveal-item reveal-item-1 bg-[#1D1D1F] text-white rounded-full px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider inline-block mb-3 shadow-sm mx-auto">
+              POR QUE NOS ESCOLHER?
             </div>
 
             <!-- 2º Título Principal -->
             <h3
-              class="reveal-item reveal-item-2 text-2xl sm:text-4xl font-medium mb-4 text-[#1D1D1F] tracking-tight leading-tight">
-              Perfeição e Paixão por Supercarros
+              class="reveal-item reveal-item-2 text-xl sm:text-3xl font-medium mb-3 text-[#1D1D1F] tracking-tight leading-tight text-center">
+              A referência em encontrar o imóvel certo para você.
             </h3>
 
-            <!-- 3º Texto Principal -->
-            <p class="reveal-item reveal-item-3 text-[#86868B] text-sm sm:text-base leading-relaxed mb-6 font-light">
-              Há mais de 10 anos, a A3 Estética redefine o padrão de detalhamento automotivo de luxo. Cada veículo passa
-              por um processo criterioso de lavagem detalhada, polimento técnico e vitrificação de alta performance —
-              tratando cada carro com o mesmo rigor de uma preparação para concurso de elegância.
+            <!-- 3º Texto Principal (Real Estate / Imobiliária) -->
+            <p class="reveal-item reveal-item-3 text-[#6E6E73] text-xs sm:text-sm leading-relaxed mb-4 font-light text-center">
+              Sabemos que a escolha de um imóvel é um dos passos mais importantes da sua vida. Nossa equipe de especialistas oferece um atendimento consultivo e humanizado, buscando as melhores oportunidades do mercado para que você faça um investimento seguro, seja para morar ou investir.
             </p>
 
-            <!-- 4º Grid de Specs (2x2) -->
-            <div class="reveal-item reveal-item-4 grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-              <div class="bg-[#F5F5F7] p-3.5 rounded-[12px] border border-black/5">
-                <span class="text-[10px] text-[#86868B] uppercase tracking-wider block mb-1 font-medium">SERVIÇO
-                  PRINCIPAL</span>
-                <span class="text-sm font-semibold text-[#1D1D1F]">Lavagem Detalhada Premium</span>
+            <!-- 4º Grid de Vantagens (2x2 Real Estate) -->
+            <div class="reveal-item reveal-item-4 grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-4 w-full">
+              <div class="bg-[#F5F5F7] p-2.5 rounded-[10px] border border-black/5 text-center flex flex-col items-center justify-center">
+                <span class="text-[9px] text-[#86868B] uppercase tracking-wider block mb-0.5 font-medium text-center">EXCLUSIVIDADE</span>
+                <span class="text-xs font-semibold text-[#1D1D1F] text-center">Curadoria de Alto Padrão</span>
               </div>
-              <div class="bg-[#F5F5F7] p-3.5 rounded-[12px] border border-black/5">
-                <span class="text-[10px] text-[#86868B] uppercase tracking-wider block mb-1 font-medium">PROTEÇÃO
-                  A3</span>
-                <span class="text-sm font-semibold text-[#1D1D1F]">PPF Full + Nano Cerâmica 9H</span>
+              <div class="bg-[#F5F5F7] p-2.5 rounded-[10px] border border-black/5 text-center flex flex-col items-center justify-center">
+                <span class="text-[9px] text-[#86868B] uppercase tracking-wider block mb-0.5 font-medium text-center">TRANQUILIDADE</span>
+                <span class="text-xs font-semibold text-[#1D1D1F] text-center">Assessoria Jurídica Completa</span>
               </div>
-              <div class="bg-[#F5F5F7] p-3.5 rounded-[12px] border border-black/5">
-                <span
-                  class="text-[10px] text-[#86868B] uppercase tracking-wider block mb-1 font-medium">ACABAMENTO</span>
-                <span class="text-sm font-semibold text-[#1D1D1F]">Polimento Técnico de Precisão</span>
+              <div class="bg-[#F5F5F7] p-2.5 rounded-[10px] border border-black/5 text-center flex flex-col items-center justify-center">
+                <span class="text-[9px] text-[#86868B] uppercase tracking-wider block mb-0.5 font-medium text-center">ATENDIMENTO</span>
+                <span class="text-xs font-semibold text-[#1D1D1F] text-center">Consultores Especializados</span>
               </div>
-              <div class="bg-[#F5F5F7] p-3.5 rounded-[12px] border border-black/5">
-                <span
-                  class="text-[10px] text-[#86868B] uppercase tracking-wider block mb-1 font-medium">DURABILIDADE</span>
-                <span class="text-sm font-semibold text-[#1D1D1F]">Vitrificação com Garantia de 5 Anos</span>
+              <div class="bg-[#F5F5F7] p-2.5 rounded-[10px] border border-black/5 text-center flex flex-col items-center justify-center">
+                <span class="text-[9px] text-[#86868B] uppercase tracking-wider block mb-0.5 font-medium text-center">RESULTADO</span>
+                <span class="text-xs font-semibold text-[#1D1D1F] text-center">Negociação Transparente</span>
               </div>
             </div>
           </div>
 
-          <!-- 5º Números de Credibilidade -->
-          <div class="reveal-item reveal-item-5 border-t border-black/10 pt-4">
-            <div class="grid grid-cols-3 gap-3 text-center sm:text-left">
-              <div>
-                <div class="text-3xl sm:text-4xl font-semibold text-[#1D1D1F] tracking-tight">10+</div>
-                <div class="text-[10px] sm:text-xs text-[#86868B] uppercase tracking-wider mt-1">Anos no Mercado</div>
+          <!-- 5º Números de Credibilidade (Com Efeito Shimmer Dourado Animado) -->
+          <div class="reveal-item reveal-item-5 border-t border-black/10 pt-3 mb-3 w-full">
+            <div class="grid grid-cols-3 gap-2 text-center">
+              <div class="flex flex-col items-center text-center">
+                <div class="text-2xl sm:text-3xl font-normal tracking-tight text-center shimmer-gold-text">10+</div>
+                <div class="text-[9px] sm:text-[10px] text-[#86868B] uppercase tracking-wider mt-0.5 text-center font-medium">Anos no Mercado</div>
               </div>
-              <div>
-                <div class="text-3xl sm:text-4xl font-semibold text-[#1D1D1F] tracking-tight">3.5k+</div>
-                <div class="text-[10px] sm:text-xs text-[#86868B] uppercase tracking-wider mt-1">Carros Atendidos</div>
+              <div class="flex flex-col items-center text-center">
+                <div class="text-2xl sm:text-3xl font-normal tracking-tight text-center shimmer-gold-text">3.5k+</div>
+                <div class="text-[9px] sm:text-[10px] text-[#86868B] uppercase tracking-wider mt-0.5 text-center font-medium">Famílias Atendidas</div>
               </div>
-              <div>
-                <div class="text-3xl sm:text-4xl font-semibold text-[#1D1D1F] tracking-tight">100%</div>
-                <div class="text-[10px] sm:text-xs text-[#86868B] uppercase tracking-wider mt-1">Satisfação Garantida
-                </div>
+              <div class="flex flex-col items-center text-center">
+                <div class="text-2xl sm:text-3xl font-normal tracking-tight text-center shimmer-gold-text">100%</div>
+                <div class="text-[9px] sm:text-[10px] text-[#86868B] uppercase tracking-wider mt-0.5 text-center font-medium">Satisfação Garantida</div>
               </div>
             </div>
           </div>
 
-          <!-- 6º Botão CTA -->
-          <div class="reveal-item reveal-item-6 pt-6">
-            <a href="#servicos"
-              class="bg-[#1D1D1F] text-white px-6 py-3 rounded-md text-sm font-medium hover:bg-black transition-all inline-block w-full sm:w-auto text-center shadow-sm">
-              Conhecer Nossos Serviços
+          <!-- 6º Botão CTA (Falar com um Especialista) -->
+          <div class="reveal-item reveal-item-6 pt-2 flex justify-center w-full">
+            <a href="#contato"
+              class="bg-[#1D1D1F] text-white px-5 py-2.5 rounded-full text-xs font-semibold hover:bg-black transition-all inline-block w-full sm:w-auto text-center shadow-sm mx-auto">
+              Falar com um Especialista
             </a>
           </div>
         </div>

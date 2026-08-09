@@ -506,6 +506,55 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --------------------------------------------------------------------------
+    // ANIMAÇÃO DE REVELAÇÃO FLUIDA DE TEXTO (GSAP TEXT REVEAL FADE ESTILO SESSÃO 4)
+    // --------------------------------------------------------------------------
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      gsap.fromTo('.section-title-reveal', 
+        { opacity: 0, y: 35 }, 
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 1.2, 
+          ease: 'power3.out', 
+          scrollTrigger: {
+            trigger: '#nova-secao',
+            start: 'top 75%'
+          }
+        }
+      );
+
+      gsap.fromTo('.section-desc-reveal', 
+        { opacity: 0, y: 25 }, 
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 1.0, 
+          delay: 0.15,
+          ease: 'power3.out', 
+          scrollTrigger: {
+            trigger: '#nova-secao',
+            start: 'top 75%'
+          }
+        }
+      );
+
+      gsap.fromTo('.left-column-kicker-slot', 
+        { opacity: 0, y: 20 }, 
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.9, 
+          delay: 0.25,
+          ease: 'power3.out', 
+          scrollTrigger: {
+            trigger: '#nova-secao',
+            start: 'top 75%'
+          }
+        }
+      );
+    }
+
+    // --------------------------------------------------------------------------
     // REPRODUÇÃO INICIAL VIA GSAP SCROLLTRIGGER (EXECUTA APENAS UMA VEZ)
     // --------------------------------------------------------------------------
     if (videoElement && typeof ScrollTrigger !== 'undefined') {
@@ -541,5 +590,46 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  // --------------------------------------------------------------------------
+  // SEÇÃO 3: LÓGICA DE VÍDEO, INTERSECTION OBSERVER & REPLAY 720°
+  // --------------------------------------------------------------------------
+  const sec3Container = document.getElementById('aboutCar3D');
+  const sec3Video = document.getElementById('section3Video');
+  const sec3ReplayBtn = document.getElementById('btnSection3Replay');
+
+  if (sec3Container && sec3Video) {
+    // 1. SCROLL AUTO-PLAY VIA INTERSECTION OBSERVER (isIntersecting -> video.play())
+    const sec3Observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && sec3Video.src && sec3Video.paused) {
+          sec3Video.play().catch(e => console.log('Autoplay Seção 3 aguardando interação ou fonte:', e));
+        }
+      });
+    }, { threshold: 0.4 });
+
+    sec3Observer.observe(sec3Container);
+
+    // 2. LÓGICA DE TEMPO (onTimeUpdate: faltam <= 2s para acabar -> showReplay = true)
+    sec3Video.addEventListener('timeupdate', () => {
+      if (sec3Video.duration && (sec3Video.duration - sec3Video.currentTime <= 2)) {
+        if (sec3ReplayBtn && !sec3ReplayBtn.classList.contains('active-replay')) {
+          sec3ReplayBtn.classList.remove('hidden');
+          sec3ReplayBtn.classList.add('active-replay');
+        }
+      }
+    });
+
+    // 3. BOTÃO DE RESTART (onClick: currentTime = 0, play(), hide replay)
+    if (sec3ReplayBtn) {
+      sec3ReplayBtn.addEventListener('click', () => {
+        sec3Video.currentTime = 0;
+        sec3Video.play();
+        sec3ReplayBtn.classList.remove('active-replay');
+        sec3ReplayBtn.classList.add('hidden');
+      });
+    }
+  }
 });
+
 
