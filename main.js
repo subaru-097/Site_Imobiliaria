@@ -1,408 +1,118 @@
 /* ==========================================================================
-   A3 ESTÉTICA AUTOMOTIVA - MAIN JAVASCRIPT LOGIC
-   - Lenis Smooth Scroll Integration with GSAP Ticker
-   - Apple-style WebP Canvas Frame Scrubbing (Cover Aspect Ratio)
-   - Preload Progress Bar & Loader Feedback
-   - Complete 4-Folder Frame Sequence (video_frames1, video_frames2, video_frames3, video_frames4)
-   - Extended GSAP ScrollTrigger Pinning for Full Sequence Scrubbing
+   SMART PARKING / ESTACIONAMENTO PREMIUM - MAIN JAVASCRIPT LOGIC
+   - Native Browser Scroll
+   - Background Video Initialization
+   - Interactive Media & Navigation Handlers
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Verificação de segurança para certificar que GSAP e ScrollTrigger estão carregados
-  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-    console.error('GSAP ou ScrollTrigger não foram carregados corretamente.');
-    return;
-  }
-
-  // Registrar o plugin ScrollTrigger no GSAP
-  gsap.registerPlugin(ScrollTrigger);
 
   // --------------------------------------------------------------------------
-  // 1. INICIALIZAÇÃO DO LENIS (SMOOTH SCROLL) E SINCRONIZAÇÃO COM GSAP
+  // 0. PRELOADER SPLIT SCREEN - ANIMAÇÃO DE LETRAS SEQUENCIAIS (EDOLUS)
   // --------------------------------------------------------------------------
-  let lenis = null;
+  const preloader = document.getElementById('preloader');
+  const preloaderTop = document.getElementById('preloaderTop');
+  const preloaderBottom = document.getElementById('preloaderBottom');
+  const preloaderContent = document.getElementById('preloaderContent');
+  const preloaderPercent = document.getElementById('preloaderPercent');
+  const letters = document.querySelectorAll('.preloader-letter');
 
-  if (typeof Lenis !== 'undefined') {
-    lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      wheelMultiplier: 1.0,
-      touchMultiplier: 1.5
-    });
+  if (preloader && letters.length > 0 && preloaderPercent) {
+    // Bloquear a rolagem enquanto o preloader estiver ativo
+    document.body.style.overflow = 'hidden';
 
-    // Atualiza os triggers do ScrollTrigger sempre que o Lenis rolar a página
-    lenis.on('scroll', ScrollTrigger.update);
+    let count = 0;
+    const duration = 2000; // Duração total da contagem (2s)
+    const totalLetters = letters.length; // 6 letras ("E", "D", "O", "L", "U", "S")
+    const stepDuration = duration / 100;
 
-    // Conecta o loop de animação do Lenis ao ticker do GSAP para evitar tremedeira (jitter)
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
+    // Revelar a primeira letra ("E") imediatamente no início
+    if (letters[0]) {
+      letters[0].classList.add('reveal');
+    }
 
-    // Desativa o lagSmoothing do GSAP para manter sincronia perfeita
-    gsap.ticker.lagSmoothing(0);
-  }
+    const interval = setInterval(() => {
+      count++;
+      if (count > 100) count = 100;
 
-  /**
-   * Helper para carregar uma imagem tentando múltiplos caminhos candidatos (fallback robusto)
-   */
-  const loadImageWithFallback = (candidateUrls, onSuccess, onError) => {
-    let index = 0;
-    const tryNext = () => {
-      if (index >= candidateUrls.length) {
-        if (onError) onError();
-        return;
+      // 1. Atualizar porcentagem numérica
+      preloaderPercent.textContent = `${count}%`;
+
+      // 2. Animação Sequencial: cada letra sai de trás da anterior à medida que a % progride
+      const letterIndexToReveal = Math.floor((count / 100) * totalLetters);
+      for (let i = 0; i < totalLetters; i++) {
+        if (i <= letterIndexToReveal && letters[i]) {
+          letters[i].classList.add('reveal');
+        }
       }
-      const img = new Image();
-      const url = candidateUrls[index++];
-      img.onload = () => onSuccess(img, url);
-      img.onerror = () => tryNext();
-      img.src = url;
-    };
-    tryNext();
-  };
 
-  /**
-   * Função para desenhar uma imagem no Canvas mantendo a proporção 'object-fit: cover'
-   */
-  function drawCoverImage(ctx, canvas, img) {
-    if (!img || !img.complete || img.naturalWidth === 0) return;
+      if (count >= 100) {
+        clearInterval(interval);
+        
+        // Garantir todas as letras reveladas e contador em 100%
+        letters.forEach(letter => letter.classList.add('reveal'));
+        preloaderPercent.textContent = '100%';
 
-    const imgWidth = img.naturalWidth || 1920;
-    const imgHeight = img.naturalHeight || 1080;
-    const imgRatio = imgWidth / imgHeight;
-    const canvasRatio = canvas.width / canvas.height;
-
-    let renderWidth, renderHeight, x, y;
-
-    // Cálculo do aspecto Cover
-    if (canvasRatio > imgRatio) {
-      renderWidth = canvas.width;
-      renderHeight = canvas.width / imgRatio;
-      x = 0;
-      y = (canvas.height - renderHeight) / 2;
-    } else {
-      renderWidth = canvas.height * imgRatio;
-      renderHeight = canvas.height;
-      x = (canvas.width - renderWidth) / 2;
-      y = 0;
-    }
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(img, x, y, renderWidth, renderHeight);
-  }
-
-  // --------------------------------------------------------------------------
-  // 2. HERO SECTION: SEQUÊNCIA COMPLETA (video_frames1, video_frames2, video_frames3 & video_frames4)
-  // --------------------------------------------------------------------------
-  const heroCanvas = document.getElementById('heroCanvas');
-  const heroSection = document.getElementById('hero');
-  const loader = document.getElementById('canvasLoader');
-  const loaderBar = document.getElementById('loaderBar');
-  const loaderPercent = document.getElementById('loaderPercent');
-
-  if (heroCanvas && heroSection) {
-    const ctx = heroCanvas.getContext('2d');
-    const frameCandidatesList = [];
-
-    // 1ª Parte: video_frames1 (91 frames)
-    for (let i = 1; i <= 91; i++) {
-      const pad = String(i).padStart(4, '0');
-      frameCandidatesList.push([
-        `video_frames1/frames/frame4_${pad}.webp`,
-        `video_frames1/frame4_${pad}.webp`,
-        `video_frames1/frames/frame_${pad}.webp`,
-        `video_frames1/frames/frame1_${pad}.webp`,
-        `frames1/frames/frame_${pad}.webp`,
-        `video_frames1/${i}.webp`
-      ]);
-    }
-
-    // 2ª Parte: video_frames2 (91 frames)
-    for (let i = 1; i <= 91; i++) {
-      const pad = String(i).padStart(4, '0');
-      frameCandidatesList.push([
-        `video_frames2/frames/frame4_${pad}.webp`,
-        `video_frames2/frame4_${pad}.webp`,
-        `video_frames2/frames/frame_${pad}.webp`,
-        `video_frames2/frames/frame2_${pad}.webp`,
-        `frames2/frames/frame_${pad}.webp`,
-        `video_frames2/${i}.webp`
-      ]);
-    }
-
-    // 3ª Parte: video_frames3 (93 frames)
-    for (let i = 1; i <= 93; i++) {
-      const pad = String(i).padStart(4, '0');
-      frameCandidatesList.push([
-        `video_frames3/frames/frame4_${pad}.webp`,
-        `video_frames3/frame4_${pad}.webp`,
-        `video_frames3/frames/frame3_${pad}.webp`,
-        `video_frames3/${i}.webp`
-      ]);
-    }
-
-    // 4ª Parte: video_frames4 (28 frames - FINAL DA SEQUÊNCIA COMPLETA)
-    for (let i = 1; i <= 28; i++) {
-      const pad = String(i).padStart(4, '0');
-      frameCandidatesList.push([
-        `video_frames4/frames/frame4_${pad}.webp`,
-        `video_frames4/frame4_${pad}.webp`,
-        `video_frames4/frames/frame4_${pad}.webp`,
-        `video_frames4/${i}.webp`
-      ]);
-    }
-
-    const totalFrames = frameCandidatesList.length; // 303 frames totais (91 + 91 + 93 + 28)
-    const images = new Array(totalFrames);
-    let loadedCount = 0;
-    const playhead = { frame: 0 };
-
-    // Redimensiona o canvas para acompanhar a janela mantendo o aspecto 'cover'
-    const resizeCanvas = () => {
-      heroCanvas.width = window.innerWidth;
-      heroCanvas.height = window.innerHeight;
-      drawCurrentFrame();
-    };
-
-    function drawCurrentFrame() {
-      const index = Math.min(totalFrames - 1, Math.max(0, Math.floor(playhead.frame)));
-      if (images[index]) {
-        drawCoverImage(ctx, heroCanvas, images[index]);
-      }
-    }
-
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    let isAnimationCreated = false;
-
-    // Inicializa a animação no GSAP com ScrollTrigger & Pinning expandido para os 303 frames
-    function initHeroScrollAnimation() {
-      if (isAnimationCreated) return;
-      isAnimationCreated = true;
-
-      // Animação de ocultar o Loader ao concluir 100%
-      if (loader) {
-        gsap.to(loader, {
-          opacity: 0,
-          scale: 0.9,
-          duration: 0.5,
-          ease: "power2.out",
-          onComplete: () => {
-            loader.style.display = 'none';
+        // 3. Pausa de 600ms exatamente após a última letra chegar na posição e bater 100%
+        setTimeout(() => {
+          // Fade Out do texto EDOLUS e porcentagem
+          if (preloaderContent) {
+            preloaderContent.classList.add('preloader-content-hide');
           }
-        });
+
+          // 4. Animação de Saída Split Screen (Cortinas) após o fadeout do texto (400ms)
+          setTimeout(() => {
+            if (preloaderTop) preloaderTop.classList.add('preloader-slide-up');
+            if (preloaderBottom) preloaderBottom.classList.add('preloader-slide-down');
+
+            // Liberar a rolagem da página nativa
+            document.body.style.overflow = '';
+
+            // Remover o preloader do DOM após a conclusão da animação das cortinas (1800ms / 1.8s)
+            setTimeout(() => {
+              preloader.style.display = 'none';
+              if (preloader.parentNode) {
+                preloader.parentNode.removeChild(preloader);
+              }
+            }, 1800);
+
+          }, 400);
+
+        }, 600);
       }
+    }, stepDuration);
+  }
 
-      drawCurrentFrame();
-
-      // Timeline GSAP: "Pina" a seção Hero e estende a distância de scroll até o final do video_frames4
-      const heroTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: heroSection,
-          start: "top top",
-          end: "+=3400", // Distância estendida para garantir o scrubbing completo de todos os 303 frames
-          pin: true,
-          scrub: 0.05, // Scrub fluido e responsivo ao movimento da roda do mouse
-          anticipatePin: 1,
-          onUpdate: () => drawCurrentFrame()
-        }
+  // --------------------------------------------------------------------------
+  // 1. VÍDEO DE FUNDO DA SEÇÃO HERO (AUTOPLAY SAFETY)
+  // --------------------------------------------------------------------------
+  const heroVideo = document.getElementById('heroVideo');
+  if (heroVideo) {
+    const playPromise = heroVideo.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(error => {
+        console.log('Autoplay do vídeo da Hero aguardando interação do usuário:', error);
       });
-
-      // 1. Troca progressiva até o último frame da video_frames4
-      heroTl.to(playhead, {
-        frame: totalFrames - 1,
-        snap: "frame",
-        ease: "none"
-      }, 0);
-
-      // 2. Parallax de Escala e Deslocamento Sutil no Canvas durante o scroll
-      heroTl.fromTo(heroCanvas,
-        { scale: 1, yPercent: 0 },
-        { scale: 1.06, yPercent: -3, ease: "none" },
-        0
-      );
-
-      ScrollTrigger.refresh();
     }
-
-    // Preload de todas as imagens das 4 pastas com atualização do Loader
-    frameCandidatesList.forEach((candidates, index) => {
-      loadImageWithFallback(
-        candidates,
-        (img) => {
-          images[index] = img;
-          loadedCount++;
-
-          const percent = Math.round((loadedCount / totalFrames) * 100);
-          if (loaderBar) loaderBar.style.width = percent + '%';
-          if (loaderPercent) loaderPercent.innerText = percent + '%';
-
-          if (index === 0) drawCurrentFrame();
-          if (loadedCount >= totalFrames) initHeroScrollAnimation();
-        },
-        () => {
-          loadedCount++;
-          const percent = Math.round((loadedCount / totalFrames) * 100);
-          if (loaderBar) loaderBar.style.width = percent + '%';
-          if (loaderPercent) loaderPercent.innerText = percent + '%';
-
-          if (loadedCount >= totalFrames) initHeroScrollAnimation();
-        }
-      );
-    });
   }
 
   // --------------------------------------------------------------------------
-  // 3. SEÇÃO AGENDAMENTO VIP: REVELAÇÃO SUAVE ESTÁTICA NO SCROLL
-  // --------------------------------------------------------------------------
-  const vipCard = document.getElementById('vipScrollCard');
-  if (vipCard) {
-    gsap.from(vipCard, {
-      scrollTrigger: {
-        trigger: "#animationSection2",
-        start: "top 80%",
-        toggleActions: "play none none reverse"
-      },
-      y: 40,
-      opacity: 0,
-      duration: 1.2,
-      ease: "power3.out"
-    });
-  }
-
-  // --------------------------------------------------------------------------
-  // 4. REVELAÇÕES GSAP NAS DEMAIS SEÇÕES (Sobre, App, Serviços)
-  // --------------------------------------------------------------------------
-  const aboutCar = document.getElementById('aboutCar3D');
-  const aboutStory = document.getElementById('aboutStoryCard');
-
-  if (aboutCar) {
-    gsap.from(aboutCar, {
-      scrollTrigger: {
-        trigger: "#sobre",
-        start: "top 75%",
-        toggleActions: "play none none reverse"
-      },
-      y: 50,
-      opacity: 0,
-      duration: 1.4,
-      ease: "power3.out"
-    });
-  }
-
-  // Controle de reprodução do vídeo BMW no scroll
-  const bmwVideo = document.getElementById('bmwVideoElement');
-  if (bmwVideo) {
-    const videoObserver = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          bmwVideo.play().catch(err => console.log('Autoplay prevented:', err));
-          obs.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.25 });
-
-    videoObserver.observe(bmwVideo);
-  }
-
-  if (aboutStory) {
-    gsap.from(aboutStory, {
-      scrollTrigger: {
-        trigger: "#sobre",
-        start: "top 70%",
-        toggleActions: "play none none reverse"
-      },
-      y: 40,
-      opacity: 0,
-      duration: 1.2,
-      ease: "power3.out"
-    });
-
-    const cardObserver = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          obs.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-
-    cardObserver.observe(aboutStory);
-  }
-
-  // Revelação Seção App
-  const appContent = document.getElementById('appTextContent');
-  const app3D = document.getElementById('appSpline3D');
-
-  if (appContent) {
-    gsap.from(appContent.children, {
-      scrollTrigger: {
-        trigger: "#appSection",
-        start: "top 75%",
-        toggleActions: "play none none reverse"
-      },
-      y: 50,
-      opacity: 0,
-      duration: 1,
-      stagger: 0.15,
-      ease: "power3.out"
-    });
-  }
-
-  if (app3D) {
-    gsap.from(app3D, {
-      scrollTrigger: {
-        trigger: "#appSection",
-        start: "top 75%",
-        toggleActions: "play none none reverse"
-      },
-      scale: 0.9,
-      opacity: 0,
-      duration: 1.2,
-      ease: "power2.out"
-    });
-  }
-
-  // Revelação Seção Serviços
-  const minimalServiceCards = document.querySelectorAll('.service-minimal-card');
-  if (minimalServiceCards.length > 0) {
-    gsap.from(minimalServiceCards, {
-      scrollTrigger: {
-        trigger: "#servicos",
-        start: "top 75%",
-        toggleActions: "play none none reverse"
-      },
-      y: 50,
-      opacity: 0,
-      duration: 1,
-      stagger: 0.12,
-      ease: "power3.out"
-    });
-  }
-
-  // --------------------------------------------------------------------------
-  // 5. NAVEGAÇÃO SUAVE PARA LINKS INTERNOS INTEGRADA AO LENIS
+  // 2. NAVEGAÇÃO SUAVE NATIVA PARA LINKS INTERNOS (#)
   // --------------------------------------------------------------------------
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-      e.preventDefault();
       const targetId = this.getAttribute('href');
-      if (targetId === '#') return;
+      if (targetId === '#' || !targetId) return;
       const targetEl = document.querySelector(targetId);
       if (targetEl) {
-        if (lenis) {
-          lenis.scrollTo(targetEl, { offset: 0, duration: 1.2 });
-        } else {
-          targetEl.scrollIntoView({ behavior: 'smooth' });
-        }
+        e.preventDefault();
+        targetEl.scrollIntoView({ behavior: 'smooth' });
       }
     });
   });
 
   // --------------------------------------------------------------------------
-  // 6. INTERATIVIDADE DA SEÇÃO 2: NAVEGAÇÃO DE VÍDEOS (TAKE A CLOSER LOOK)
+  // 3. INTERATIVIDADE DA SEÇÃO 2: NAVEGAÇÃO DE VÍDEOS DE CATEGORIAS
   // --------------------------------------------------------------------------
   const closerLookSection = document.getElementById('nova-secao');
   
@@ -410,73 +120,56 @@ document.addEventListener('DOMContentLoaded', () => {
     const videoElement = document.getElementById('closerLookVideo');
     const videoTitleElement = document.getElementById('closerLookVideoTitle');
     const buttons = closerLookSection.querySelectorAll('.closer-look-btn');
+    const floatingPortfolioBtn = document.getElementById('btnFloatingPortfolio');
     
-    // Mapeamento de botões para arquivos MP4 correspondentes
     const videoMapping = {
-      'Casas': 'casas.mp4',
-      'Casas em condomínios': 'casas-em-condominios.mp4',
-      'Apartamentos': 'Apartamentos.mp4',
-      'Chácaras': 'chácaras.mp4',
-      'Barracões comerciais': 'barracões-comerciais.mp4'
+      'Audi': 'audi.mp4',
+      'BMW': 'bmw.mp4',
+      'Lamborghini': 'lamborghini.mp4',
+      'Mercedes': 'mercedes.mp4',
+      'Porsche': 'porshce.mp4'
     };
 
-    // Trava de estado e timer para debounce de segurança contra travamentos de memória
     let isSwitching = false;
     let debounceTimer = null;
 
-    const floatingPortfolioBtn = document.getElementById('btnFloatingPortfolio');
-
-    /**
-     * Função com gerenciamento estrito de memória para alternar vídeos HTML5
-     */
     function changeVideoSource(newSrc, categoryTitle, clickedBtn) {
       if (!videoElement || isSwitching) return;
-
-      // Bloquear cliques múltiplos concorrentes
       isSwitching = true;
 
-      // Ocultar imediatamente o botão flutuante de portfólio ao trocar o vídeo
       if (floatingPortfolioBtn) {
         floatingPortfolioBtn.classList.remove('show-portfolio');
+        const textSpan = floatingPortfolioBtn.querySelector('#btnFloatingPortfolioText');
+        if (textSpan) {
+          textSpan.textContent = `Ver Estoque ${categoryTitle}`;
+        } else {
+          floatingPortfolioBtn.innerHTML = `<span id="btnFloatingPortfolioText">Ver Estoque ${categoryTitle}</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>`;
+        }
+        floatingPortfolioBtn.setAttribute('href', `#portfolio?marca=${encodeURIComponent(categoryTitle)}`);
       }
 
-      // 1. Atualizar estados de destaque dos botões pílula (Inverso: Ativo escuro #1C1C1E, Inativo branco #FFFFFF)
       buttons.forEach(btn => {
         btn.classList.remove('active');
-        btn.classList.remove('bg-[#1C1C1E]', 'bg-[#1D1D1F]', 'bg-[#232323]', 'text-white', 'shadow-md');
-        btn.classList.add('bg-white', 'text-[#1D1D1F]');
       });
 
-      // Aplicar estilos ativos ao botão clicado
       clickedBtn.classList.add('active');
-      clickedBtn.classList.remove('bg-white', 'text-[#1D1D1F]');
-      clickedBtn.classList.add('bg-[#1C1C1E]', 'text-white', 'shadow-md');
 
-      // Atualizar o título em overlay no container do vídeo
       if (videoTitleElement && categoryTitle) {
         videoTitleElement.textContent = categoryTitle.toUpperCase();
       }
 
-      // 2. Gerenciamento estrito de memória do elemento <video>
       try {
-        // Pausar o vídeo atual
         videoElement.pause();
-        
-        // Remover atributo src e limpar nós <source> filhos para descarregar o stream da RAM
         videoElement.removeAttribute('src');
         while (videoElement.firstChild) {
           videoElement.removeChild(videoElement.firstChild);
         }
-
-        // Forçar load() para efetivar o garbage collection do buffer de vídeo no browser
         videoElement.load();
 
-        // Injetar o novo caminho de vídeo
         videoElement.src = newSrc;
-        videoElement.loop = false; // Garantia estrita de que o vídeo NÃO ficará em loop
+        videoElement.loop = false;
         videoElement.load();
 
-        // Iniciar reprodução com tratamento de erro da Autoplay Policy do browser
         const playPromise = videoElement.play();
         if (playPromise !== undefined) {
           playPromise.catch(error => {
@@ -487,16 +180,12 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Erro durante a troca de vídeo:', err);
       }
 
-      // 3. Liberação da trava após cooldown de 500ms (Debounce de proteção)
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(() => {
         isSwitching = false;
       }, 500);
     }
 
-    // --------------------------------------------------------------------------
-    // RELEVO DO BOTÃO FLUTUANTE "VER PORTFÓLIO" NOS ÚLTIMOS 2 SEGUNDOS DE VÍDEO
-    // --------------------------------------------------------------------------
     if (videoElement && floatingPortfolioBtn) {
       videoElement.addEventListener('timeupdate', () => {
         if (videoElement.duration && (videoElement.duration - videoElement.currentTime <= 2)) {
@@ -506,82 +195,47 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --------------------------------------------------------------------------
-    // ANIMAÇÃO DE REVELAÇÃO FLUIDA DE TEXTO (GSAP TEXT REVEAL FADE ESTILO SESSÃO 4)
+    // INTERSECTION OBSERVER: PAUSAR AO SAIR E REINICIAR DO ZERO AO ENTRAR NA TELA
     // --------------------------------------------------------------------------
-    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-      gsap.fromTo('.section-title-reveal', 
-        { opacity: 0, y: 35 }, 
-        { 
-          opacity: 1, 
-          y: 0, 
-          duration: 1.2, 
-          ease: 'power3.out', 
-          scrollTrigger: {
-            trigger: '#nova-secao',
-            start: 'top 75%'
+    if (videoElement) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Scroll In: Redefinir vídeo ativo para o início (0s) e dar play
+            if (floatingPortfolioBtn) {
+              floatingPortfolioBtn.classList.remove('show-portfolio');
+            }
+            try {
+              videoElement.currentTime = 0;
+              const playPromise = videoElement.play();
+              if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                  console.log('Autoplay do vídeo da Seção 2 aguardando interação:', error);
+                });
+              }
+            } catch (err) {
+              console.error('Erro ao reiniciar vídeo da Seção 2:', err);
+            }
+          } else {
+            // Scroll Out: Pausar vídeo ativo quando a seção sai do campo de visão
+            try {
+              videoElement.pause();
+            } catch (err) {
+              console.error('Erro ao pausar vídeo da Seção 2:', err);
+            }
           }
-        }
-      );
-
-      gsap.fromTo('.section-desc-reveal', 
-        { opacity: 0, y: 25 }, 
-        { 
-          opacity: 1, 
-          y: 0, 
-          duration: 1.0, 
-          delay: 0.15,
-          ease: 'power3.out', 
-          scrollTrigger: {
-            trigger: '#nova-secao',
-            start: 'top 75%'
-          }
-        }
-      );
-
-      gsap.fromTo('.left-column-kicker-slot', 
-        { opacity: 0, y: 20 }, 
-        { 
-          opacity: 1, 
-          y: 0, 
-          duration: 0.9, 
-          delay: 0.25,
-          ease: 'power3.out', 
-          scrollTrigger: {
-            trigger: '#nova-secao',
-            start: 'top 75%'
-          }
-        }
-      );
-    }
-
-    // --------------------------------------------------------------------------
-    // REPRODUÇÃO INICIAL VIA GSAP SCROLLTRIGGER (EXECUTA APENAS UMA VEZ)
-    // --------------------------------------------------------------------------
-    if (videoElement && typeof ScrollTrigger !== 'undefined') {
-      ScrollTrigger.create({
-        trigger: closerLookSection,
-        start: "top 60%",
-        once: true,
-        onEnter: () => {
-          const playPromise = videoElement.play();
-          if (playPromise !== undefined) {
-            playPromise.catch(error => {
-              console.log('Autoplay do vídeo inicial bloqueado ou aguardando suporte:', error);
-            });
-          }
-        }
+        });
+      }, {
+        threshold: 0.2 // Executa quando 20% da Seção 2 estiver visível
       });
+
+      observer.observe(closerLookSection);
     }
 
-    // Registrar manipuladores de evento em cada botão da lista
     buttons.forEach(button => {
       button.addEventListener('click', function (e) {
         e.preventDefault();
-        
-        // Extração limpa do texto do botão (removendo números, + e o símbolo ↗)
         const textContent = this.innerText.replace(/\d+/g, '').replace('+', '').replace('↗', '').trim();
-        
-        // Identificar o caminho do vídeo correspondente
         const videoSrc = this.getAttribute('data-video') || videoMapping[textContent];
 
         if (videoSrc) {
@@ -592,44 +246,156 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --------------------------------------------------------------------------
-  // SEÇÃO 3: LÓGICA DE VÍDEO, INTERSECTION OBSERVER & REPLAY 720°
+  // 4. SEÇÃO 3: LÓGICA DE REPLAY & INTERSECTION OBSERVER ("prosche-seção3.mp4")
   // --------------------------------------------------------------------------
-  const sec3Container = document.getElementById('aboutCar3D');
   const sec3Video = document.getElementById('section3Video');
-  const sec3ReplayBtn = document.getElementById('btnSection3Replay');
+  const sec3Section = document.getElementById('sobre');
+  const sec3ReplayBtn = document.getElementById('btnSec3Replay');
 
-  if (sec3Container && sec3Video) {
-    // 1. SCROLL AUTO-PLAY VIA INTERSECTION OBSERVER (isIntersecting -> video.play())
-    const sec3Observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && sec3Video.src && sec3Video.paused) {
-          sec3Video.play().catch(e => console.log('Autoplay Seção 3 aguardando interação ou fonte:', e));
-        }
-      });
-    }, { threshold: 0.4 });
-
-    sec3Observer.observe(sec3Container);
-
-    // 2. LÓGICA DE TEMPO (onTimeUpdate: faltam <= 2s para acabar -> showReplay = true)
+  if (sec3Video) {
+    // 1. timeupdate: Exibir o botão de replay faltando exatamente 2 segundos para o vídeo acabar
     sec3Video.addEventListener('timeupdate', () => {
       if (sec3Video.duration && (sec3Video.duration - sec3Video.currentTime <= 2)) {
-        if (sec3ReplayBtn && !sec3ReplayBtn.classList.contains('active-replay')) {
-          sec3ReplayBtn.classList.remove('hidden');
-          sec3ReplayBtn.classList.add('active-replay');
+        if (sec3ReplayBtn && !sec3ReplayBtn.classList.contains('show-replay')) {
+          sec3ReplayBtn.classList.add('show-replay');
         }
       }
     });
 
-    // 3. BOTÃO DE RESTART (onClick: currentTime = 0, play(), hide replay)
+    // 2. Clique no botão de replay: Esconder botão, resetar tempo para 0 e dar play novamente
     if (sec3ReplayBtn) {
-      sec3ReplayBtn.addEventListener('click', () => {
-        sec3Video.currentTime = 0;
-        sec3Video.play();
-        sec3ReplayBtn.classList.remove('active-replay');
-        sec3ReplayBtn.classList.add('hidden');
+      sec3ReplayBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        sec3ReplayBtn.classList.remove('show-replay');
+        try {
+          sec3Video.currentTime = 0;
+          sec3Video.play();
+        } catch (err) {
+          console.error('Erro ao reiniciar vídeo da Seção 3:', err);
+        }
       });
     }
   }
+
+  // 3. IntersectionObserver: Pausar vídeo ao sair da tela e dar play ao retornar à tela
+  if (sec3Video && sec3Section) {
+    const sec3Observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          try {
+            const playPromise = sec3Video.play();
+            if (playPromise !== undefined) {
+              playPromise.catch(error => {
+                console.log('Autoplay do vídeo da Seção 3 aguardando interação:', error);
+              });
+            }
+          } catch (err) {
+            console.error('Erro ao reproduzir vídeo da Seção 3:', err);
+          }
+        } else {
+          try {
+            sec3Video.pause();
+          } catch (err) {
+            console.error('Erro ao pausar vídeo da Seção 3:', err);
+          }
+        }
+      });
+    }, {
+      threshold: 0.15 // Dispara quando 15% da Seção 3 estiver visível na tela
+    });
+
+    sec3Observer.observe(sec3Section);
+  }
+
+  // --------------------------------------------------------------------------
+  // 5. MINI-CARROSSEL DE IMAGENS NOS CARDS DE CARROS & EFEITO BLUR "VER MAIS"
+  // --------------------------------------------------------------------------
+  document.querySelectorAll('.car-gallery-container').forEach(gallery => {
+    const track = gallery.querySelector('.car-slides-track');
+    const slides = gallery.querySelectorAll('.car-slide-img');
+    const prevBtn = gallery.querySelector('.gallery-nav-btn.prev');
+    const nextBtn = gallery.querySelector('.gallery-nav-btn.next');
+    const dots = gallery.querySelectorAll('.gallery-dots .dot');
+    const verMaisOverlay = gallery.querySelector('.ver-mais-overlay');
+
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+
+    function updateGallery() {
+      if (currentIndex >= totalSlides) {
+        gallery.classList.add('blur-active');
+        dots.forEach(d => d.classList.remove('active'));
+      } else {
+        gallery.classList.remove('blur-active');
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        dots.forEach((dot, idx) => {
+          if (idx === currentIndex) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      }
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (currentIndex < totalSlides) {
+          currentIndex++;
+        } else {
+          currentIndex = 0;
+        }
+        updateGallery();
+      });
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (gallery.classList.contains('blur-active')) {
+          currentIndex = totalSlides - 1;
+        } else if (currentIndex > 0) {
+          currentIndex--;
+        } else {
+          currentIndex = 0;
+        }
+        updateGallery();
+      });
+    }
+
+    if (verMaisOverlay) {
+      verMaisOverlay.addEventListener('click', (e) => {
+        e.stopPropagation();
+        // Ação de simulação de clique para ver mais detalhes
+        window.location.hash = 'servicos';
+      });
+    }
+
+    // Suporte a Touch Swipe em Dispositivos Móveis
+    let startX = 0;
+    gallery.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+    }, { passive: true });
+
+    gallery.addEventListener('touchend', (e) => {
+      const endX = e.changedTouches[0].clientX;
+      const diffX = startX - endX;
+
+      if (Math.abs(diffX) > 35) {
+        if (diffX > 0) {
+          if (currentIndex < totalSlides) currentIndex++;
+        } else {
+          if (gallery.classList.contains('blur-active')) {
+            currentIndex = totalSlides - 1;
+          } else if (currentIndex > 0) {
+            currentIndex--;
+          }
+        }
+        updateGallery();
+      }
+    }, { passive: true });
+
+  });
+
 });
-
-

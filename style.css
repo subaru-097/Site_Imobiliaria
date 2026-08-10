@@ -32,21 +32,84 @@
   padding: 0;
 }
 
-/* Lenis Smooth Scroll Essential Styles */
-html.lenis, html.lenis body {
-  height: auto;
+/* Native Smooth Scroll Standard */
+html {
+  scroll-behavior: smooth;
 }
 
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-
-.lenis.lenis-stopped {
+/* ==========================================================================
+   EDOLUS PRELOADER STAGGERED LETTERS & SPLIT SCREEN STYLES
+   ========================================================================== */
+.preloader-logo-flex {
+  font-family: 'Jost', 'Outfit', 'Montserrat', sans-serif;
   overflow: hidden;
+  padding: 0.5rem 1rem;
+}
+
+.preloader-letter {
+  display: inline-block;
+  color: #FFFFFF;
+  font-size: 3rem; /* 48px base mobile */
+  font-weight: 300; /* Light 300 - Fina e Sofisticada */
+  text-transform: uppercase;
+  letter-spacing: 0.3em; /* Espaçamento de Marca de Luxo (~12px) */
+  margin-right: -0.3em; /* Compensa o espaçamento na última letra */
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: opacity, transform;
+}
+
+@media (min-width: 640px) {
+  .preloader-letter {
+    font-size: 4.5rem;
+    letter-spacing: 0.35em;
+    margin-right: -0.35em;
+  }
+}
+
+@media (min-width: 768px) {
+  .preloader-letter {
+    font-size: 5.5rem;
+    letter-spacing: 0.4em;
+    margin-right: -0.4em;
+  }
+}
+
+/* Estado Ativo: Revela a letra no seu lugar */
+.preloader-letter.reveal {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Cortinas deslizando para fora */
+.preloader-slide-up {
+  transform: translateY(-100%) !important;
+}
+
+.preloader-slide-down {
+  transform: translateY(100%) !important;
+}
+
+/* Ocultar conteúdo central com fade e escala */
+.preloader-content-hide {
+  opacity: 0 !important;
+  transform: scale(0.9) !important;
+}
+
+/* Brushed Steel Metallic Text Animation for Hero Title */
+.animate-metallic {
+  background-size: 200% auto;
+  animation: metallicShimmer 5s linear infinite;
+}
+
+@keyframes metallicShimmer {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
 }
 
 body {
@@ -116,6 +179,50 @@ body {
   pointer-events: none;
 }
 
+/* Glassmorphism Mandatory Styles for Hero Cards & Widgets */
+.hero-glass-card,
+.hero-glass-widget {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  color: #ffffff;
+}
+
+.hero-glass-card {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.hero-glass-card:hover {
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.hero-glass-widget {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease, background 0.3s ease;
+  animation: floatWidget 4s ease-in-out infinite alternate;
+}
+
+.hero-glass-widget:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-4px);
+}
+
+@keyframes floatWidget {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-8px);
+  }
+}
+
+.hero-glass-widget-2 {
+  animation-delay: 2s;
+}
+
 /* Services Cards - Apple Light Style */
 .service-minimal-card {
   background-color: var(--bg-apple-card);
@@ -162,10 +269,8 @@ body {
 
 /* Scroll Reveal Cascade Animation for Section 2 Card */
 .reveal-card .reveal-item {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .reveal-card.visible .reveal-item-1 { transition-delay: 0.1s; opacity: 1; transform: translateY(0); }
@@ -298,22 +403,23 @@ body {
 }
 
 /* ==========================================================================
-   LIGHT MODE APPLE VISION PRO FROSTED GLASS & GOLD LUXURY SYSTEM
+   DARK PREMIUM SILVER-BORDER BUTTONS & CATEGORIES MENU
    ========================================================================== */
+/* Estado Padrão (Inativo): Fundo escuro transparente, texto cinza e borda sutil */
 .closer-look-btn {
-  background-color: rgba(0, 0, 0, 0.03);
-  color: #1D1D1F;
-  border-radius: 50px;
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  color: #9CA3AF !important;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform, background-color, box-shadow;
 }
 
 .closer-look-btn:hover {
-  background-color: rgba(0, 0, 0, 0.06);
-  color: #000000;
-  border-color: rgba(0, 0, 0, 0.08);
-  transform: translateY(-2px);
+  background-color: rgba(255, 255, 255, 0.07) !important;
+  color: #F3F4F6 !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  transform: translateY(-1px);
 }
 
 /* Odometer / Slot Machine Roll Animation */
@@ -327,46 +433,65 @@ body {
   transform: translateY(-50%);
 }
 
-/* Keyframes: Animação Shimmer Ouro */
-@keyframes shimmer-ouro {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Active State: Botão de Categoria Selecionado com Shimmer Ouro e Texto Cinza Escuro #1A1A1A */
+/* Estado Ativo Exclusivo: Fundo vitrificado dark iluminado (bg-white/10), borda branca sutil (border-white/25) e texto branco */
 .closer-look-btn.active {
-  background: linear-gradient(270deg, #D4AF37, #FFF3B0, #D4AF37, #C5A028) !important;
-  background-size: 300% 300% !important;
-  animation: shimmer-ouro 3.5s ease infinite !important;
-  border: 1px solid rgba(212, 175, 55, 0.5) !important;
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4) !important;
-  color: #1A1A1A !important;
-  font-weight: 700 !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+  color: #FFFFFF !important;
+  font-weight: 600 !important;
   transform: translateY(0);
 }
 
 .closer-look-btn.active .slot-wrapper,
 .closer-look-btn.active span {
-  color: #1A1A1A !important;
-  font-weight: 700 !important;
-  text-shadow: none !important;
+  color: #FFFFFF !important;
+  font-weight: 600 !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6) !important;
 }
 
-/* Light Frosted Glassmorphism Container (Apple Vision Pro Style - Vidro Jateado) */
+/* Ícone da Setinha Ativa: Fundo branco nítido iluminado com ícone preto */
+.closer-look-btn.active .category-arrow-btn {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  pointer-events: auto;
+  background: #FFFFFF !important;
+  color: #000000 !important;
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Brand Logo Images Alignment & Styling inside Buttons */
+.brand-logo-img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.75;
+  transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+  will-change: opacity, transform;
+}
+
+.closer-look-btn:hover .brand-logo-img,
+.closer-look-btn.active .brand-logo-img {
+  opacity: 1;
+  filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(255, 255, 255, 0.5));
+  transform: scale(1.08);
+}
+
+/* Dark Frosted Glassmorphism Container com Borda Prateada */
 .apple-glass-card {
-  background: rgba(255, 255, 255, 0.65) !important;
-  backdrop-filter: blur(24px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.8) !important;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
 }
 
-/* Apple Light Video Container */
+/* Dark Video Container com Borda Prateada */
 .apple-video-wrapper {
-  background-color: #F0F0F4 !important;
-  border: 1px solid rgba(0, 0, 0, 0.05) !important;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.03), 0 10px 30px rgba(0, 0, 0, 0.04) !important;
+  background-color: rgba(18, 18, 20, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 10px 30px rgba(0, 0, 0, 0.5) !important;
 }
 
 .apple-video-wrapper video {
@@ -376,15 +501,16 @@ body {
 }
 
 /* ==========================================================================
-   FLOATING CONVERSION BUTTON WITH LEFT-TO-RIGHT REVEAL ANIMATION
+   FLOATING SECONDARY CONVERSION BUTTON ("VER PORTFÓLIO")
    ========================================================================== */
 .btn-floating-portfolio {
-  background: rgba(28, 28, 30, 0.85);
+  background: rgba(10, 10, 10, 0.8);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   color: #FFFFFF;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  font-weight: 600;
   white-space: nowrap;
   z-index: 30;
   
@@ -396,9 +522,10 @@ body {
 }
 
 .btn-floating-portfolio:hover {
-  background: linear-gradient(135deg, #C5A059 0%, #B8860B 100%);
-  border-color: rgba(255, 255, 255, 0.6);
-  transform: translateX(-50%) scale(1.05);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #FFFFFF;
+  transform: translateX(-50%) scale(1.02);
 }
 
 /* Active State: Triggered in the last 2 seconds of video playback */
@@ -409,39 +536,132 @@ body {
 }
 
 /* ==========================================================================
-   PERMANENT GLASSMORPHISM 'ACESSAR O APP' BUTTON
+   BOTÃO "ACESSAR O APP" (DARK VITRIFICADO / BORDA BRANCA NO HOVER)
    ========================================================================== */
 .btn-app-glass {
-  background: rgba(28, 28, 30, 0.88) !important;
-  backdrop-filter: blur(14px) !important;
-  -webkit-backdrop-filter: blur(14px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
   color: #FFFFFF !important;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  white-space: nowrap;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .btn-app-glass .btn-app-icon {
-  color: #C5A059;
-  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), color 0.3s ease;
+  color: #FFFFFF !important;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.btn-app-glass:hover {
-  background: linear-gradient(135deg, #C5A059 0%, #B8860B 100%) !important;
-  border-color: rgba(255, 255, 255, 0.5) !important;
-  transform: scale(1.05);
+.btn-app-glass:hover,
+.btn-app-glass:focus {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+  transform: translateY(-2px);
 }
 
-.btn-app-glass:hover .btn-app-icon {
+.btn-app-glass:hover .btn-app-icon,
+.btn-app-glass:focus .btn-app-icon {
   transform: rotate(360deg);
   color: #FFFFFF !important;
 }
 
 .btn-app-glass:active {
-  background: rgba(184, 134, 11, 0.9) !important;
-  transform: scale(0.95) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  transform: scale(0.97) !important;
+}
+
+/* ==========================================================================
+   MICRO-INTERAÇÃO HIGH-CTR: PULSO DOURADO DE CONVERSÃO ("VER ESTOQUE COMPLETO")
+   ========================================================================== */
+@keyframes goldPulseBreathing {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 
+                0 0 0 0 rgba(217, 119, 6, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    border-color: rgba(217, 119, 6, 0.4);
+  }
+  50% {
+    transform: scale(1.035);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5), 
+                0 0 22px 5px rgba(245, 158, 11, 0.5),
+                0 0 38px 10px rgba(217, 119, 6, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    border-color: rgba(251, 191, 36, 0.85);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 
+                0 0 0 0 rgba(217, 119, 6, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    border-color: rgba(217, 119, 6, 0.4);
+  }
+}
+
+@keyframes goldShimmerPass {
+  0% {
+    left: -100%;
+  }
+  50% {
+    left: 150%;
+  }
+  100% {
+    left: 150%;
+  }
+}
+
+.btn-gold-pulse {
+  position: relative;
+  background: linear-gradient(135deg, rgba(20, 20, 20, 0.9) 0%, rgba(40, 32, 15, 0.95) 100%) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(217, 119, 6, 0.5) !important;
+  color: #FFFFFF !important;
+  animation: goldPulseBreathing 2.8s infinite ease-in-out;
+  transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  overflow: hidden;
+}
+
+/* Efeito Shimmer sutil passando ao longo do botão no ritmo da pulsação */
+.btn-gold-pulse::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 215, 0, 0.25) 50%,
+    transparent 100%
+  );
+  transform: skewX(-25deg);
+  animation: goldShimmerPass 2.8s infinite ease-in-out;
+  pointer-events: none;
+}
+
+.btn-gold-pulse:hover {
+  animation-play-state: paused;
+  transform: scale(1.05) translateY(-2px) !important;
+  background: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #b45309 100%) !important;
+  color: #000000 !important;
+  border-color: #fef08a !important;
+  box-shadow: 0 12px 35px rgba(245, 158, 11, 0.6), 0 0 25px rgba(251, 191, 36, 0.7) !important;
+}
+
+.btn-gold-pulse:hover span,
+.btn-gold-pulse:hover i {
+  color: #000000 !important;
+}
+
+.btn-gold-pulse:active {
+  transform: scale(0.98) translateY(0) !important;
 }
 
 /* ==========================================================================
@@ -467,26 +687,54 @@ body {
 }
 
 /* ==========================================================================
-   SECTION 3 REPLAY BUTTON & 720 DEGREE DOUBLE SPIN ANIMATION
+   SECTION 3 REPLAY BUTTON & FADE-IN SLIDE-UP ANIMATION
    ========================================================================== */
-.btn-replay-720.active-replay {
-  display: flex !important;
-  animation: spinDouble 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+.btn-sec3-replay {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translate(-50%, 15px);
+  z-index: 30;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(10, 10, 10, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #C5A059;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
-@keyframes spinDouble {
-  0% {
-    transform: translateX(-50%) rotate(0deg) scale(0.3);
-    opacity: 0;
-  }
-  70% {
-    transform: translateX(-50%) rotate(720deg) scale(1.15);
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(-50%) rotate(720deg) scale(1);
-    opacity: 1;
-  }
+/* Show Replay State: Fade in + Slide Up */
+.btn-sec3-replay.show-replay {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+
+.btn-sec3-replay:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #FFFFFF;
+  transform: translate(-50%, -2px) scale(1.08);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7), 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.btn-sec3-replay .replay-icon {
+  font-size: 14px;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-sec3-replay:hover .replay-icon {
+  transform: rotate(180deg) scale(1.15);
 }
 
 
@@ -518,12 +766,59 @@ body {
   box-shadow: 0 4px 15px rgba(197, 160, 89, 0.1);
 }
 
+/* ==========================================================================
+   CAR MINI-CAROUSEL & BLUR OVERLAY ("VER MAIS")
+   ========================================================================== */
+.car-gallery-container {
+  position: relative;
+  overflow: hidden;
+}
 
+.car-slides-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
 
+.car-slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
+  transition: filter 0.4s ease, transform 0.4s ease;
+}
 
+/* Blur state on slide images when "Ver Mais" is active */
+.car-gallery-container.blur-active .car-slide-img {
+  filter: blur(8px) brightness(0.5);
+  transform: scale(1.05);
+}
 
+/* Ver Mais Overlay Fade-In */
+.ver-mais-overlay {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
 
+.car-gallery-container.blur-active .ver-mais-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
 
+.gallery-dots .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease;
+}
 
+.gallery-dots .dot.active {
+  width: 16px;
+  border-radius: 4px;
+  background: #FFFFFF;
+}
 
 

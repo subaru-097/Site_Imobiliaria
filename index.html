@@ -7,11 +7,11 @@
   <title>Imobiliária sara | Encontre seu imóvel</title>
   <meta name="description" content="A melhor imobiliária da região. Encontre a casa dos seus sonhos.">
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts: Jost, Outfit & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;600;700;800;900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;400;600;700;800;900&display=swap"
     rel="stylesheet">
 
   <!-- Tailwind CSS CDN -->
@@ -31,7 +31,8 @@
             }
           },
           fontFamily: {
-            sans: ['Outfit', 'sans-serif'],
+            sans: ['Outfit', 'Jost', 'sans-serif'],
+            jost: ['Jost', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace']
           }
         }
@@ -41,9 +42,6 @@
 
   <!-- FontAwesome Icons CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <!-- Lenis Smooth Scroll CDN -->
-  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 
   <!-- Spline 3D Viewer Module -->
   <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
@@ -58,192 +56,220 @@
 
 <body class="bg-[#F5F5F7] text-[#1D1D1F] antialiased selection:bg-[#1D1D1F] selection:text-white">
 
+  <!-- PRELOADER SPLIT SCREEN (EDOLUS SEQUENTIAL LETTERS) -->
+  <div id="preloader" class="fixed inset-0 z-[9999] flex items-center justify-center pointer-events-auto overflow-hidden">
+    <!-- Cortina Superior (Metade 50%) -->
+    <div id="preloaderTop" class="absolute top-0 left-0 w-full h-[50%] bg-black transition-transform duration-[1800ms] ease-[cubic-bezier(0.77,0,0.175,1)]"></div>
+    
+    <!-- Cortina Inferior (Metade 50%) -->
+    <div id="preloaderBottom" class="absolute bottom-0 left-0 w-full h-[50%] bg-black transition-transform duration-[1800ms] ease-[cubic-bezier(0.77,0,0.175,1)]"></div>
 
-
-  <!-- SESSÃO 1: HERO SECTION (A CHEGADA DA SVJ - CANVAS 60FPS FRAME SCRUBBING) -->
-  <section id="hero" class="hero-pin-container">
-    <!-- Canvas de Alta Performance para Sequência .WEBP estilo Apple -->
-    <canvas id="heroCanvas" class="hero-video-bg"></canvas>
-
-    <!-- Dark Luxury Gradients Overlay (Película Escura Restaurada) -->
-    <div class="hero-overlay"></div>
-
-    <!-- HUD Loader de Preload dos Frames -->
-    <div id="canvasLoader"
-      class="absolute z-20 flex flex-col items-center gap-3 px-6 py-4 glass-panel rounded-2xl border border-cyber-emerald/40 text-center">
-      <div class="hud-text text-xs text-cyber-emerald flex items-center gap-2">
-        <span class="w-2.5 h-2.5 rounded-full bg-cyber-emerald animate-ping"></span>
-        CARREGANDO ANIMAÇÃO SVJ... <span id="loaderPercent">0%</span>
+    <!-- Conteúdo Central: Logo EDOLUS em Letras Individuais & Porcentagem -->
+    <div id="preloaderContent" class="relative z-10 flex flex-col items-center justify-center transition-all duration-500">
+      <!-- Container Flexível das Letras EDOLUS -->
+      <div id="preloaderLogo" class="preloader-logo-flex flex items-center gap-1 sm:gap-2 select-none overflow-hidden">
+        <span class="preloader-letter">E</span>
+        <span class="preloader-letter">D</span>
+        <span class="preloader-letter">O</span>
+        <span class="preloader-letter">L</span>
+        <span class="preloader-letter">U</span>
+        <span class="preloader-letter">S</span>
       </div>
-      <div class="w-56 h-2 bg-gray-800 rounded-full overflow-hidden">
-        <div id="loaderBar"
-          class="h-full bg-gradient-to-r from-cyber-emerald to-cyber-cyan w-0 transition-all duration-100"></div>
+
+      <!-- Counter de Porcentagem (0% a 100%) -->
+      <div id="preloaderPercent" class="text-xs sm:text-sm font-mono tracking-[0.3em] text-white/70 mt-6 font-semibold">
+        0%
       </div>
     </div>
+  </div>
 
-    <!-- Bloco de Texto Editorial Sobreposto (Hero) -->
-    <div class="absolute top-1/3 left-8 md:left-24 z-50 flex flex-col items-start">
-      <!-- Tag Superior / Pill Badge -->
-      <div class="bg-white text-black rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wider inline-block">
-        A3 Estética Automotiva
+  <!-- SESSÃO 1: HERO SECTION -->
+  <section id="hero" class="hero-pin-container relative">
+    <!-- Video de Fundo HD (Black Porsche) -->
+    <video id="heroVideo" class="hero-video-bg" src="Black_Porsche.mp4" autoplay loop muted playsinline></video>
+
+    <!-- Dark Luxury Gradients Overlay -->
+    <div class="hero-overlay"></div>
+
+    <!-- Hero Container Principal (Textos Limpos Flutuantes) -->
+    <div class="relative z-50 max-w-6xl mx-auto px-4 sm:px-6 w-full flex items-center justify-between py-12">
+      
+      <!-- Textos e CTAs Limpos Diretos sobre o Vídeo -->
+      <div class="max-w-2xl w-full relative">
+        <!-- Título Principal (H1) -->
+        <h1 class="text-4xl sm:text-6xl font-light tracking-wider leading-[1.15] mb-4 text-white">
+          Seu Próximo <br />
+          <span class="shimmer-gold-text font-normal">Carro Está Aqui</span>
+        </h1>
+
+        <!-- Subtítulo -->
+        <p class="text-white/90 text-base sm:text-lg font-light leading-relaxed mb-8 max-w-lg">
+          Seminovos revisados e novos com procedência garantida.
+        </p>
+
+        <!-- Botões de Ação (CTA) -->
+        <div class="flex flex-wrap items-center gap-4">
+          <a href="#servicos" class="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold text-sm transition-all duration-300">
+            <span>Ver Estoque</span>
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
       </div>
 
-      <!-- Título Principal (H1) -->
-      <h1 class="text-5xl md:text-7xl font-medium tracking-tight text-white leading-[1.1] mt-6">
-        A Arte da Perfeição<br />em Cada Detalhe
-      </h1>
+    </div>
 
-      <!-- Subtítulo -->
-      <p class="text-white/80 text-sm md:text-base max-w-md mt-6 font-sans">
-        Estética automotiva premium e detalhamento exclusivo. O seu veículo tratado como uma verdadeira obra de arte.
-      </p>
-
-      <!-- Botões (CTA) -->
-      <div class="flex gap-4 mt-8">
-        <a href="#servicos"
-          class="bg-black/80 backdrop-blur border border-white/10 text-white px-6 py-3 rounded-md text-sm font-medium hover:bg-black transition-all">
-          Nossos Serviços
-        </a>
-        <a href="#servicos"
-          class="bg-white text-black px-6 py-3 rounded-md text-sm font-medium hover:bg-gray-200 transition-all">
-          Agendar Vistoria
-        </a>
-      </div>
+    <!-- Container 100% W-Full de Centralização Absoluta do Indicador de Scroll -->
+    <div class="absolute bottom-8 left-0 w-full flex justify-center z-50 pointer-events-none">
+      <a href="#nova-secao" class="flex flex-col items-center gap-2 animate-bounce text-gray-400 hover:text-white transition-colors text-xs tracking-wider uppercase cursor-pointer pointer-events-auto">
+        <span>Role para baixo</span>
+        <i class="fa-solid fa-chevron-down text-xs text-teal-400"></i>
+      </a>
     </div>
   </section>
 
-  <!-- SEÇÃO 2: VEJA DE PERTO (LIGHT MODE APPLE VISION PRO GLASSMORPHISM & GOLD LUXURY) -->
-  <section id="nova-secao" class="py-10 sm:py-14 lg:py-16 px-4 sm:px-6 relative bg-[#F8F9FA] text-[#1D1D1F] font-sans border-t border-black/5 overflow-hidden">
-    <!-- Glow Radial Dourado Sutil de Fundo (Aura de Alta Costura Claro) -->
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(197,160,89,0.08)_0%,_transparent_70%)] pointer-events-none"></div>
+  <!-- SEÇÃO 2: VEJA DE PERTO (DARK PREMIUM VITRIFICADO COM BORDA PRATEADA) -->
+  <section id="nova-secao" class="py-10 sm:py-14 lg:py-16 px-4 sm:px-6 relative bg-[#0a0a0a] text-white font-sans border-t border-white/10 overflow-hidden">
+    <!-- Glow Radial Sutil de Fundo Dark -->
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.03)_0%,_transparent_70%)] pointer-events-none"></div>
 
     <div class="max-w-7xl mx-auto relative z-10">
 
-      <!-- Section Title Header (Luxury Gold & Apple Headline Style com Text Reveal - Centralizado & Aproximado) -->
+      <!-- Section Title Header (Hypercar Silver Style - Centralizado) -->
       <div class="mb-4 sm:mb-5 text-center flex flex-col items-center mx-auto">
-        <div class="gold-kicker-badge rounded-full px-4 py-1.5 text-[11px] font-bold uppercase tracking-[2px] inline-flex items-center gap-2 mb-2 shadow-sm backdrop-blur-md">
-          <i class="fa-solid fa-crown text-[#C5A059] text-[10px]"></i>
-          <span class="shimmer-gold-text">Interatividade & Portfólio</span>
-        </div>
-        <h2 class="section-title-reveal text-2xl sm:text-3xl lg:text-4xl font-light tracking-tight text-[#1D1D1F] leading-[1.15] text-center">
-          Encontre o imóvel <span class="shimmer-gold-text font-normal">certo para você.</span>
+        <h2 class="section-title-reveal text-2xl sm:text-3xl lg:text-4xl font-light tracking-tight text-white leading-[1.15] text-center">
+          Encontre o veículo <span class="shimmer-gold-text font-normal">certo para você.</span>
         </h2>
-        <p class="section-desc-reveal text-[#6E6E73] text-xs sm:text-sm max-w-2xl mt-1.5 font-light leading-relaxed text-center">
-          Explore por tipo e descubra o espaço perfeito para o seu próximo capítulo.
+        <p class="section-desc-reveal text-zinc-400 text-xs sm:text-sm max-w-2xl mt-1.5 font-light leading-relaxed text-center">
+          Audi, BMW, Lamborghini, Mercedes, Porsche — e muito mais esperando por você.
         </p>
       </div>
 
-      <!-- Container Principal Apple Glassmorphism Claro (Vidro Jateado Frosted Glass / Vision Pro Style) -->
-      <div class="apple-glass-card relative w-full rounded-[24px] sm:rounded-[36px] p-4 sm:p-6 lg:p-7 overflow-hidden">
+      <!-- Container Principal Dark Vitrificado com Borda Prateada & Inset Bevel Shimmer -->
+      <div class="apple-glass-card relative w-full rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-7 overflow-hidden bg-white/[0.03] backdrop-blur-md border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
         
-        <!-- Grid de 2 Colunas (Desktop: Botões ~33% lg:col-span-4 | Vídeo ~67% lg:col-span-8) -->
+        <!-- Grid de 2 Colunas (Desktop: Menu Esquerdo Estreito ~25% lg:col-span-3 | Vídeo Amplo ~75% lg:col-span-9) -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
 
-          <!-- Coluna da Esquerda / Botões Pílula Minimalistas (Desktop: col-span-4 ~33% | Mobile: ordem 2) -->
-          <div class="lg:col-span-4 order-2 lg:order-1 flex flex-col h-full min-h-full justify-between">
+          <!-- Coluna da Esquerda / Menu Esguio e Alto (Desktop: col-span-3 ~25% | Mobile: ordem 2) -->
+          <div class="lg:col-span-3 order-2 lg:order-1 flex flex-col h-full min-h-[500px] justify-between">
             
             <!-- Kicker Slot (Topo da Coluna Esquerda - Centralizado Perfeitamente) -->
             <div class="left-column-kicker-slot pt-0 pb-2 text-center flex flex-col items-center">
-              <span class="inline-block text-[10px] font-bold uppercase tracking-[2.5px] text-[#C5A059] px-3 py-1 rounded-full gold-kicker-badge mb-1.5 font-sans">
-                <i class="fa-solid fa-compass text-[9px] mr-1 text-[#C5A059]"></i> O que você procura?
-              </span>
-              <h3 class="text-base sm:text-lg font-medium text-[#1D1D1F] tracking-tight leading-snug">
+              <h3 class="text-base sm:text-lg font-medium text-white tracking-tight leading-snug">
                 Categorias em Destaque
               </h3>
-              <p class="text-xs text-[#6E6E73] mt-1 font-light leading-relaxed max-w-xs mx-auto hidden sm:block">
-                Selecione uma opção abaixo para navegar pelo nosso portfólio.
+              <p class="text-xs text-zinc-400 mt-1 font-light leading-relaxed max-w-xs mx-auto hidden sm:block">
+                Selecione uma opção abaixo para navegar pelo nosso catálogo.
               </p>
             </div>
 
-            <!-- Bloco de Categorias Empurrado para Baixo (space-y-2 / 2.5 compacto) -->
+            <!-- Bloco de Categorias / Marcas de Luxo Empurrado para Baixo -->
             <div class="flex flex-col space-y-2 sm:space-y-2.5 my-auto">
-              <!-- Botão 1: Casas (Ativo por Padrão) -->
-              <button type="button" data-video="casas.mp4" class="closer-look-btn active group w-full text-left py-2.5 px-4 sm:px-5 rounded-full flex items-center justify-between transition-all duration-500 cursor-pointer overflow-hidden">
-                <span class="slot-machine-title relative h-[20px] overflow-hidden block font-bold text-xs sm:text-sm">
-                  <span class="slot-wrapper block transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
-                    <span class="block h-[20px] flex items-center">Casas</span>
-                    <span class="block h-[20px] flex items-center">Casas</span>
+              <!-- Botão 1: Audi (Ativo por Padrão) -->
+              <button type="button" data-video="audi.mp4" class="closer-look-btn active group w-full text-left py-2.5 px-3.5 sm:px-4 rounded-xl flex items-center justify-between transition-all duration-500 cursor-pointer overflow-hidden">
+                <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                  <img src="logotipo-audi.png" alt="Audi" class="brand-logo-img shrink-0">
+                  <span class="slot-machine-title relative h-[20px] overflow-hidden block font-bold text-xs sm:text-sm">
+                    <span class="slot-wrapper block transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                      <span class="block h-[20px] flex items-center">Audi</span>
+                      <span class="block h-[20px] flex items-center">Audi</span>
+                    </span>
                   </span>
-                </span>
-                <span class="category-arrow-btn w-6 h-6 rounded-full flex items-center justify-center font-bold text-[10px] shrink-0 shadow-xs">
+                </div>
+                <span class="category-arrow-btn w-6 h-6 rounded-lg flex items-center justify-center font-bold text-[10px] shrink-0 shadow-xs">
                   ↗
                 </span>
               </button>
 
-              <!-- Botão 2: Casas em condomínios -->
-              <button type="button" data-video="casas-em-condominios.mp4" class="closer-look-btn group w-full text-left py-2.5 px-4 sm:px-5 rounded-full flex items-center justify-between transition-all duration-500 cursor-pointer overflow-hidden shadow-xs">
-                <span class="slot-machine-title relative h-[20px] overflow-hidden block font-bold text-xs sm:text-sm">
-                  <span class="slot-wrapper block transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
-                    <span class="block h-[20px] flex items-center">Casas em condomínios</span>
-                    <span class="block h-[20px] flex items-center">Casas em condomínios</span>
+              <!-- Botão 2: BMW -->
+              <button type="button" data-video="bmw.mp4" class="closer-look-btn group w-full text-left py-2.5 px-3.5 sm:px-4 rounded-xl flex items-center justify-between transition-all duration-500 cursor-pointer overflow-hidden shadow-xs">
+                <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                  <img src="logotipo-bmw.png" alt="BMW" class="brand-logo-img shrink-0">
+                  <span class="slot-machine-title relative h-[20px] overflow-hidden block font-bold text-xs sm:text-sm">
+                    <span class="slot-wrapper block transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                      <span class="block h-[20px] flex items-center">BMW</span>
+                      <span class="block h-[20px] flex items-center">BMW</span>
+                    </span>
                   </span>
-                </span>
-                <span class="category-arrow-btn w-6 h-6 rounded-full flex items-center justify-center font-bold text-[10px] shrink-0 shadow-xs">
+                </div>
+                <span class="category-arrow-btn w-6 h-6 rounded-lg flex items-center justify-center font-bold text-[10px] shrink-0 shadow-xs">
                   ↗
                 </span>
               </button>
 
-              <!-- Botão 3: Apartamentos -->
-              <button type="button" data-video="Apartamentos.mp4" class="closer-look-btn group w-full text-left py-2.5 px-4 sm:px-5 rounded-full flex items-center justify-between transition-all duration-500 cursor-pointer overflow-hidden shadow-xs">
-                <span class="slot-machine-title relative h-[20px] overflow-hidden block font-bold text-xs sm:text-sm">
-                  <span class="slot-wrapper block transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
-                    <span class="block h-[20px] flex items-center">Apartamentos</span>
-                    <span class="block h-[20px] flex items-center">Apartamentos</span>
+              <!-- Botão 3: Lamborghini -->
+              <button type="button" data-video="lamborghini.mp4" class="closer-look-btn group w-full text-left py-2.5 px-3.5 sm:px-4 rounded-xl flex items-center justify-between transition-all duration-500 cursor-pointer overflow-hidden shadow-xs">
+                <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                  <img src="logotipo-lamborghini.png" alt="Lamborghini" class="brand-logo-img shrink-0">
+                  <span class="slot-machine-title relative h-[20px] overflow-hidden block font-bold text-xs sm:text-sm">
+                    <span class="slot-wrapper block transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                      <span class="block h-[20px] flex items-center">Lamborghini</span>
+                      <span class="block h-[20px] flex items-center">Lamborghini</span>
+                    </span>
                   </span>
-                </span>
-                <span class="category-arrow-btn w-6 h-6 rounded-full flex items-center justify-center font-bold text-[10px] shrink-0 shadow-xs">
+                </div>
+                <span class="category-arrow-btn w-6 h-6 rounded-lg flex items-center justify-center font-bold text-[10px] shrink-0 shadow-xs">
                   ↗
                 </span>
               </button>
 
-              <!-- Botão 4: Chácaras -->
-              <button type="button" data-video="chácaras.mp4" class="closer-look-btn group w-full text-left py-2.5 px-4 sm:px-5 rounded-full flex items-center justify-between transition-all duration-500 cursor-pointer overflow-hidden shadow-xs">
-                <span class="slot-machine-title relative h-[20px] overflow-hidden block font-bold text-xs sm:text-sm">
-                  <span class="slot-wrapper block transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
-                    <span class="block h-[20px] flex items-center">Chácaras</span>
-                    <span class="block h-[20px] flex items-center">Chácaras</span>
+              <!-- Botão 4: Mercedes -->
+              <button type="button" data-video="mercedes.mp4" class="closer-look-btn group w-full text-left py-2.5 px-3.5 sm:px-4 rounded-xl flex items-center justify-between transition-all duration-500 cursor-pointer overflow-hidden shadow-xs">
+                <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                  <img src="logotipo-mercedes.png" alt="Mercedes" class="brand-logo-img shrink-0">
+                  <span class="slot-machine-title relative h-[20px] overflow-hidden block font-bold text-xs sm:text-sm">
+                    <span class="slot-wrapper block transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                      <span class="block h-[20px] flex items-center">Mercedes</span>
+                      <span class="block h-[20px] flex items-center">Mercedes</span>
+                    </span>
                   </span>
-                </span>
-                <span class="category-arrow-btn w-6 h-6 rounded-full flex items-center justify-center font-bold text-[10px] shrink-0 shadow-xs">
+                </div>
+                <span class="category-arrow-btn w-6 h-6 rounded-lg flex items-center justify-center font-bold text-[10px] shrink-0 shadow-xs">
                   ↗
                 </span>
               </button>
 
-              <!-- Botão 5: Barracões comerciais -->
-              <button type="button" data-video="barracões-comerciais.mp4" class="closer-look-btn group w-full text-left py-2.5 px-4 sm:px-5 rounded-full flex items-center justify-between transition-all duration-500 cursor-pointer overflow-hidden shadow-xs">
-                <span class="slot-machine-title relative h-[20px] overflow-hidden block font-bold text-xs sm:text-sm">
-                  <span class="slot-wrapper block transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
-                    <span class="block h-[20px] flex items-center">Barracões comerciais</span>
-                    <span class="block h-[20px] flex items-center">Barracões comerciais</span>
+              <!-- Botão 5: Porsche -->
+              <button type="button" data-video="porshce.mp4" class="closer-look-btn group w-full text-left py-2.5 px-3.5 sm:px-4 rounded-xl flex items-center justify-between transition-all duration-500 cursor-pointer overflow-hidden shadow-xs">
+                <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                  <img src="logotipo-porsche.png" alt="Porsche" class="brand-logo-img shrink-0">
+                  <span class="slot-machine-title relative h-[20px] overflow-hidden block font-bold text-xs sm:text-sm">
+                    <span class="slot-wrapper block transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                      <span class="block h-[20px] flex items-center">Porsche</span>
+                      <span class="block h-[20px] flex items-center">Porsche</span>
+                    </span>
                   </span>
-                </span>
-                <span class="category-arrow-btn w-6 h-6 rounded-full flex items-center justify-center font-bold text-[10px] shrink-0 shadow-xs">
+                </div>
+                <span class="category-arrow-btn w-6 h-6 rounded-lg flex items-center justify-center font-bold text-[10px] shrink-0 shadow-xs">
                   ↗
                 </span>
               </button>
             </div>
 
-            <!-- Botão Conversão Esquerda: Acessar o App (Alinhamento Simétrico Compacto) -->
-            <div class="pt-2 pb-1 flex justify-center w-full">
-              <a href="#appSection" class="btn-app-glass group inline-flex items-center justify-center gap-2 py-2 px-5 rounded-full font-extrabold text-[11px] uppercase tracking-widest text-white shadow-xl transition-all duration-300">
-                <i class="fa-solid fa-mobile-screen-button text-xs btn-app-icon"></i>
-                <span>Acessar o App</span>
+            <!-- Botão Conversão Esquerda: Ver Estoque Completo + Link Secundário -->
+            <div class="pt-2 pb-1 flex flex-col items-center justify-center w-full gap-1.5">
+              <a href="#estoque" class="btn-gold-pulse group inline-flex items-center justify-center gap-2 py-2.5 px-5 rounded-xl font-bold text-xs uppercase tracking-widest text-white shadow-xl transition-all duration-300 w-full text-center">
+                <i class="fa-solid fa-car text-xs text-white btn-app-icon"></i>
+                <span>Ver Estoque Completo</span>
+              </a>
+              <a href="#appSection" class="text-[11px] text-zinc-400 hover:text-white transition-colors underline decoration-zinc-600/60 underline-offset-2 font-light">
+                ou acesse pelo app
               </a>
             </div>
 
           </div>
 
-          <!-- Coluna da Direita / Display do Vídeo COMPACTO (~420px max-height | Desktop: col-span-8 | Mobile: ordem 1) -->
-          <div class="lg:col-span-8 order-1 lg:order-2 w-full h-[340px] sm:h-[380px] lg:h-[420px] max-h-[420px] min-h-0 rounded-[20px] sm:rounded-[28px] bg-[#F0F0F4] apple-video-wrapper relative overflow-hidden flex items-center justify-center group">
+          <!-- Coluna da Direita / Display do Vídeo AMPLO E ALTO (Desktop: col-span-9 ~75% | Mobile: ordem 1) -->
+          <div class="lg:col-span-9 order-1 lg:order-2 w-full h-[440px] sm:h-[500px] lg:h-[540px] min-h-[500px] rounded-[20px] sm:rounded-[28px] bg-[#F0F0F4] apple-video-wrapper relative overflow-hidden flex items-center justify-center group">
             
             <!-- Vídeo sem Loop, Muted, Playsinline com object-fit: cover limpo e Hairline de Separação -->
             <video id="closerLookVideo" muted playsinline class="w-full h-full object-cover rounded-[20px] sm:rounded-[28px]">
-              <source src="casas.mp4" type="video/mp4">
+              <source src="audi.mp4" type="video/mp4">
             </video>
 
-            <!-- Botão Flutuante de Conversão Direita: Ver Portfólio (Animação Reveal Left-to-Right nos últimos 2s) -->
-            <a id="btnFloatingPortfolio" href="#portfolio" class="btn-floating-portfolio absolute bottom-4 sm:bottom-5 left-1/2 -translate-x-1/2 px-5 py-2.5 rounded-full text-white font-extrabold text-[11px] uppercase tracking-widest flex items-center gap-2 shadow-2xl transition-all duration-300">
-              Ver portfólio <i class="fa-solid fa-arrow-right text-[10px]"></i>
+            <!-- Botão Flutuante de Conversão Direita: Ver Estoque [Marca] → (Dinamizado por JS) -->
+            <a id="btnFloatingPortfolio" href="#portfolio?marca=Audi" class="btn-floating-portfolio absolute bottom-4 sm:bottom-5 left-1/2 -translate-x-1/2 px-5 py-2.5 rounded-lg text-white font-semibold text-[11px] uppercase tracking-widest flex items-center gap-2 shadow-2xl transition-all duration-300">
+              <span id="btnFloatingPortfolioText">Ver Estoque Audi</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
             </a>
 
           </div>
@@ -255,109 +281,108 @@
     </div>
   </section>
 
-  <!-- SESSÃO 3: SOBRE A EMPRESA & ESPECIFICAÇÕES (COMPACT HORIZONTAL DESIGN) -->
+  <!-- SESSÃO 3: NOSSO DIFERENCIAL (DARK PREMIUM VITRIFICADO PERFECT MATCH COM SESSÃO 2) -->
   <section id="sobre"
-    class="relative z-10 py-12 lg:py-20 px-4 sm:px-6 overflow-hidden bg-[#F5F5F7] font-sans border-t border-black/5">
-    <div class="max-w-5xl mx-auto w-full">
-      <!-- Section Header (Exatamente no Padrão de Design, Tipografia e Cores da Seção 2) -->
+    class="relative z-10 py-10 sm:py-14 lg:py-16 px-4 sm:px-6 overflow-hidden bg-[#0a0a0a] font-sans border-t border-white/10 text-white">
+    <!-- Glow Radial Sutil de Fundo Dark -->
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.03)_0%,_transparent_70%)] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+      <!-- Section Header (Padrão de Design Dark Vitrificado Alinhado com a Sessão 2) -->
       <div class="mb-6 sm:mb-8 text-center flex flex-col items-center justify-center mx-auto">
-        <!-- 1. Tag Superior (Badge Pill com Ícone de Coroa e Shimmer Dourado) -->
-        <div class="gold-kicker-badge rounded-full px-5 py-2 text-xs font-bold uppercase tracking-[2px] inline-flex items-center gap-2 mb-3.5 shadow-sm backdrop-blur-md">
-          <i class="fa-solid fa-crown text-[#C5A059] text-xs"></i>
-          <span class="shimmer-gold-text">SOBRE A NOSSA ESSÊNCIA</span>
-        </div>
-        <!-- 2. Título Principal (Duas Cores: Escuro + Destaque Dourado Shimmer) -->
-        <h2 class="section-title-reveal text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-[#1D1D1F] leading-[1.15] text-center">
-          Conheça a imobiliária <span class="shimmer-gold-text font-normal">certa para você.</span>
+        <!-- 1. Título Principal -->
+        <h2 class="section-title-reveal text-2xl sm:text-3xl lg:text-4xl font-light tracking-tight text-white leading-[1.15] text-center max-w-3xl">
+          O padrão definitivo para o <span class="shimmer-gold-text font-normal">seu próximo carro.</span>
         </h2>
-        <!-- 3. Subtítulo (Mesma Tipografia e Cor Cinza Suave da Seção 2) -->
-        <p class="section-desc-reveal text-[#6E6E73] text-base sm:text-lg max-w-2xl mt-2.5 font-light leading-relaxed text-center">
-          Uma trajetória construída com confiança, transparência e resultados exclusivos.
+        <!-- 2. Subtítulo -->
+        <p class="section-desc-reveal text-zinc-400 text-xs sm:text-sm max-w-2xl mt-2 font-light leading-relaxed text-center">
+          Elevamos o padrão do mercado premium. Selecionamos apenas veículos impecáveis para que a sua única preocupação seja assumir o volante.
         </p>
       </div>
 
-      <!-- 2 Columns Grid Container (Equal Height Mirror Match: md:grid-cols-2 items-stretch) -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 items-stretch">
+      <!-- 2 Columns Grid Container (Mirroring Section 2 Boundaries) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch w-full">
 
-        <!-- Card 1 (Esquerda): Vídeo Limpo com Botão de Replay Centralizado na Base -->
+        <!-- Card 1 (Esquerda): Vídeo Porsche Amplo & Imponente -->
         <div id="aboutCar3D"
-          class="relative w-full h-full min-h-[300px] md:min-h-0 rounded-[20px] sm:rounded-[24px] overflow-hidden bg-white border border-black/10 shadow-[0_8px_24px_rgba(0,0,0,0.04)] group">
+          class="lg:col-span-6 relative w-full h-full min-h-[340px] sm:min-h-[420px] lg:min-h-[520px] rounded-2xl sm:rounded-3xl overflow-hidden bg-white/[0.03] backdrop-blur-md border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] group">
           
-          <!-- Tag <video> (src="avião.mp4", muted, playsinline, w-full h-full object-cover absolute inset-0) -->
-          <video id="section3Video" muted playsinline src="avião.mp4" class="w-full h-full object-cover absolute inset-0 z-0 rounded-[20px] sm:rounded-[24px]">
+          <!-- Tag <video> sem loop para parar no último frame ao terminar -->
+          <video id="section3Video" autoplay muted playsinline src="prosche-seção3.mp4" class="w-full h-full object-cover absolute inset-0 z-0 rounded-2xl sm:rounded-3xl pointer-events-none">
           </video>
 
-          <!-- Botão de Restart Discreto Centralizado na Base (bottom-6 left-1/2 -translate-x-1/2) -->
-          <button id="btnSection3Replay" type="button" aria-label="Replay Vídeo" class="btn-replay-720 absolute bottom-6 left-1/2 -translate-x-1/2 z-30 w-11 h-11 rounded-full bg-black/60 backdrop-blur-md border border-white/30 text-white flex items-center justify-center shadow-2xl transition-transform duration-300 hover:scale-110 hidden">
-            <i class="fa-solid fa-arrow-rotate-right text-sm"></i>
+          <!-- Botão Replay Animado (posicionado na base) -->
+          <button id="btnSec3Replay" type="button" aria-label="Replay Vídeo" class="btn-sec3-replay">
+            <i class="fa-solid fa-rotate-right replay-icon"></i>
           </button>
         </div>
 
-        <!-- Card 2 (Direita): Especificações & História (Real Estate / Imobiliária) -->
+        <!-- Card 2 (Direita): Especificações & História (Dark Premium Glassmorphism Imponente) -->
         <div id="aboutStoryCard"
-          class="reveal-card w-full h-full bg-white rounded-[20px] sm:rounded-[24px] p-5 sm:p-7 border border-black/5 shadow-[0_8px_24px_rgba(0,0,0,0.04)] flex flex-col justify-between items-center text-center font-sans text-[#1D1D1F]">
+          class="lg:col-span-6 reveal-card w-full h-full bg-white/[0.03] backdrop-blur-md rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] flex flex-col justify-between items-center text-center font-sans text-white">
           <div class="flex flex-col items-center text-center w-full">
             <!-- 1º Badge/Tag -->
             <div
-              class="reveal-item reveal-item-1 bg-[#1D1D1F] text-white rounded-full px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider inline-block mb-3 shadow-sm mx-auto">
-              POR QUE NOS ESCOLHER?
+              class="reveal-item reveal-item-1 bg-white/10 text-white border border-white/15 rounded-full px-4 py-1 text-xs font-bold uppercase tracking-wider inline-block mb-3 shadow-sm mx-auto backdrop-blur-md">
+              NOSSO DIFERENCIAL
             </div>
 
             <!-- 2º Título Principal -->
             <h3
-              class="reveal-item reveal-item-2 text-xl sm:text-3xl font-medium mb-3 text-[#1D1D1F] tracking-tight leading-tight text-center">
-              A referência em encontrar o imóvel certo para você.
+              class="reveal-item reveal-item-2 text-xl sm:text-2xl lg:text-3xl font-light mb-3 text-white tracking-tight leading-snug text-center">
+              A referência em encontrar a máquina perfeita para o seu estilo.
             </h3>
 
-            <!-- 3º Texto Principal (Real Estate / Imobiliária) -->
-            <p class="reveal-item reveal-item-3 text-[#6E6E73] text-xs sm:text-sm leading-relaxed mb-4 font-light text-center">
-              Sabemos que a escolha de um imóvel é um dos passos mais importantes da sua vida. Nossa equipe de especialistas oferece um atendimento consultivo e humanizado, buscando as melhores oportunidades do mercado para que você faça um investimento seguro, seja para morar ou investir.
+            <!-- 3º Texto Principal -->
+            <p class="reveal-item reveal-item-3 text-zinc-300 text-xs sm:text-sm leading-relaxed mb-5 font-light text-center max-w-2xl">
+              Sabemos que comprar um carro vai muito além de um simples meio de transporte; é sobre liberdade, segurança e realização. Nosso estoque passa por um rigoroso padrão de qualidade e vistoria cautelar para garantir que você leve para casa um veículo impecável, com procedência comprovada e pronto para novas histórias na estrada.
             </p>
 
-            <!-- 4º Grid de Vantagens (2x2 Real Estate) -->
-            <div class="reveal-item reveal-item-4 grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-4 w-full">
-              <div class="bg-[#F5F5F7] p-2.5 rounded-[10px] border border-black/5 text-center flex flex-col items-center justify-center">
-                <span class="text-[9px] text-[#86868B] uppercase tracking-wider block mb-0.5 font-medium text-center">EXCLUSIVIDADE</span>
-                <span class="text-xs font-semibold text-[#1D1D1F] text-center">Curadoria de Alto Padrão</span>
+            <!-- 4º Grid de Vantagens (2x2 Glassmorphism Amplo com Hover Iluminado) -->
+            <div class="reveal-item reveal-item-4 grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5 w-full">
+              <div class="bg-white/[0.03] p-3 sm:p-3.5 rounded-xl border border-white/10 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] transition-all duration-300 hover:border-amber-400/40 hover:bg-white/[0.06] hover:-translate-y-0.5 text-center flex flex-col items-center justify-center cursor-pointer group">
+                <span class="text-[9px] sm:text-[10px] text-amber-400/80 uppercase tracking-wider block mb-1 font-bold text-center">PROCEDÊNCIA</span>
+                <span class="text-xs sm:text-sm font-semibold text-white text-center group-hover:text-amber-300 transition-colors">Vistoria Cautelar 100% Aprovada</span>
               </div>
-              <div class="bg-[#F5F5F7] p-2.5 rounded-[10px] border border-black/5 text-center flex flex-col items-center justify-center">
-                <span class="text-[9px] text-[#86868B] uppercase tracking-wider block mb-0.5 font-medium text-center">TRANQUILIDADE</span>
-                <span class="text-xs font-semibold text-[#1D1D1F] text-center">Assessoria Jurídica Completa</span>
+              <div class="bg-white/[0.03] p-3 sm:p-3.5 rounded-xl border border-white/10 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] transition-all duration-300 hover:border-amber-400/40 hover:bg-white/[0.06] hover:-translate-y-0.5 text-center flex flex-col items-center justify-center cursor-pointer group">
+                <span class="text-[9px] sm:text-[10px] text-amber-400/80 uppercase tracking-wider block mb-1 font-bold text-center">TRANQUILIDADE</span>
+                <span class="text-xs sm:text-sm font-semibold text-white text-center group-hover:text-amber-300 transition-colors">Garantia de Motor e Câmbio</span>
               </div>
-              <div class="bg-[#F5F5F7] p-2.5 rounded-[10px] border border-black/5 text-center flex flex-col items-center justify-center">
-                <span class="text-[9px] text-[#86868B] uppercase tracking-wider block mb-0.5 font-medium text-center">ATENDIMENTO</span>
-                <span class="text-xs font-semibold text-[#1D1D1F] text-center">Consultores Especializados</span>
+              <div class="bg-white/[0.03] p-3 sm:p-3.5 rounded-xl border border-white/10 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] transition-all duration-300 hover:border-amber-400/40 hover:bg-white/[0.06] hover:-translate-y-0.5 text-center flex flex-col items-center justify-center cursor-pointer group">
+                <span class="text-[9px] sm:text-[10px] text-amber-400/80 uppercase tracking-wider block mb-1 font-bold text-center">ATENDIMENTO</span>
+                <span class="text-xs sm:text-sm font-semibold text-white text-center group-hover:text-amber-300 transition-colors">Consultores Apaixonados por Carros</span>
               </div>
-              <div class="bg-[#F5F5F7] p-2.5 rounded-[10px] border border-black/5 text-center flex flex-col items-center justify-center">
-                <span class="text-[9px] text-[#86868B] uppercase tracking-wider block mb-0.5 font-medium text-center">RESULTADO</span>
-                <span class="text-xs font-semibold text-[#1D1D1F] text-center">Negociação Transparente</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- 5º Números de Credibilidade (Com Efeito Shimmer Dourado Animado) -->
-          <div class="reveal-item reveal-item-5 border-t border-black/10 pt-3 mb-3 w-full">
-            <div class="grid grid-cols-3 gap-2 text-center">
-              <div class="flex flex-col items-center text-center">
-                <div class="text-2xl sm:text-3xl font-normal tracking-tight text-center shimmer-gold-text">10+</div>
-                <div class="text-[9px] sm:text-[10px] text-[#86868B] uppercase tracking-wider mt-0.5 text-center font-medium">Anos no Mercado</div>
-              </div>
-              <div class="flex flex-col items-center text-center">
-                <div class="text-2xl sm:text-3xl font-normal tracking-tight text-center shimmer-gold-text">3.5k+</div>
-                <div class="text-[9px] sm:text-[10px] text-[#86868B] uppercase tracking-wider mt-0.5 text-center font-medium">Famílias Atendidas</div>
-              </div>
-              <div class="flex flex-col items-center text-center">
-                <div class="text-2xl sm:text-3xl font-normal tracking-tight text-center shimmer-gold-text">100%</div>
-                <div class="text-[9px] sm:text-[10px] text-[#86868B] uppercase tracking-wider mt-0.5 text-center font-medium">Satisfação Garantida</div>
+              <div class="bg-white/[0.03] p-3 sm:p-3.5 rounded-xl border border-white/10 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] transition-all duration-300 hover:border-amber-400/40 hover:bg-white/[0.06] hover:-translate-y-0.5 text-center flex flex-col items-center justify-center cursor-pointer group">
+                <span class="text-[9px] sm:text-[10px] text-amber-400/80 uppercase tracking-wider block mb-1 font-bold text-center">FACILIDADE</span>
+                <span class="text-xs sm:text-sm font-semibold text-white text-center group-hover:text-amber-300 transition-colors">Financiamento e Taxas Exclusivas</span>
               </div>
             </div>
           </div>
 
-          <!-- 6º Botão CTA (Falar com um Especialista) -->
+          <!-- 5º Números de Credibilidade (Amplo com Efeito Shimmer Dourado Animado) -->
+          <div class="reveal-item reveal-item-5 border-t border-white/10 pt-4 mb-4 w-full">
+            <div class="grid grid-cols-3 gap-3 text-center">
+              <div class="flex flex-col items-center text-center">
+                <div class="text-2xl sm:text-3xl font-light tracking-tight text-center shimmer-gold-text">15+</div>
+                <div class="text-[9px] sm:text-[10px] text-zinc-400 uppercase tracking-wider mt-1 text-center font-semibold">ANOS DE ESTRADA</div>
+              </div>
+              <div class="flex flex-col items-center text-center">
+                <div class="text-2xl sm:text-3xl font-light tracking-tight text-center shimmer-gold-text">5k+</div>
+                <div class="text-[9px] sm:text-[10px] text-zinc-400 uppercase tracking-wider mt-1 text-center font-semibold">VEÍCULOS VENDIDOS</div>
+              </div>
+              <div class="flex flex-col items-center text-center">
+                <div class="text-2xl sm:text-3xl font-light tracking-tight text-center shimmer-gold-text">100%</div>
+                <div class="text-[9px] sm:text-[10px] text-zinc-400 uppercase tracking-wider mt-1 text-center font-semibold">PROCEDÊNCIA GARANTIDA</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6º Botão CTA (Falar com um Consultor Automotivo - Amplo) -->
           <div class="reveal-item reveal-item-6 pt-2 flex justify-center w-full">
             <a href="#contato"
-              class="bg-[#1D1D1F] text-white px-5 py-2.5 rounded-full text-xs font-semibold hover:bg-black transition-all inline-block w-full sm:w-auto text-center shadow-sm mx-auto">
-              Falar com um Especialista
+              class="btn-app-glass group inline-flex items-center justify-center gap-2.5 py-3 px-8 rounded-xl font-bold text-xs sm:text-sm uppercase tracking-widest text-white shadow-xl transition-all duration-300 w-full sm:w-auto text-center hover:scale-[1.02]">
+              <span>Falar com um Consultor Automotivo</span>
+              <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-1"></i>
             </a>
           </div>
         </div>
@@ -366,115 +391,92 @@
     </div>
   </section>
 
-  <!-- SESSÃO CTA: APLICATIVO EXCLUSIVO (CARD GIGANTE APPLE LIGHT) -->
+  <!-- SESSÃO CTA: APLICATIVO EXCLUSIVO (DARK PREMIUM VITRIFICADO IMPONENTE) -->
   <section id="appSection"
-    class="py-12 lg:py-16 px-4 sm:px-6 relative bg-[#F5F5F7] border-y border-black/5 overflow-hidden font-sans">
-    <div class="max-w-7xl mx-auto">
+    class="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 relative bg-[#0a0a0a] text-white border-t border-white/10 overflow-hidden font-sans">
+    <!-- Glow Radial Sutil de Fundo Dark -->
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.03)_0%,_transparent_70%)] pointer-events-none"></div>
 
-      <!-- Card Gigante Envolvente (Border-Radius 48px, Fundo Branco Puro, Sombra Apple Mac) -->
+    <div class="max-w-7xl mx-auto relative z-10">
+
+      <!-- Card Envolvente Dark Vitrificado Imponente -->
       <div
-        class="relative w-full rounded-[28px] sm:rounded-[40px] p-5 sm:p-8 lg:p-10 bg-white border border-black/5 shadow-[0_20px_60px_rgba(0,0,0,0.04)] overflow-hidden">
-
-        <!-- Glows Radiais Criativos de Fundo Interior -->
-        <div
-          class="absolute -top-32 -left-32 w-[450px] h-[450px] bg-gradient-to-br from-slate-200/50 via-slate-100/20 to-transparent rounded-full blur-3xl pointer-events-none">
-        </div>
-        <div
-          class="absolute -bottom-32 -right-32 w-[450px] h-[450px] bg-gradient-to-tl from-slate-200/50 via-slate-100/20 to-transparent rounded-full blur-3xl pointer-events-none">
-        </div>
+        class="apple-glass-card relative w-full rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-10 overflow-hidden bg-white/[0.03] backdrop-blur-md border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
 
         <!-- 2 Columns Grid Structure -->
-        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-center">
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
 
           <!-- Coluna da Esquerda: Conteúdo & CTA -->
-          <div id="appTextContent" class="space-y-4">
-            <!-- Tag Superior Pill Badge -->
-            <div
-              class="bg-[#1D1D1F] text-white rounded-full px-3.5 py-1 text-xs font-bold uppercase tracking-wider inline-block shadow-sm">
-              <i class="fa-solid fa-mobile-screen-button mr-1.5"></i> Nosso Aplicativo
-            </div>
+          <div id="appTextContent" class="lg:col-span-7 space-y-4">
 
-            <!-- Título Principal com Animação Shimmer Prateada -->
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-medium uppercase text-[#1D1D1F] tracking-tight leading-tight font-sans">
-              Seu imóvel, <br class="hidden sm:block">
-              <span class="shimmer-silver-text font-extrabold">na palma da sua mão</span>
+            <!-- Título Principal com Dourado Animado na 2ª Linha (Destaque Imponente) -->
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-medium uppercase text-white tracking-tight leading-tight font-sans">
+              Seu próximo carro, <br class="hidden sm:block">
+              <span class="shimmer-gold-text font-extrabold">a um toque de distância</span>
             </h2>
 
-            <!-- Subtítulo / Descrição -->
-            <p class="text-[#86868B] text-sm sm:text-base leading-relaxed font-light">
-              Agende vistorias, acompanhe a documentação e feche negócio sem sair de casa — tudo pelo nosso app.
+            <!-- Subtítulo em Cinza Claro Confortável -->
+            <p class="text-zinc-300 text-sm sm:text-base leading-relaxed font-light max-w-2xl">
+              Fale direto com especialistas, agende seu test-drive e acompanhe a aprovação do financiamento sem burocracia.
             </p>
 
-            <!-- Lista de Benefícios do App (Cards Clean Apple com Hover Interativo Premium) -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-0.5 font-sans">
+            <!-- Lista de Benefícios do App (4 Cards Espaçados e Confortáveis) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 font-sans">
               <!-- Card 1 -->
-              <div class="group relative bg-gray-50/90 hover:bg-white p-3.5 sm:p-4 rounded-xl border border-black/5 hover:border-black/15 shadow-xs hover:shadow-[0_12px_28px_rgba(0,0,0,0.08)] hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 ease-out cursor-pointer overflow-hidden">
-                <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <h4 class="font-bold text-xs sm:text-sm text-[#1D1D1F] mb-0.5 group-hover:text-black transition-colors duration-300">
-                  <span class="inline-block transition-transform duration-300 ease-out group-hover:scale-125 group-hover:-translate-y-0.5 group-hover:rotate-6 mr-1">📅</span> Agende sua vistoria
+              <div class="group relative bg-white/[0.03] hover:bg-white/[0.07] p-3.5 sm:p-4 rounded-xl border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] hover:-translate-y-0.5 transition-all duration-300 ease-out cursor-pointer overflow-hidden backdrop-blur-md">
+                <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <h4 class="font-bold text-xs sm:text-sm text-white mb-0.5 group-hover:text-amber-400 transition-colors duration-300 flex items-center gap-1.5">
+                  <span class="inline-block transition-transform duration-300 group-hover:scale-110">💬</span> Chat com Especialista
                 </h4>
-                <p class="text-[#86868B] text-xs font-light leading-relaxed group-hover:text-[#424245] transition-colors duration-300">Escolha data e horário direto pelo app, sem burocracia.</p>
+                <p class="text-zinc-400 text-xs font-light leading-relaxed group-hover:text-zinc-300 transition-colors duration-300">Tire dúvidas e negocie diretamente com nossa equipe em tempo real.</p>
               </div>
               <!-- Card 2 -->
-              <div class="group relative bg-gray-50/90 hover:bg-white p-3.5 sm:p-4 rounded-xl border border-black/5 hover:border-black/15 shadow-xs hover:shadow-[0_12px_28px_rgba(0,0,0,0.08)] hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 ease-out cursor-pointer overflow-hidden">
-                <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <h4 class="font-bold text-xs sm:text-sm text-[#1D1D1F] mb-0.5 group-hover:text-black transition-colors duration-300">
-                  <span class="inline-block transition-transform duration-300 ease-out group-hover:scale-125 group-hover:-translate-y-0.5 group-hover:rotate-6 mr-1">📊</span> Acompanhe o status
+              <div class="group relative bg-white/[0.03] hover:bg-white/[0.07] p-3.5 sm:p-4 rounded-xl border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] hover:-translate-y-0.5 transition-all duration-300 ease-out cursor-pointer overflow-hidden backdrop-blur-md">
+                <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <h4 class="font-bold text-xs sm:text-sm text-white mb-0.5 group-hover:text-amber-400 transition-colors duration-300 flex items-center gap-1.5">
+                  <span class="inline-block transition-transform duration-300 group-hover:scale-110">🏎️</span> Agendar Test-Drive
                 </h4>
-                <p class="text-[#86868B] text-xs font-light leading-relaxed group-hover:text-[#424245] transition-colors duration-300">Saiba em tempo real o andamento da proposta, financiamento e documentação.</p>
+                <p class="text-zinc-400 text-xs font-light leading-relaxed group-hover:text-zinc-300 transition-colors duration-300">Escolha o dia, horário e veículo ideal para acelerar.</p>
               </div>
               <!-- Card 3 -->
-              <div class="group relative bg-gray-50/90 hover:bg-white p-3.5 sm:p-4 rounded-xl border border-black/5 hover:border-black/15 shadow-xs hover:shadow-[0_12px_28px_rgba(0,0,0,0.08)] hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 ease-out cursor-pointer overflow-hidden">
-                <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <h4 class="font-bold text-xs sm:text-sm text-[#1D1D1F] mb-0.5 group-hover:text-black transition-colors duration-300">
-                  <span class="inline-block transition-transform duration-300 ease-out group-hover:scale-125 group-hover:-translate-y-0.5 group-hover:rotate-6 mr-1">📂</span> Histórico completo
+              <div class="group relative bg-white/[0.03] hover:bg-white/[0.07] p-3.5 sm:p-4 rounded-xl border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] hover:-translate-y-0.5 transition-all duration-300 ease-out cursor-pointer overflow-hidden backdrop-blur-md">
+                <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <h4 class="font-bold text-xs sm:text-sm text-white mb-0.5 group-hover:text-amber-400 transition-colors duration-300 flex items-center gap-1.5">
+                  <span class="inline-block transition-transform duration-300 group-hover:scale-110">📊</span> Status do Financiamento
                 </h4>
-                <p class="text-[#86868B] text-xs font-light leading-relaxed group-hover:text-[#424245] transition-colors duration-300">Acesse imóveis visitados, propostas enviadas e contratos em um só lugar.</p>
+                <p class="text-zinc-400 text-xs font-light leading-relaxed group-hover:text-zinc-300 transition-colors duration-300">Acompanhe a análise de crédito e propostas em tempo real.</p>
               </div>
               <!-- Card 4 -->
-              <div class="group relative bg-gray-50/90 hover:bg-white p-3.5 sm:p-4 rounded-xl border border-black/5 hover:border-black/15 shadow-xs hover:shadow-[0_12px_28px_rgba(0,0,0,0.08)] hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 ease-out cursor-pointer overflow-hidden">
-                <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <h4 class="font-bold text-xs sm:text-sm text-[#1D1D1F] mb-0.5 group-hover:text-black transition-colors duration-300">
-                  <span class="inline-block transition-transform duration-300 ease-out group-hover:scale-125 group-hover:-translate-y-0.5 group-hover:rotate-6 mr-1">🔐</span> Documentos digitais
+              <div class="group relative bg-white/[0.03] hover:bg-white/[0.07] p-3.5 sm:p-4 rounded-xl border border-white/10 hover:border-white/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] hover:-translate-y-0.5 transition-all duration-300 ease-out cursor-pointer overflow-hidden backdrop-blur-md">
+                <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <h4 class="font-bold text-xs sm:text-sm text-white mb-0.5 group-hover:text-amber-400 transition-colors duration-300 flex items-center gap-1.5">
+                  <span class="inline-block transition-transform duration-300 group-hover:scale-110">🔐</span> Assinatura Digital
                 </h4>
-                <p class="text-[#86868B] text-xs font-light leading-relaxed group-hover:text-[#424245] transition-colors duration-300">Envie e assine documentos com segurança, direto pelo celular.</p>
+                <p class="text-zinc-400 text-xs font-light leading-relaxed group-hover:text-zinc-300 transition-colors duration-300">Envie documentos e assine o contrato direto pelo celular.</p>
               </div>
             </div>
 
-            <!-- Nova Área de FAQ (Minimalista com Hover Fluido) -->
-            <div class="space-y-2 pt-1 font-sans">
-              <div class="group border-l-2 border-gray-900/40 hover:border-black pl-3.5 pr-2 py-1 rounded-r-xl transition-all duration-300 ease-out hover:bg-gray-100/60 hover:translate-x-1 cursor-pointer">
-                <h4 class="font-bold text-xs sm:text-sm text-[#1D1D1F] group-hover:text-black transition-colors duration-300">Como funciona o financiamento?</h4>
-                <p class="text-[#86868B] text-xs font-light leading-relaxed mt-0.5 group-hover:text-[#333336] transition-colors duration-300">Simulamos as melhores condições com os principais bancos parceiros e te acompanhamos em cada etapa.</p>
-              </div>
-              <div class="group border-l-2 border-gray-900/40 hover:border-black pl-3.5 pr-2 py-1 rounded-r-xl transition-all duration-300 ease-out hover:bg-gray-100/60 hover:translate-x-1 cursor-pointer">
-                <h4 class="font-bold text-xs sm:text-sm text-[#1D1D1F] group-hover:text-black transition-colors duration-300">Quais documentos preciso enviar?</h4>
-                <p class="text-[#86868B] text-xs font-light leading-relaxed mt-0.5 group-hover:text-[#333336] transition-colors duration-300">RG, CPF, comprovante de renda e residência. Tudo pode ser enviado direto pelo app.</p>
-              </div>
-              <div class="group border-l-2 border-gray-900/40 hover:border-black pl-3.5 pr-2 py-1 rounded-r-xl transition-all duration-300 ease-out hover:bg-gray-100/60 hover:translate-x-1 cursor-pointer">
-                <h4 class="font-bold text-xs sm:text-sm text-[#1D1D1F] group-hover:text-black transition-colors duration-300">Qual o prazo de entrega/aprovação?</h4>
-                <p class="text-[#86868B] text-xs font-light leading-relaxed mt-0.5 group-hover:text-[#333336] transition-colors duration-300">O prazo médio varia por imóvel e financiamento, mas nossa equipe agiliza cada etapa para você ter uma resposta rápida.</p>
-              </div>
-            </div>
-
-            <!-- Botões de CTA Sofisticados -->
-            <div class="pt-1 flex flex-wrap items-center gap-3">
+            <!-- Botões de CTA Ajustados para o Tema Dark -->
+            <div class="pt-2 flex flex-wrap items-center gap-3">
+              <!-- Botão Principal: Apple Light Style (Branco com Texto Preto) -->
               <a href="#appSection"
-                class="group relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#1D1D1F] hover:bg-black text-white text-xs sm:text-sm font-medium shadow-md hover:shadow-xl hover:-translate-y-0.5 hover:scale-[1.03] transition-all duration-300 ease-out cursor-pointer overflow-hidden">
+                class="group relative inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white hover:bg-zinc-200 text-black text-xs sm:text-sm font-semibold shadow-lg hover:shadow-2xl hover:-translate-y-0.5 hover:scale-[1.03] transition-all duration-300 ease-out cursor-pointer overflow-hidden">
                 <i class="fa-brands fa-apple text-base transition-transform duration-300 group-hover:scale-110"></i>
                 <span>Acessar o App</span>
               </a>
+              <!-- Botão Secundário: Outline Glassmorphism -->
               <a href="https://wa.me/" target="_blank"
-                class="group relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#F5F5F7] hover:bg-emerald-50/80 border border-black/10 hover:border-emerald-500/40 text-[#1D1D1F] hover:text-emerald-950 text-xs sm:text-sm font-medium shadow-xs hover:shadow-md hover:-translate-y-0.5 hover:scale-[1.03] transition-all duration-300 ease-out cursor-pointer overflow-hidden">
-                <i class="fa-brands fa-whatsapp text-emerald-600 text-base transition-transform duration-300 group-hover:scale-125 group-hover:rotate-12"></i>
-                <span>Falar com um Especialista</span>
+                class="group relative inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/[0.05] hover:bg-white/10 border border-white/20 hover:border-emerald-500/40 text-white hover:text-emerald-400 text-xs sm:text-sm font-medium shadow-xs hover:shadow-md hover:-translate-y-0.5 hover:scale-[1.03] transition-all duration-300 ease-out cursor-pointer overflow-hidden backdrop-blur-md">
+                <i class="fa-brands fa-whatsapp text-emerald-400 text-base transition-transform duration-300 group-hover:scale-125 group-hover:rotate-12"></i>
+                <span>Falar com um Vendedor</span>
               </a>
             </div>
+
           </div>
 
-          <!-- Coluna da Direita: Modelo Spline 3D iPhone -->
+          <!-- Coluna da Direita: Modelo Spline 3D iPhone (Background Dark Integrado) -->
           <div id="appSpline3D"
-            class="w-full h-[360px] sm:h-[420px] lg:h-[480px] rounded-[28px] overflow-hidden bg-[#F5F5F7] border border-black/5 hover:border-black/15 relative shadow-md hover:shadow-2xl transition-all duration-500 ease-out">
+            class="lg:col-span-5 w-full h-[340px] sm:h-[400px] lg:h-[460px] rounded-2xl sm:rounded-3xl overflow-hidden bg-black/40 border border-white/10 hover:border-white/20 relative shadow-inner transition-all duration-500 ease-out">
             <iframe src="https://my.spline.design/iphone16profreemockup-7pqWuyPajyjiV3BAcW6iXcJX/" frameborder="0"
               width="100%" height="100%" class="w-full h-full border-0"></iframe>
           </div>
@@ -487,926 +489,726 @@
   </section>
 
 
-  <!-- SESSÃO 4: CATÁLOGO DE IMÓVEIS (DIVERSIDADE DE PÚBLICO & FAIXAS DE PREÇO) -->
-  <section id="servicos" class="py-20 lg:py-28 px-4 sm:px-6 relative bg-[#F5F5F7] border-t border-black/5 font-sans">
-    <div class="max-w-7xl mx-auto">
+  <!-- SESSÃO 5: CATÁLOGO DE VEÍCULOS DE LUXO (MINI-CARROSSEL E EFEITO VER MAIS COM BLUR) -->
+  <section id="servicos" class="py-20 lg:py-28 px-4 sm:px-6 relative bg-[#0a0a0a] text-white border-t border-white/10 font-sans overflow-hidden">
+    <!-- Glow Radial Sutil de Fundo Dark -->
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.03)_0%,_transparent_70%)] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
       
       <!-- Section Title Header -->
       <div class="text-center mb-10 sm:mb-14">
         <!-- Tag Superior Pill Badge -->
         <div
-          class="bg-[#1D1D1F] text-white rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wider inline-block mb-3.5 shadow-sm">
-          <i class="fa-solid fa-building mr-1.5 text-[#C5A059]"></i> CATÁLOGO DE IMÓVEIS
+          class="bg-white/10 backdrop-blur-md border border-white/15 text-white rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wider inline-block mb-3.5 shadow-sm">
+          <i class="fa-solid fa-car mr-1.5 text-amber-400"></i> CATÁLOGO DE VEÍCULOS
         </div>
 
-        <!-- Título Principal com Animação Shimmer Prateada -->
-        <h2 class="text-3xl sm:text-5xl font-medium uppercase text-[#1D1D1F] tracking-tight leading-tight font-sans">
-          Imóveis para <span class="shimmer-silver-text font-extrabold">Todos os Perfis</span>
+        <!-- Título Principal com Animação Shimmer Dourada -->
+        <h2 class="text-3xl sm:text-5xl font-medium uppercase text-white tracking-tight leading-tight font-sans">
+          Veículos de <span class="shimmer-gold-text font-extrabold">Alta Performance</span>
         </h2>
 
         <!-- Subtítulo em Cinza Claro -->
-        <p class="text-[#86868B] text-sm sm:text-base max-w-2xl mx-auto mt-3 font-light leading-relaxed">
-          Encontre desde estúdios modernos na planta até residências de alto padrão nas melhores localizações.
+        <p class="text-zinc-400 text-sm sm:text-base max-w-2xl mx-auto mt-3 font-light leading-relaxed">
+          Confira nossas opções exclusivas de seminovos e novos com procedência garantida e vistoria cautelar 100% aprovada.
         </p>
       </div>
 
-      <!-- BLOCO DE FILTROS PREMIUM HORIZONTAL -->
-      <div class="mb-12 p-3.5 sm:p-5 bg-white/90 backdrop-blur-md rounded-2xl sm:rounded-3xl border border-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.04)] font-sans">
+      <!-- BLOCO DE FILTROS AUTOMOTIVOS HORIZONTAL (GLASSMORPHISM VITRIFICADO DARK) -->
+      <div class="mb-12 p-3.5 sm:p-5 bg-white/[0.03] backdrop-blur-md rounded-2xl sm:rounded-3xl border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] font-sans">
         <form onsubmit="event.preventDefault();" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3.5 items-end">
           
-          <!-- Filter 1: Comprar/Alugar -->
+          <!-- Filter 1: Marca -->
           <div>
-            <label class="block text-[10px] font-bold uppercase tracking-wider text-[#86868B] mb-1.5 px-1">Negócio</label>
+            <label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1.5 px-1">Marca</label>
             <div class="relative">
-              <select class="w-full bg-[#F5F5F7] hover:bg-gray-100 border border-black/5 text-[#1D1D1F] text-xs font-semibold rounded-xl px-3.5 py-2.5 appearance-none focus:outline-none focus:border-black/30 transition-all cursor-pointer">
-                <option value="comprar">Comprar</option>
-                <option value="alugar">Alugar</option>
+              <select class="w-full bg-white/[0.05] hover:bg-white/10 border border-white/10 text-white text-xs font-semibold rounded-xl px-3.5 py-2.5 appearance-none focus:outline-none focus:border-amber-400/50 transition-all cursor-pointer">
+                <option value="" class="bg-[#141414] text-white">Todas as Marcas</option>
+                <option value="audi" class="bg-[#141414] text-white">Audi</option>
+                <option value="bmw" class="bg-[#141414] text-white">BMW</option>
+                <option value="lamborghini" class="bg-[#141414] text-white">Lamborghini</option>
+                <option value="mercedes" class="bg-[#141414] text-white">Mercedes-Benz</option>
+                <option value="porsche" class="bg-[#141414] text-white">Porsche</option>
               </select>
-              <i class="fa-solid fa-chevron-down absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-[#86868B] pointer-events-none"></i>
+              <i class="fa-solid fa-chevron-down absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-zinc-400 pointer-events-none"></i>
             </div>
           </div>
 
-          <!-- Filter 2: Tipo de Imóvel -->
+          <!-- Filter 2: Condição -->
           <div>
-            <label class="block text-[10px] font-bold uppercase tracking-wider text-[#86868B] mb-1.5 px-1">Tipo de Imóvel</label>
+            <label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1.5 px-1">Condição</label>
             <div class="relative">
-              <select class="w-full bg-[#F5F5F7] hover:bg-gray-100 border border-black/5 text-[#1D1D1F] text-xs font-semibold rounded-xl px-3.5 py-2.5 appearance-none focus:outline-none focus:border-black/30 transition-all cursor-pointer">
-                <option value="">Todos os Tipos</option>
-                <option value="planta">Na Planta / Lançamento</option>
-                <option value="apartamento">Apartamento</option>
-                <option value="sobrado">Casa & Sobrado</option>
-                <option value="cobertura">Cobertura</option>
+              <select class="w-full bg-white/[0.05] hover:bg-white/10 border border-white/10 text-white text-xs font-semibold rounded-xl px-3.5 py-2.5 appearance-none focus:outline-none focus:border-amber-400/50 transition-all cursor-pointer">
+                <option value="" class="bg-[#141414] text-white">Todas as Condições</option>
+                <option value="seminovo" class="bg-[#141414] text-white">Seminovo Premium</option>
+                <option value="zero" class="bg-[#141414] text-white">Zero KM (0 km)</option>
               </select>
-              <i class="fa-solid fa-chevron-down absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-[#86868B] pointer-events-none"></i>
+              <i class="fa-solid fa-chevron-down absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-zinc-400 pointer-events-none"></i>
             </div>
           </div>
 
-          <!-- Filter 3: Localização -->
+          <!-- Filter 3: Ano -->
           <div>
-            <label class="block text-[10px] font-bold uppercase tracking-wider text-[#86868B] mb-1.5 px-1">Localização</label>
+            <label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1.5 px-1">Ano</label>
             <div class="relative">
-              <i class="fa-solid fa-location-dot absolute left-3.5 top-1/2 -translate-y-1/2 text-xs text-[#86868B]"></i>
-              <input type="text" placeholder="Ex: Itaquera, Tatuapé, Moema..." class="w-full bg-[#F5F5F7] hover:bg-gray-100 border border-black/5 text-[#1D1D1F] text-xs font-semibold rounded-xl pl-9 pr-3.5 py-2.5 focus:outline-none focus:border-black/30 transition-all placeholder-[#86868B]">
+              <select class="w-full bg-white/[0.05] hover:bg-white/10 border border-white/10 text-white text-xs font-semibold rounded-xl px-3.5 py-2.5 appearance-none focus:outline-none focus:border-amber-400/50 transition-all cursor-pointer">
+                <option value="" class="bg-[#141414] text-white">Todos os Anos</option>
+                <option value="2024" class="bg-[#141414] text-white">2024</option>
+                <option value="2023" class="bg-[#141414] text-white">2023</option>
+                <option value="2022" class="bg-[#141414] text-white">2022</option>
+              </select>
+              <i class="fa-solid fa-chevron-down absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-zinc-400 pointer-events-none"></i>
             </div>
           </div>
 
-          <!-- Filter 4: Quartos -->
+          <!-- Filter 4: Transmissão -->
           <div>
-            <label class="block text-[10px] font-bold uppercase tracking-wider text-[#86868B] mb-1.5 px-1">Quartos / Suítes</label>
+            <label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1.5 px-1">Transmissão</label>
             <div class="relative">
-              <select class="w-full bg-[#F5F5F7] hover:bg-gray-100 border border-black/5 text-[#1D1D1F] text-xs font-semibold rounded-xl px-3.5 py-2.5 appearance-none focus:outline-none focus:border-black/30 transition-all cursor-pointer">
-                <option value="">Todas as Opções</option>
-                <option value="1">1+ Quarto</option>
-                <option value="2">2+ Quartos</option>
-                <option value="3">3+ Quartos</option>
-                <option value="4">4+ Suítes</option>
+              <select class="w-full bg-white/[0.05] hover:bg-white/10 border border-white/10 text-white text-xs font-semibold rounded-xl px-3.5 py-2.5 appearance-none focus:outline-none focus:border-amber-400/50 transition-all cursor-pointer">
+                <option value="" class="bg-[#141414] text-white">Qualquer Transmissão</option>
+                <option value="automatica" class="bg-[#141414] text-white">Automática / PDK</option>
+                <option value="eletrica" class="bg-[#141414] text-white">100% Elétrica</option>
               </select>
-              <i class="fa-solid fa-chevron-down absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-[#86868B] pointer-events-none"></i>
+              <i class="fa-solid fa-chevron-down absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-zinc-400 pointer-events-none"></i>
             </div>
           </div>
 
           <!-- Filter 5: Faixa de Preço -->
           <div>
-            <label class="block text-[10px] font-bold uppercase tracking-wider text-[#86868B] mb-1.5 px-1">Faixa de Preço</label>
+            <label class="block text-[10px] font-bold uppercase tracking-wider text-zinc-400 mb-1.5 px-1">Faixa de Preço</label>
             <div class="relative">
-              <select class="w-full bg-[#F5F5F7] hover:bg-gray-100 border border-black/5 text-[#1D1D1F] text-xs font-semibold rounded-xl px-3.5 py-2.5 appearance-none focus:outline-none focus:border-black/30 transition-all cursor-pointer">
-                <option value="">Qualquer Valor</option>
-                <option value="1">Até R$ 250.000</option>
-                <option value="2">R$ 250.000 a R$ 600.000</option>
-                <option value="3">R$ 600.000 a R$ 1.000.000</option>
-                <option value="4">R$ 1.000.000 a R$ 1.500.000</option>
+              <select class="w-full bg-white/[0.05] hover:bg-white/10 border border-white/10 text-white text-xs font-semibold rounded-xl px-3.5 py-2.5 appearance-none focus:outline-none focus:border-amber-400/50 transition-all cursor-pointer">
+                <option value="" class="bg-[#141414] text-white">Qualquer Valor</option>
+                <option value="1" class="bg-[#141414] text-white">Até R$ 500.000</option>
+                <option value="2" class="bg-[#141414] text-white">R$ 500.000 a R$ 1.000.000</option>
+                <option value="3" class="bg-[#141414] text-white">R$ 1.000.000 a R$ 2.000.000</option>
+                <option value="4" class="bg-[#141414] text-white">Acima de R$ 2.000.000</option>
               </select>
-              <i class="fa-solid fa-chevron-down absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-[#86868B] pointer-events-none"></i>
+              <i class="fa-solid fa-chevron-down absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-zinc-400 pointer-events-none"></i>
             </div>
           </div>
 
-          <!-- Filter 6: Botão Buscar Imóveis -->
+          <!-- Filter 6: Botão Buscar Veículos em Gradiente Dourado -->
           <div class="sm:col-span-2 lg:col-span-1 pt-2 sm:pt-0">
-            <button type="submit" class="w-full bg-[#1D1D1F] hover:bg-black text-white py-2.5 px-4 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-md hover:scale-[1.02] active:scale-95 transition-all duration-300 cursor-pointer">
-              <i class="fa-solid fa-magnifying-glass text-xs"></i>
-              <span>Buscar Imóveis</span>
+            <button type="submit" class="w-full bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black py-2.5 px-4 rounded-xl text-xs font-extrabold uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40 hover:scale-[1.02] active:scale-95 transition-all duration-300 cursor-pointer">
+              <i class="fa-solid fa-magnifying-glass text-xs text-black"></i>
+              <span>Buscar</span>
             </button>
           </div>
 
         </form>
       </div>
 
-      <!-- Real Estate Cards Grid (6 Cards com Layout Interno Completo) -->
+      <!-- Luxury Car Cards Grid (6 Cards com Glassmorphism Fosco Vitrificado & Toques Dourados) -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-        <!-- Card 1: Na Planta - R$ 190.000 -->
-        <div
-          class="property-card group bg-white rounded-2xl overflow-hidden border border-black/5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_36px_rgba(0,0,0,0.08)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between cursor-pointer">
-          <div class="w-full h-56 sm:h-64 bg-[#F5F5F7] overflow-hidden relative border-b border-black/5">
-            <img src="ap-1.jpg" alt="Studio Smart Itaquera" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-            <div class="absolute top-3 left-3 bg-[#1D1D1F]/90 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
-              Na Planta
+        <!-- Card 1: Ferrari 458 Italia -->
+        <div class="property-card car-card group bg-[#141414]/40 backdrop-blur-[16px] rounded-2xl overflow-hidden border border-amber-500/15 shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)] hover:border-amber-400/50 hover:bg-[#1a1a1a]/60 hover:shadow-[0_20px_40px_rgba(217,119,6,0.15)] hover:-translate-y-2 transition-all duration-400 ease-out flex flex-col justify-between cursor-pointer">
+          <!-- Mini-Carrossel de Imagens -->
+          <div class="car-gallery-container w-full h-56 sm:h-64 bg-black/60 overflow-hidden relative border-b border-white/10 select-none">
+            <div class="car-slides-track flex w-full h-full transition-transform duration-400 ease-in-out">
+              <img src="carro-1.webp" alt="Ferrari 458 Italia - Ângulo Principal" class="car-slide-img w-full h-full object-cover shrink-0">
+              <img src="carro-1.webp" alt="Ferrari 458 Italia - Lateral" class="car-slide-img w-full h-full object-cover shrink-0">
+              <img src="carro-1.webp" alt="Ferrari 458 Italia - Traseira" class="car-slide-img w-full h-full object-cover shrink-0">
             </div>
-            <div class="absolute top-3 right-3 bg-emerald-500/90 backdrop-blur-md text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1">
-              <i class="fa-solid fa-house text-white text-[9px]"></i> Minha Casa Minha Vida
+
+            <!-- Badges Flutuantes -->
+            <div class="absolute top-3 left-3 z-10 bg-black/70 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-md pointer-events-none">
+              Seminovo
+            </div>
+            <div class="absolute top-3 right-3 z-10 bg-gradient-to-r from-amber-500/90 to-amber-600/90 backdrop-blur-md text-black text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-md shadow-amber-500/20 flex items-center gap-1 pointer-events-none">
+              <i class="fa-solid fa-crown text-black text-[9px]"></i> Supercarro
+            </div>
+
+            <!-- Setas Discretas de Navegação -->
+            <button type="button" aria-label="Foto Anterior" class="gallery-nav-btn prev absolute left-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-black/75 hover:bg-amber-400 hover:text-black text-white flex items-center justify-center backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300">
+              <i class="fa-solid fa-chevron-left text-[10px]"></i>
+            </button>
+            <button type="button" aria-label="Próxima Foto" class="gallery-nav-btn next absolute right-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-black/75 hover:bg-amber-400 hover:text-black text-white flex items-center justify-center backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300">
+              <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            </button>
+
+            <!-- Dots Indicadores -->
+            <div class="gallery-dots absolute bottom-2.5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 pointer-events-none">
+              <span class="dot active"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+
+            <!-- Blur Overlay "Ver Mais" -->
+            <div class="ver-mais-overlay absolute inset-0 z-30 bg-black/80 backdrop-blur-md flex flex-col items-center justify-center text-center p-4 opacity-0 pointer-events-none transition-all duration-400 ease-in-out cursor-pointer">
+              <div class="w-11 h-11 rounded-full bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 mb-2 shadow-2xl hover:scale-110 transition-transform">
+                <i class="fa-solid fa-plus text-base text-amber-400"></i>
+              </div>
+              <span class="text-white font-bold text-xs uppercase tracking-wider mb-0.5">Ver Mais Fotos</span>
+              <span class="text-zinc-400 text-[10px] font-light">Ver galeria completa e ficha técnica →</span>
             </div>
           </div>
-          <div class="p-5 flex-grow flex flex-col justify-between space-y-4">
+
+          <div class="p-5 flex-grow flex flex-col justify-between space-y-4 font-sans">
             <div>
-              <div class="flex items-center gap-1.5 text-[#86868B] text-xs font-medium mb-1">
-                <i class="fa-solid fa-location-dot text-xs text-[#86868B]"></i>
-                <span>Itaquera, São Paulo - SP</span>
+              <div class="flex items-center gap-1.5 text-amber-400/90 text-xs font-semibold uppercase tracking-wider mb-1">
+                <i class="fa-solid fa-car text-xs text-amber-400/80"></i>
+                <span>Ferrari • 2015</span>
               </div>
-              <h3 class="text-lg sm:text-xl font-bold text-[#1D1D1F] tracking-tight group-hover:text-black transition-colors">
-                Studio Smart Itaquera
+              <h3 class="text-lg sm:text-xl font-extrabold text-white tracking-tight group-hover:text-amber-300 transition-colors">
+                Ferrari 458 Italia V8 570cv
               </h3>
             </div>
-            <div class="grid grid-cols-3 gap-2 py-2.5 px-3 bg-[#F5F5F7] rounded-xl border border-black/5 text-center text-xs text-[#1D1D1F] font-semibold">
+            <div class="grid grid-cols-3 gap-2 py-2.5 px-3 bg-white/[0.04] backdrop-blur-md rounded-xl border border-white/10 text-center text-xs text-zinc-200 font-semibold shadow-inner">
               <div class="flex items-center justify-center gap-1.5">
-                <i class="fa-solid fa-bed text-[#86868B]"></i>
-                <span>1 Quarto</span>
+                <i class="fa-solid fa-calendar-days text-amber-400/80"></i>
+                <span>2015</span>
               </div>
-              <div class="flex items-center justify-center gap-1.5 border-x border-black/10 px-1">
-                <i class="fa-solid fa-car text-[#86868B]"></i>
-                <span>0 Vagas</span>
+              <div class="flex items-center justify-center gap-1.5 border-x border-white/10 px-1">
+                <i class="fa-solid fa-gauge-high text-amber-400/80"></i>
+                <span>14.800 km</span>
               </div>
               <div class="flex items-center justify-center gap-1.5">
-                <i class="fa-solid fa-ruler-combined text-[#86868B]"></i>
-                <span>36 m²</span>
+                <i class="fa-solid fa-bolt text-amber-400/80"></i>
+                <span>4.5 V8</span>
               </div>
             </div>
-            <div class="pt-1 flex items-center justify-between border-t border-black/5">
+            <div class="pt-1 flex items-center justify-between border-t border-white/10">
               <div>
-                <span class="text-[10px] text-[#86868B] uppercase tracking-wider block font-medium">Valor a partir de</span>
-                <span class="text-lg sm:text-xl font-extrabold text-[#1D1D1F]">R$ 190.000</span>
+                <span class="text-[10px] text-zinc-400 uppercase tracking-widest block font-bold">Valor de Venda</span>
+                <span class="text-lg sm:text-xl font-black text-white group-hover:text-amber-400 transition-colors">R$ 2.450.000</span>
               </div>
-              <span class="w-8 h-8 rounded-full bg-[#1D1D1F] text-white flex items-center justify-center text-xs group-hover:scale-110 group-hover:bg-black transition-all shadow-xs">
+              <span class="w-9 h-9 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 text-black flex items-center justify-center text-xs font-extrabold shadow-md shadow-amber-500/20 group-hover:scale-110 group-hover:shadow-amber-500/40 group-hover:from-amber-300 group-hover:to-amber-500 transition-all duration-300">
                 ↗
               </span>
             </div>
           </div>
         </div>
 
-        <!-- Card 2: Entrada / Econômico - R$ 290.000 -->
-        <div
-          class="property-card group bg-white rounded-2xl overflow-hidden border border-black/5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_36px_rgba(0,0,0,0.08)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between cursor-pointer">
-          <div class="w-full h-56 sm:h-64 bg-[#F5F5F7] overflow-hidden relative border-b border-black/5">
-            <img src="ap-2.webp" alt="Apartamento Residencial Jardim das Flores" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-            <div class="absolute top-3 left-3 bg-[#1D1D1F]/90 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
-              Venda
+        <!-- Card 2: BMW M2 Coupé (G87) -->
+        <div class="property-card car-card group bg-[#141414]/40 backdrop-blur-[16px] rounded-2xl overflow-hidden border border-amber-500/15 shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)] hover:border-amber-400/50 hover:bg-[#1a1a1a]/60 hover:shadow-[0_20px_40px_rgba(217,119,6,0.15)] hover:-translate-y-2 transition-all duration-400 ease-out flex flex-col justify-between cursor-pointer">
+          <!-- Mini-Carrossel de Imagens -->
+          <div class="car-gallery-container w-full h-56 sm:h-64 bg-black/60 overflow-hidden relative border-b border-white/10 select-none">
+            <div class="car-slides-track flex w-full h-full transition-transform duration-400 ease-in-out">
+              <img src="carros-2.jpg" alt="BMW M2 Coupé G87 - Foto 1" class="car-slide-img w-full h-full object-cover shrink-0">
+              <img src="carros-2.jpg" alt="BMW M2 Coupé G87 - Foto 2" class="car-slide-img w-full h-full object-cover shrink-0">
+              <img src="carros-2.jpg" alt="BMW M2 Coupé G87 - Foto 3" class="car-slide-img w-full h-full object-cover shrink-0">
             </div>
-            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-md text-[#1D1D1F] text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1">
-              <i class="fa-solid fa-key text-amber-500 text-[9px]"></i> Pronto para Morar
+
+            <!-- Badges Flutuantes -->
+            <div class="absolute top-3 left-3 z-10 bg-black/70 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-md pointer-events-none">
+              Seminovo
+            </div>
+            <div class="absolute top-3 right-3 z-10 bg-gradient-to-r from-amber-500/90 to-amber-600/90 backdrop-blur-md text-black text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-md shadow-amber-500/20 flex items-center gap-1 pointer-events-none">
+              <i class="fa-solid fa-star text-black text-[9px]"></i> Destaque
+            </div>
+
+            <!-- Setas Discretas de Navegação -->
+            <button type="button" aria-label="Foto Anterior" class="gallery-nav-btn prev absolute left-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-black/75 hover:bg-amber-400 hover:text-black text-white flex items-center justify-center backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300">
+              <i class="fa-solid fa-chevron-left text-[10px]"></i>
+            </button>
+            <button type="button" aria-label="Próxima Foto" class="gallery-nav-btn next absolute right-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-black/75 hover:bg-amber-400 hover:text-black text-white flex items-center justify-center backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300">
+              <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            </button>
+
+            <!-- Dots Indicadores -->
+            <div class="gallery-dots absolute bottom-2.5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 pointer-events-none">
+              <span class="dot active"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+
+            <!-- Blur Overlay "Ver Mais" -->
+            <div class="ver-mais-overlay absolute inset-0 z-30 bg-black/80 backdrop-blur-md flex flex-col items-center justify-center text-center p-4 opacity-0 pointer-events-none transition-all duration-400 ease-in-out cursor-pointer">
+              <div class="w-11 h-11 rounded-full bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 mb-2 shadow-2xl hover:scale-110 transition-transform">
+                <i class="fa-solid fa-plus text-base text-amber-400"></i>
+              </div>
+              <span class="text-white font-bold text-xs uppercase tracking-wider mb-0.5">Ver Mais Fotos</span>
+              <span class="text-zinc-400 text-[10px] font-light">Ver galeria completa e detalhes →</span>
             </div>
           </div>
-          <div class="p-5 flex-grow flex flex-col justify-between space-y-4">
+
+          <div class="p-5 flex-grow flex flex-col justify-between space-y-4 font-sans">
             <div>
-              <div class="flex items-center gap-1.5 text-[#86868B] text-xs font-medium mb-1">
-                <i class="fa-solid fa-location-dot text-xs text-[#86868B]"></i>
-                <span>Campo Limpo, São Paulo - SP</span>
+              <div class="flex items-center gap-1.5 text-amber-400/90 text-xs font-semibold uppercase tracking-wider mb-1">
+                <i class="fa-solid fa-car text-xs text-amber-400/80"></i>
+                <span>BMW • 2024</span>
               </div>
-              <h3 class="text-lg sm:text-xl font-bold text-[#1D1D1F] tracking-tight group-hover:text-black transition-colors">
-                Apartamento Jardim das Flores
+              <h3 class="text-lg sm:text-xl font-extrabold text-white tracking-tight group-hover:text-amber-300 transition-colors">
+                BMW M2 Coupé G87 460cv
               </h3>
             </div>
-            <div class="grid grid-cols-3 gap-2 py-2.5 px-3 bg-[#F5F5F7] rounded-xl border border-black/5 text-center text-xs text-[#1D1D1F] font-semibold">
+            <div class="grid grid-cols-3 gap-2 py-2.5 px-3 bg-white/[0.04] backdrop-blur-md rounded-xl border border-white/10 text-center text-xs text-zinc-200 font-semibold shadow-inner">
               <div class="flex items-center justify-center gap-1.5">
-                <i class="fa-solid fa-bed text-[#86868B]"></i>
-                <span>2 Quartos</span>
+                <i class="fa-solid fa-calendar-days text-amber-400/80"></i>
+                <span>2024</span>
               </div>
-              <div class="flex items-center justify-center gap-1.5 border-x border-black/10 px-1">
-                <i class="fa-solid fa-car text-[#86868B]"></i>
-                <span>1 Vaga</span>
+              <div class="flex items-center justify-center gap-1.5 border-x border-white/10 px-1">
+                <i class="fa-solid fa-gauge-high text-amber-400/80"></i>
+                <span>3.200 km</span>
               </div>
               <div class="flex items-center justify-center gap-1.5">
-                <i class="fa-solid fa-ruler-combined text-[#86868B]"></i>
-                <span>52 m²</span>
+                <i class="fa-solid fa-bolt text-amber-400/80"></i>
+                <span>3.0 Bi-Turbo</span>
               </div>
             </div>
-            <div class="pt-1 flex items-center justify-between border-t border-black/5">
+            <div class="pt-1 flex items-center justify-between border-t border-white/10">
               <div>
-                <span class="text-[10px] text-[#86868B] uppercase tracking-wider block font-medium">Valor de Venda</span>
-                <span class="text-lg sm:text-xl font-extrabold text-[#1D1D1F]">R$ 290.000</span>
+                <span class="text-[10px] text-zinc-400 uppercase tracking-widest block font-bold">Valor de Venda</span>
+                <span class="text-lg sm:text-xl font-black text-white group-hover:text-amber-400 transition-colors">R$ 620.000</span>
               </div>
-              <span class="w-8 h-8 rounded-full bg-[#1D1D1F] text-white flex items-center justify-center text-xs group-hover:scale-110 group-hover:bg-black transition-all shadow-xs">
+              <span class="w-9 h-9 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 text-black flex items-center justify-center text-xs font-extrabold shadow-md shadow-amber-500/20 group-hover:scale-110 group-hover:shadow-amber-500/40 group-hover:from-amber-300 group-hover:to-amber-500 transition-all duration-300">
                 ↗
               </span>
             </div>
           </div>
         </div>
 
-        <!-- Card 3: Médio Padrão - R$ 480.000 -->
-        <div
-          class="property-card group bg-white rounded-2xl overflow-hidden border border-black/5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_36px_rgba(0,0,0,0.08)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between cursor-pointer">
-          <div class="w-full h-56 sm:h-64 bg-[#F5F5F7] overflow-hidden relative border-b border-black/5">
-            <img src="casa-1.avif" alt="Sobrado em Condomínio Fechado" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-            <div class="absolute top-3 left-3 bg-[#1D1D1F]/90 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
-              Venda
+        <!-- Card 3: McLaren 600LT -->
+        <div class="property-card car-card group bg-[#141414]/40 backdrop-blur-[16px] rounded-2xl overflow-hidden border border-amber-500/15 shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)] hover:border-amber-400/50 hover:bg-[#1a1a1a]/60 hover:shadow-[0_20px_40px_rgba(217,119,6,0.15)] hover:-translate-y-2 transition-all duration-400 ease-out flex flex-col justify-between cursor-pointer">
+          <!-- Mini-Carrossel de Imagens -->
+          <div class="car-gallery-container w-full h-56 sm:h-64 bg-black/60 overflow-hidden relative border-b border-white/10 select-none">
+            <div class="car-slides-track flex w-full h-full transition-transform duration-400 ease-in-out">
+              <img src="carros-3.webp" alt="McLaren 600LT - Foto 1" class="car-slide-img w-full h-full object-cover shrink-0">
+              <img src="carros-3.webp" alt="McLaren 600LT - Foto 2" class="car-slide-img w-full h-full object-cover shrink-0">
+              <img src="carros-3.webp" alt="McLaren 600LT - Foto 3" class="car-slide-img w-full h-full object-cover shrink-0">
             </div>
-            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-md text-[#1D1D1F] text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1">
-              <i class="fa-solid fa-tags text-amber-500 text-[9px]"></i> Oportunidade
+
+            <!-- Badges Flutuantes -->
+            <div class="absolute top-3 left-3 z-10 bg-black/70 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-md pointer-events-none">
+              Seminovo
+            </div>
+            <div class="absolute top-3 right-3 z-10 bg-gradient-to-r from-amber-500/90 to-amber-600/90 backdrop-blur-md text-black text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-md shadow-amber-500/20 flex items-center gap-1 pointer-events-none">
+              <i class="fa-solid fa-fire text-black text-[9px]"></i> Exclusivo
+            </div>
+
+            <!-- Setas Discretas de Navegação -->
+            <button type="button" aria-label="Foto Anterior" class="gallery-nav-btn prev absolute left-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-black/75 hover:bg-amber-400 hover:text-black text-white flex items-center justify-center backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300">
+              <i class="fa-solid fa-chevron-left text-[10px]"></i>
+            </button>
+            <button type="button" aria-label="Próxima Foto" class="gallery-nav-btn next absolute right-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-black/75 hover:bg-amber-400 hover:text-black text-white flex items-center justify-center backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300">
+              <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            </button>
+
+            <!-- Dots Indicadores -->
+            <div class="gallery-dots absolute bottom-2.5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 pointer-events-none">
+              <span class="dot active"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+
+            <!-- Blur Overlay "Ver Mais" -->
+            <div class="ver-mais-overlay absolute inset-0 z-30 bg-black/80 backdrop-blur-md flex flex-col items-center justify-center text-center p-4 opacity-0 pointer-events-none transition-all duration-400 ease-in-out cursor-pointer">
+              <div class="w-11 h-11 rounded-full bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 mb-2 shadow-2xl hover:scale-110 transition-transform">
+                <i class="fa-solid fa-plus text-base text-amber-400"></i>
+              </div>
+              <span class="text-white font-bold text-xs uppercase tracking-wider mb-0.5">Ver Mais Fotos</span>
+              <span class="text-zinc-400 text-[10px] font-light">Ver galeria completa e detalhes →</span>
             </div>
           </div>
-          <div class="p-5 flex-grow flex flex-col justify-between space-y-4">
+
+          <div class="p-5 flex-grow flex flex-col justify-between space-y-4 font-sans">
             <div>
-              <div class="flex items-center gap-1.5 text-[#86868B] text-xs font-medium mb-1">
-                <i class="fa-solid fa-location-dot text-xs text-[#86868B]"></i>
-                <span>Vila Matilde, São Paulo - SP</span>
+              <div class="flex items-center gap-1.5 text-amber-400/90 text-xs font-semibold uppercase tracking-wider mb-1">
+                <i class="fa-solid fa-car text-xs text-amber-400/80"></i>
+                <span>McLaren • 2020</span>
               </div>
-              <h3 class="text-lg sm:text-xl font-bold text-[#1D1D1F] tracking-tight group-hover:text-black transition-colors">
-                Sobrado em Condomínio Fechado
+              <h3 class="text-lg sm:text-xl font-extrabold text-white tracking-tight group-hover:text-amber-300 transition-colors">
+                McLaren 600LT Coupé 600cv
               </h3>
             </div>
-            <div class="grid grid-cols-3 gap-2 py-2.5 px-3 bg-[#F5F5F7] rounded-xl border border-black/5 text-center text-xs text-[#1D1D1F] font-semibold">
+            <div class="grid grid-cols-3 gap-2 py-2.5 px-3 bg-white/[0.04] backdrop-blur-md rounded-xl border border-white/10 text-center text-xs text-zinc-200 font-semibold shadow-inner">
               <div class="flex items-center justify-center gap-1.5">
-                <i class="fa-solid fa-bed text-[#86868B]"></i>
-                <span>3 Quartos</span>
+                <i class="fa-solid fa-calendar-days text-amber-400/80"></i>
+                <span>2020</span>
               </div>
-              <div class="flex items-center justify-center gap-1.5 border-x border-black/10 px-1">
-                <i class="fa-solid fa-car text-[#86868B]"></i>
-                <span>2 Vagas</span>
+              <div class="flex items-center justify-center gap-1.5 border-x border-white/10 px-1">
+                <i class="fa-solid fa-gauge-high text-amber-400/80"></i>
+                <span>6.500 km</span>
               </div>
               <div class="flex items-center justify-center gap-1.5">
-                <i class="fa-solid fa-ruler-combined text-[#86868B]"></i>
-                <span>98 m²</span>
+                <i class="fa-solid fa-bolt text-amber-400/80"></i>
+                <span>3.8 V8</span>
               </div>
             </div>
-            <div class="pt-1 flex items-center justify-between border-t border-black/5">
+            <div class="pt-1 flex items-center justify-between border-t border-white/10">
               <div>
-                <span class="text-[10px] text-[#86868B] uppercase tracking-wider block font-medium">Valor de Venda</span>
-                <span class="text-lg sm:text-xl font-extrabold text-[#1D1D1F]">R$ 480.000</span>
+                <span class="text-[10px] text-zinc-400 uppercase tracking-widest block font-bold">Valor de Venda</span>
+                <span class="text-lg sm:text-xl font-black text-white group-hover:text-amber-400 transition-colors">R$ 2.890.000</span>
               </div>
-              <span class="w-8 h-8 rounded-full bg-[#1D1D1F] text-white flex items-center justify-center text-xs group-hover:scale-110 group-hover:bg-black transition-all shadow-xs">
+              <span class="w-9 h-9 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 text-black flex items-center justify-center text-xs font-extrabold shadow-md shadow-amber-500/20 group-hover:scale-110 group-hover:shadow-amber-500/40 group-hover:from-amber-300 group-hover:to-amber-500 transition-all duration-300">
                 ↗
               </span>
             </div>
           </div>
         </div>
 
-        <!-- Card 4: Intermediário - R$ 720.000 -->
-        <div
-          class="property-card group bg-white rounded-2xl overflow-hidden border border-black/5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_36px_rgba(0,0,0,0.08)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between cursor-pointer">
-          <div class="w-full h-56 sm:h-64 bg-[#F5F5F7] overflow-hidden relative border-b border-black/5">
-            <img src="ap-3.png" alt="Apartamento 3 Suítes com Varanda Gourmet" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-            <div class="absolute top-3 left-3 bg-[#1D1D1F]/90 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
-              Venda
+        <!-- Card 4: BMW M2 Competition (F87) -->
+        <div class="property-card car-card group bg-[#141414]/40 backdrop-blur-[16px] rounded-2xl overflow-hidden border border-amber-500/15 shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)] hover:border-amber-400/50 hover:bg-[#1a1a1a]/60 hover:shadow-[0_20px_40px_rgba(217,119,6,0.15)] hover:-translate-y-2 transition-all duration-400 ease-out flex flex-col justify-between cursor-pointer">
+          <!-- Mini-Carrossel de Imagens -->
+          <div class="car-gallery-container w-full h-56 sm:h-64 bg-black/60 overflow-hidden relative border-b border-white/10 select-none">
+            <div class="car-slides-track flex w-full h-full transition-transform duration-400 ease-in-out">
+              <img src="carros-4.jpg" alt="BMW M2 Competition F87 - Foto 1" class="car-slide-img w-full h-full object-cover shrink-0">
+              <img src="carros-4.jpg" alt="BMW M2 Competition F87 - Foto 2" class="car-slide-img w-full h-full object-cover shrink-0">
+              <img src="carros-4.jpg" alt="BMW M2 Competition F87 - Foto 3" class="car-slide-img w-full h-full object-cover shrink-0">
             </div>
-            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-md text-[#1D1D1F] text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1">
-              <i class="fa-solid fa-star text-amber-500 text-[9px]"></i> Destaque
+
+            <!-- Badges Flutuantes -->
+            <div class="absolute top-3 left-3 z-10 bg-black/70 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-md pointer-events-none">
+              Seminovo
+            </div>
+            <div class="absolute top-3 right-3 z-10 bg-gradient-to-r from-amber-500/90 to-amber-600/90 backdrop-blur-md text-black text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-md shadow-amber-500/20 flex items-center gap-1 pointer-events-none">
+              <i class="fa-solid fa-tags text-black text-[9px]"></i> Oportunidade
+            </div>
+
+            <!-- Setas Discretas de Navegação -->
+            <button type="button" aria-label="Foto Anterior" class="gallery-nav-btn prev absolute left-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-black/75 hover:bg-amber-400 hover:text-black text-white flex items-center justify-center backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300">
+              <i class="fa-solid fa-chevron-left text-[10px]"></i>
+            </button>
+            <button type="button" aria-label="Próxima Foto" class="gallery-nav-btn next absolute right-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-black/75 hover:bg-amber-400 hover:text-black text-white flex items-center justify-center backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300">
+              <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            </button>
+
+            <!-- Dots Indicadores -->
+            <div class="gallery-dots absolute bottom-2.5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 pointer-events-none">
+              <span class="dot active"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+
+            <!-- Blur Overlay "Ver Mais" -->
+            <div class="ver-mais-overlay absolute inset-0 z-30 bg-black/80 backdrop-blur-md flex flex-col items-center justify-center text-center p-4 opacity-0 pointer-events-none transition-all duration-400 ease-in-out cursor-pointer">
+              <div class="w-11 h-11 rounded-full bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 mb-2 shadow-2xl hover:scale-110 transition-transform">
+                <i class="fa-solid fa-plus text-base text-amber-400"></i>
+              </div>
+              <span class="text-white font-bold text-xs uppercase tracking-wider mb-0.5">Ver Mais Fotos</span>
+              <span class="text-zinc-400 text-[10px] font-light">Ver galeria completa e detalhes →</span>
             </div>
           </div>
-          <div class="p-5 flex-grow flex flex-col justify-between space-y-4">
+
+          <div class="p-5 flex-grow flex flex-col justify-between space-y-4 font-sans">
             <div>
-              <div class="flex items-center gap-1.5 text-[#86868B] text-xs font-medium mb-1">
-                <i class="fa-solid fa-location-dot text-xs text-[#86868B]"></i>
-                <span>Tatuapé, São Paulo - SP</span>
+              <div class="flex items-center gap-1.5 text-amber-400/90 text-xs font-semibold uppercase tracking-wider mb-1">
+                <i class="fa-solid fa-car text-xs text-amber-400/80"></i>
+                <span>BMW • 2020</span>
               </div>
-              <h3 class="text-lg sm:text-xl font-bold text-[#1D1D1F] tracking-tight group-hover:text-black transition-colors">
-                Apartamento 3 Suítes Tatuapé
+              <h3 class="text-lg sm:text-xl font-extrabold text-white tracking-tight group-hover:text-amber-300 transition-colors">
+                BMW M2 Competition F87 410cv
               </h3>
             </div>
-            <div class="grid grid-cols-3 gap-2 py-2.5 px-3 bg-[#F5F5F7] rounded-xl border border-black/5 text-center text-xs text-[#1D1D1F] font-semibold">
+            <div class="grid grid-cols-3 gap-2 py-2.5 px-3 bg-white/[0.04] backdrop-blur-md rounded-xl border border-white/10 text-center text-xs text-zinc-200 font-semibold shadow-inner">
               <div class="flex items-center justify-center gap-1.5">
-                <i class="fa-solid fa-bed text-[#86868B]"></i>
-                <span>3 Suítes</span>
+                <i class="fa-solid fa-calendar-days text-amber-400/80"></i>
+                <span>2020</span>
               </div>
-              <div class="flex items-center justify-center gap-1.5 border-x border-black/10 px-1">
-                <i class="fa-solid fa-car text-[#86868B]"></i>
-                <span>2 Vagas</span>
+              <div class="flex items-center justify-center gap-1.5 border-x border-white/10 px-1">
+                <i class="fa-solid fa-gauge-high text-amber-400/80"></i>
+                <span>18.000 km</span>
               </div>
               <div class="flex items-center justify-center gap-1.5">
-                <i class="fa-solid fa-ruler-combined text-[#86868B]"></i>
-                <span>125 m²</span>
+                <i class="fa-solid fa-bolt text-amber-400/80"></i>
+                <span>3.0 Bi-Turbo</span>
               </div>
             </div>
-            <div class="pt-1 flex items-center justify-between border-t border-black/5">
+            <div class="pt-1 flex items-center justify-between border-t border-white/10">
               <div>
-                <span class="text-[10px] text-[#86868B] uppercase tracking-wider block font-medium">Valor de Venda</span>
-                <span class="text-lg sm:text-xl font-extrabold text-[#1D1D1F]">R$ 720.000</span>
+                <span class="text-[10px] text-zinc-400 uppercase tracking-widest block font-bold">Valor de Venda</span>
+                <span class="text-lg sm:text-xl font-black text-white group-hover:text-amber-400 transition-colors">R$ 450.000</span>
               </div>
-              <span class="w-8 h-8 rounded-full bg-[#1D1D1F] text-white flex items-center justify-center text-xs group-hover:scale-110 group-hover:bg-black transition-all shadow-xs">
+              <span class="w-9 h-9 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 text-black flex items-center justify-center text-xs font-extrabold shadow-md shadow-amber-500/20 group-hover:scale-110 group-hover:shadow-amber-500/40 group-hover:from-amber-300 group-hover:to-amber-500 transition-all duration-300">
                 ↗
               </span>
             </div>
           </div>
         </div>
 
-        <!-- Card 5: Alto Padrão - R$ 1.150.000 -->
-        <div
-          class="property-card group bg-white rounded-2xl overflow-hidden border border-black/5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_36px_rgba(0,0,0,0.08)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between cursor-pointer">
-          <div class="w-full h-56 sm:h-64 bg-[#F5F5F7] overflow-hidden relative border-b border-black/5">
-            <img src="ap-4.avif" alt="Casa Térrea Contemporânea" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-            <div class="absolute top-3 left-3 bg-[#1D1D1F]/90 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
-              Venda
+        <!-- Card 5: Mercedes-AMG S 63 Coupé -->
+        <div class="property-card car-card group bg-[#141414]/40 backdrop-blur-[16px] rounded-2xl overflow-hidden border border-amber-500/15 shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)] hover:border-amber-400/50 hover:bg-[#1a1a1a]/60 hover:shadow-[0_20px_40px_rgba(217,119,6,0.15)] hover:-translate-y-2 transition-all duration-400 ease-out flex flex-col justify-between cursor-pointer">
+          <!-- Mini-Carrossel de Imagens -->
+          <div class="car-gallery-container w-full h-56 sm:h-64 bg-black/60 overflow-hidden relative border-b border-white/10 select-none">
+            <div class="car-slides-track flex w-full h-full transition-transform duration-400 ease-in-out">
+              <img src="carros-5.jpg" alt="Mercedes-AMG S 63 Coupé - Foto 1" class="car-slide-img w-full h-full object-cover shrink-0">
+              <img src="carros-5.jpg" alt="Mercedes-AMG S 63 Coupé - Foto 2" class="car-slide-img w-full h-full object-cover shrink-0">
+              <img src="carros-5.jpg" alt="Mercedes-AMG S 63 Coupé - Foto 3" class="car-slide-img w-full h-full object-cover shrink-0">
             </div>
-            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-md text-[#1D1D1F] text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1">
-              <i class="fa-solid fa-shield-halved text-amber-500 text-[9px]"></i> Alto Padrão
+
+            <!-- Badges Flutuantes -->
+            <div class="absolute top-3 left-3 z-10 bg-black/70 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-md pointer-events-none">
+              Seminovo
+            </div>
+            <div class="absolute top-3 right-3 z-10 bg-gradient-to-r from-amber-500/90 to-amber-600/90 backdrop-blur-md text-black text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-md shadow-amber-500/20 flex items-center gap-1 pointer-events-none">
+              <i class="fa-solid fa-shield-halved text-black text-[9px]"></i> Alto Padrão
+            </div>
+
+            <!-- Setas Discretas de Navegação -->
+            <button type="button" aria-label="Foto Anterior" class="gallery-nav-btn prev absolute left-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-black/75 hover:bg-amber-400 hover:text-black text-white flex items-center justify-center backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300">
+              <i class="fa-solid fa-chevron-left text-[10px]"></i>
+            </button>
+            <button type="button" aria-label="Próxima Foto" class="gallery-nav-btn next absolute right-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-black/75 hover:bg-amber-400 hover:text-black text-white flex items-center justify-center backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300">
+              <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            </button>
+
+            <!-- Dots Indicadores -->
+            <div class="gallery-dots absolute bottom-2.5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 pointer-events-none">
+              <span class="dot active"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+
+            <!-- Blur Overlay "Ver Mais" -->
+            <div class="ver-mais-overlay absolute inset-0 z-30 bg-black/80 backdrop-blur-md flex flex-col items-center justify-center text-center p-4 opacity-0 pointer-events-none transition-all duration-400 ease-in-out cursor-pointer">
+              <div class="w-11 h-11 rounded-full bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 mb-2 shadow-2xl hover:scale-110 transition-transform">
+                <i class="fa-solid fa-plus text-base text-amber-400"></i>
+              </div>
+              <span class="text-white font-bold text-xs uppercase tracking-wider mb-0.5">Ver Mais Fotos</span>
+              <span class="text-zinc-400 text-[10px] font-light">Ver galeria completa e detalhes →</span>
             </div>
           </div>
-          <div class="p-5 flex-grow flex flex-col justify-between space-y-4">
+
+          <div class="p-5 flex-grow flex flex-col justify-between space-y-4 font-sans">
             <div>
-              <div class="flex items-center gap-1.5 text-[#86868B] text-xs font-medium mb-1">
-                <i class="fa-solid fa-location-dot text-xs text-[#86868B]"></i>
-                <span>Santana, São Paulo - SP</span>
+              <div class="flex items-center gap-1.5 text-amber-400/90 text-xs font-semibold uppercase tracking-wider mb-1">
+                <i class="fa-solid fa-car text-xs text-amber-400/80"></i>
+                <span>Mercedes-Benz • 2018</span>
               </div>
-              <h3 class="text-lg sm:text-xl font-bold text-[#1D1D1F] tracking-tight group-hover:text-black transition-colors">
-                Casa Térrea Contemporânea
+              <h3 class="text-lg sm:text-xl font-extrabold text-white tracking-tight group-hover:text-amber-300 transition-colors">
+                Mercedes-AMG S 63 Coupé V8 612cv
               </h3>
             </div>
-            <div class="grid grid-cols-3 gap-2 py-2.5 px-3 bg-[#F5F5F7] rounded-xl border border-black/5 text-center text-xs text-[#1D1D1F] font-semibold">
+            <div class="grid grid-cols-3 gap-2 py-2.5 px-3 bg-white/[0.04] backdrop-blur-md rounded-xl border border-white/10 text-center text-xs text-zinc-200 font-semibold shadow-inner">
               <div class="flex items-center justify-center gap-1.5">
-                <i class="fa-solid fa-bed text-[#86868B]"></i>
-                <span>4 Suítes</span>
+                <i class="fa-solid fa-calendar-days text-amber-400/80"></i>
+                <span>2018</span>
               </div>
-              <div class="flex items-center justify-center gap-1.5 border-x border-black/10 px-1">
-                <i class="fa-solid fa-car text-[#86868B]"></i>
-                <span>3 Vagas</span>
+              <div class="flex items-center justify-center gap-1.5 border-x border-white/10 px-1">
+                <i class="fa-solid fa-gauge-high text-amber-400/80"></i>
+                <span>24.000 km</span>
               </div>
               <div class="flex items-center justify-center gap-1.5">
-                <i class="fa-solid fa-ruler-combined text-[#86868B]"></i>
-                <span>240 m²</span>
+                <i class="fa-solid fa-bolt text-amber-400/80"></i>
+                <span>4.0 V8</span>
               </div>
             </div>
-            <div class="pt-1 flex items-center justify-between border-t border-black/5">
+            <div class="pt-1 flex items-center justify-between border-t border-white/10">
               <div>
-                <span class="text-[10px] text-[#86868B] uppercase tracking-wider block font-medium">Valor de Venda</span>
-                <span class="text-lg sm:text-xl font-extrabold text-[#1D1D1F]">R$ 1.150.000</span>
+                <span class="text-[10px] text-zinc-400 uppercase tracking-widest block font-bold">Valor de Venda</span>
+                <span class="text-lg sm:text-xl font-black text-white group-hover:text-amber-400 transition-colors">R$ 890.000</span>
               </div>
-              <span class="w-8 h-8 rounded-full bg-[#1D1D1F] text-white flex items-center justify-center text-xs group-hover:scale-110 group-hover:bg-black transition-all shadow-xs">
+              <span class="w-9 h-9 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 text-black flex items-center justify-center text-xs font-extrabold shadow-md shadow-amber-500/20 group-hover:scale-110 group-hover:shadow-amber-500/40 group-hover:from-amber-300 group-hover:to-amber-500 transition-all duration-300">
                 ↗
               </span>
             </div>
           </div>
         </div>
 
-        <!-- Card 6: Alto Padrão Exclusivo - R$ 1.490.000 -->
-        <div
-          class="property-card group bg-white rounded-2xl overflow-hidden border border-black/5 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_36px_rgba(0,0,0,0.08)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between cursor-pointer">
-          <div class="w-full h-56 sm:h-64 bg-[#F5F5F7] overflow-hidden relative border-b border-black/5">
-            <img src="ap-5.webp" alt="Cobertura Duplex em Moema" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-            <div class="absolute top-3 left-3 bg-[#1D1D1F]/90 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
-              Venda
+        <!-- Card 6: Porsche 911 Turbo S (992) -->
+        <div class="property-card car-card group bg-[#141414]/40 backdrop-blur-[16px] rounded-2xl overflow-hidden border border-amber-500/15 shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)] hover:border-amber-400/50 hover:bg-[#1a1a1a]/60 hover:shadow-[0_20px_40px_rgba(217,119,6,0.15)] hover:-translate-y-2 transition-all duration-400 ease-out flex flex-col justify-between cursor-pointer">
+          <!-- Mini-Carrossel de Imagens -->
+          <div class="car-gallery-container w-full h-56 sm:h-64 bg-black/60 overflow-hidden relative border-b border-white/10 select-none">
+            <div class="car-slides-track flex w-full h-full transition-transform duration-400 ease-in-out">
+              <img src="carros-6.jpg" alt="Porsche 911 Turbo S 992 - Foto 1" class="car-slide-img w-full h-full object-cover shrink-0">
+              <img src="carros-6.jpg" alt="Porsche 911 Turbo S 992 - Foto 2" class="car-slide-img w-full h-full object-cover shrink-0">
+              <img src="carros-6.jpg" alt="Porsche 911 Turbo S 992 - Foto 3" class="car-slide-img w-full h-full object-cover shrink-0">
             </div>
-            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-md text-[#1D1D1F] text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1">
-              <i class="fa-solid fa-crown text-amber-500 text-[9px]"></i> Exclusivo
+
+            <!-- Badges Flutuantes -->
+            <div class="absolute top-3 left-3 z-10 bg-black/70 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-md pointer-events-none">
+              Seminovo
+            </div>
+            <div class="absolute top-3 right-3 z-10 bg-gradient-to-r from-amber-500/90 to-amber-600/90 backdrop-blur-md text-black text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-md shadow-amber-500/20 flex items-center gap-1 pointer-events-none">
+              <i class="fa-solid fa-trophy text-black text-[9px]"></i> Destaque
+            </div>
+
+            <!-- Setas Discretas de Navegação -->
+            <button type="button" aria-label="Foto Anterior" class="gallery-nav-btn prev absolute left-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-black/75 hover:bg-amber-400 hover:text-black text-white flex items-center justify-center backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300">
+              <i class="fa-solid fa-chevron-left text-[10px]"></i>
+            </button>
+            <button type="button" aria-label="Próxima Foto" class="gallery-nav-btn next absolute right-2 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-black/75 hover:bg-amber-400 hover:text-black text-white flex items-center justify-center backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300">
+              <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            </button>
+
+            <!-- Dots Indicadores -->
+            <div class="gallery-dots absolute bottom-2.5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 pointer-events-none">
+              <span class="dot active"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+
+            <!-- Blur Overlay "Ver Mais" -->
+            <div class="ver-mais-overlay absolute inset-0 z-30 bg-black/80 backdrop-blur-md flex flex-col items-center justify-center text-center p-4 opacity-0 pointer-events-none transition-all duration-400 ease-in-out cursor-pointer">
+              <div class="w-11 h-11 rounded-full bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 mb-2 shadow-2xl hover:scale-110 transition-transform">
+                <i class="fa-solid fa-plus text-base text-amber-400"></i>
+              </div>
+              <span class="text-white font-bold text-xs uppercase tracking-wider mb-0.5">Ver Mais Fotos</span>
+              <span class="text-zinc-400 text-[10px] font-light">Ver galeria completa e detalhes →</span>
             </div>
           </div>
-          <div class="p-5 flex-grow flex flex-col justify-between space-y-4">
+
+          <div class="p-5 flex-grow flex flex-col justify-between space-y-4 font-sans">
             <div>
-              <div class="flex items-center gap-1.5 text-[#86868B] text-xs font-medium mb-1">
-                <i class="fa-solid fa-location-dot text-xs text-[#86868B]"></i>
-                <span>Moema, São Paulo - SP</span>
+              <div class="flex items-center gap-1.5 text-amber-400/90 text-xs font-semibold uppercase tracking-wider mb-1">
+                <i class="fa-solid fa-car text-xs text-amber-400/80"></i>
+                <span>Porsche • 2023</span>
               </div>
-              <h3 class="text-lg sm:text-xl font-bold text-[#1D1D1F] tracking-tight group-hover:text-black transition-colors">
-                Cobertura Duplex em Moema
+              <h3 class="text-lg sm:text-xl font-extrabold text-white tracking-tight group-hover:text-amber-300 transition-colors">
+                Porsche 911 Turbo S 992 650cv
               </h3>
             </div>
-            <div class="grid grid-cols-3 gap-2 py-2.5 px-3 bg-[#F5F5F7] rounded-xl border border-black/5 text-center text-xs text-[#1D1D1F] font-semibold">
+            <div class="grid grid-cols-3 gap-2 py-2.5 px-3 bg-white/[0.04] backdrop-blur-md rounded-xl border border-white/10 text-center text-xs text-zinc-200 font-semibold shadow-inner">
               <div class="flex items-center justify-center gap-1.5">
-                <i class="fa-solid fa-bed text-[#86868B]"></i>
-                <span>4 Suítes</span>
+                <i class="fa-solid fa-calendar-days text-amber-400/80"></i>
+                <span>2023</span>
               </div>
-              <div class="flex items-center justify-center gap-1.5 border-x border-black/10 px-1">
-                <i class="fa-solid fa-car text-[#86868B]"></i>
-                <span>4 Vagas</span>
+              <div class="flex items-center justify-center gap-1.5 border-x border-white/10 px-1">
+                <i class="fa-solid fa-gauge-high text-amber-400/80"></i>
+                <span>5.100 km</span>
               </div>
               <div class="flex items-center justify-center gap-1.5">
-                <i class="fa-solid fa-ruler-combined text-[#86868B]"></i>
-                <span>280 m²</span>
+                <i class="fa-solid fa-bolt text-amber-400/80"></i>
+                <span>3.7 Boxer</span>
               </div>
             </div>
-            <div class="pt-1 flex items-center justify-between border-t border-black/5">
+            <div class="pt-1 flex items-center justify-between border-t border-white/10">
               <div>
-                <span class="text-[10px] text-[#86868B] uppercase tracking-wider block font-medium">Valor de Venda</span>
-                <span class="text-lg sm:text-xl font-extrabold text-[#1D1D1F]">R$ 1.490.000</span>
+                <span class="text-[10px] text-zinc-400 uppercase tracking-widest block font-bold">Valor de Venda</span>
+                <span class="text-lg sm:text-xl font-black text-white group-hover:text-amber-400 transition-colors">R$ 1.980.000</span>
               </div>
-              <span class="w-8 h-8 rounded-full bg-[#1D1D1F] text-white flex items-center justify-center text-xs group-hover:scale-110 group-hover:bg-black transition-all shadow-xs">
+              <span class="w-9 h-9 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 text-black flex items-center justify-center text-xs font-extrabold shadow-md shadow-amber-500/20 group-hover:scale-110 group-hover:shadow-amber-500/40 group-hover:from-amber-300 group-hover:to-amber-500 transition-all duration-300">
                 ↗
               </span>
             </div>
           </div>
-        </div>
-
       </div>
+<!-- CSS do mini-carrossel de imagens e Blur Overlay -->
+      <style>
+        .car-[#servicos] {
+          position: relative;
+        }
+        .car-gallery-container {
+          position: relative;
+          overflow: hidden;
+        }
+        .car-slides-track {
+          display: flex;
+          width: 100%;
+          height: 100%;
+          transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .car-slide-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          flex-shrink: 0;
+          transition: filter 0.4s ease, transform 0.4s ease;
+        }
+        /* Blur state on slide images when 'Ver Mais' is active */
+        .car-gallery-container.blur-active .car-slide-img {
+          filter: blur(8px) brightness(0.5);
+          transform: scale(1.05);
+        }
+        /* Ver Mais Overlay Fade-In */
+        .ver-mais-overlay {
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .car-gallery-container.blur-active .ver-mais-overlay {
+          opacity: 1;
+          pointer-events: auto;
+        }
+        /* Gallery Navigation Dots */
+        .gallery-dots .dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.4);
+          transition: all 0.3s ease;
+        }
+        .gallery-dots .dot.active {
+          width: 16px;
+          border-radius: 4px;
+          background: #FFFFFF;
+        }
+      </style>
 
-      <!-- BOTÃO DE CTA INFERIOR CENTRALIZADO -->
-      <div class="mt-12 sm:mt-16 text-center flex justify-center">
-        <a href="#contato" class="group relative inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full border-2 border-[#1D1D1F] text-[#1D1D1F] hover:bg-[#1D1D1F] hover:text-white font-bold text-xs sm:text-sm uppercase tracking-widest transition-all duration-300 shadow-sm hover:shadow-md hover:scale-[1.02]">
-          <span>Ver Todos os Imóveis</span>
-          <i class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-1"></i>
+      <!-- BOTÃO DE CTA INFERIOR CENTRALIZADO (DARK GOLDEN GLASSMORPHISM) -->
+      <div class="mt-12 sm:mt-16 text-center flex justify-center items-center w-full">
+        <a href="#contato" class="group relative inline-flex items-center justify-center gap-3 px-8 py-3.5 sm:px-10 sm:py-4 rounded-full border border-amber-400/35 bg-gradient-to-r from-amber-500/15 via-amber-400/20 to-amber-600/15 backdrop-blur-lg text-white hover:bg-gradient-to-r hover:from-amber-500/35 hover:via-amber-400/45 hover:to-amber-600/35 hover:border-amber-300/70 hover:text-amber-200 font-extrabold text-xs sm:text-sm uppercase tracking-widest transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.2)] hover:shadow-[0_12px_40px_rgba(245,158,11,0.25)] hover:scale-[1.04] active:scale-95">
+          <span>Ver Todos os Veículos</span>
+          <i class="fa-solid fa-arrow-right text-xs text-amber-400 transition-transform duration-300 group-hover:translate-x-1.5 group-hover:text-white"></i>
         </a>
       </div>
-
     </div>
   </section>
 
 
-  <!-- SESSÃO 6: AVALIAÇÕES & PROJETOS ENTREGUES (HERO CARROSSEL 7 CARDS GLASSMORPHISM APPLE LIGHT) -->
-  <section id="portfolio"
-    class="py-24 lg:py-32 px-6 relative bg-[#F8F9FA] border-t border-black/5 font-sans overflow-hidden">
-    <div class="max-w-7xl mx-auto">
-
-      <!-- Cabeçalho da Seção com 2 Botões Estilo Pílula -->
-      <div class="text-center mb-12 sm:mb-16">
-        <!-- Tag Superior Pill Badge -->
-        <div
-          class="bg-[#1D1D1F] text-white rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wider inline-block mb-4 font-sans shadow-sm">
-          Depoimentos & Experiências VIP
-        </div>
-
-        <!-- Título Principal com Animação Shimmer Prateada -->
-        <h2 class="text-3xl sm:text-5xl font-medium uppercase text-[#1D1D1F] tracking-tight leading-tight font-sans mb-3">
-          Projetos <span class="shimmer-silver-text font-extrabold">Entregues</span>
-        </h2>
-
-        <!-- Subtítulo -->
-        <p class="text-[#86868B] text-sm sm:text-base max-w-xl mx-auto font-light font-sans mb-6">
-          Confira a experiência de quem encontrou o imóvel ideal através da nossa curadoria exclusiva.
-        </p>
-
-        <!-- Container de 2 Botões Estilo Pílula (border-radius: 50px) -->
-        <div class="flex justify-center items-center gap-4 flex-wrap">
-          <!-- Botão 1: ACESSAR O APP -->
-          <a href="#appSection"
-            class="bg-[#1D1D1F] text-white px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-black transition-all shadow-sm flex items-center gap-2 font-sans">
-            <i class="fa-solid fa-mobile-screen-button text-sm"></i> Acessar o App
-          </a>
-
-          <!-- Botão 2: VER MAIS AVALIAÇÕES -->
-          <a href="#servicos"
-            class="bg-white border border-black/10 text-[#1D1D1F] px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-gray-100 transition-all flex items-center gap-2 font-sans shadow-sm">
-            Ver Mais Avaliações <i class="fa-solid fa-arrow-right text-xs"></i>
-          </a>
-        </div>
-      </div>
-
-      <!-- Infinite Marquee Carrossel (Cards 280px x 400px com Border-Radius 24px & Loop Ininterrupto) -->
-      <div class="marquee-container">
-        <div class="marquee-track">
-
-          <!-- SET 1 (Cards 1 a 7) -->
-          <!-- Card 1 -->
-          <div
-            class="portfolio-card relative w-[280px] h-[400px] shrink-0 rounded-[24px] overflow-hidden border border-black/10 group shadow-md bg-white">
-            <img src="pessoa-1.jpg" alt="Ricardo Silveira"
-              class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-
-            <div class="glass-review-box space-y-1">
-              <div class="flex items-center gap-1 text-amber-500 text-[11px] mb-0.5">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                  class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-              </div>
-              <h4 class="text-[#1D1D1F] font-bold text-base tracking-tight font-sans">Ricardo Silveira</h4>
-              <div class="flex items-center gap-1.5 text-[#86868B] text-[11px] font-light pt-0.5 font-sans">
-                <i class="fa-solid fa-location-dot text-xs text-[#86868B]"></i> São Paulo, SP
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 2 -->
-          <div
-            class="portfolio-card relative w-[280px] h-[400px] shrink-0 rounded-[24px] overflow-hidden border border-black/10 group shadow-md bg-white">
-            <img src="pessoa-2.jpg" alt="Gabriel Mendonça"
-              class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-            <div class="glass-review-box space-y-1">
-              <div class="flex items-center gap-1 text-amber-500 text-[11px] mb-0.5">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                  class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-              </div>
-              <h4 class="text-[#1D1D1F] font-bold text-base tracking-tight font-sans">Gabriel Mendonça</h4>
-              <div class="flex items-center gap-1.5 text-[#86868B] text-[11px] font-light pt-0.5 font-sans">
-                <i class="fa-solid fa-location-dot text-xs text-[#86868B]"></i> Curitiba, PR
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 3 -->
-          <div
-            class="portfolio-card relative w-[280px] h-[400px] shrink-0 rounded-[24px] overflow-hidden border border-black/10 group shadow-md bg-white">
-            <img src="pessoa-3.jpg" alt="Felipe Alencar"
-              class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-            <div class="glass-review-box space-y-1">
-              <div class="flex items-center gap-1 text-amber-500 text-[11px] mb-0.5">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                  class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-              </div>
-              <h4 class="text-[#1D1D1F] font-bold text-base tracking-tight font-sans">Felipe Alencar</h4>
-              <div class="flex items-center gap-1.5 text-[#86868B] text-[11px] font-light pt-0.5 font-sans">
-                <i class="fa-solid fa-location-dot text-xs text-[#86868B]"></i> Belo Horizonte, MG
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 4 -->
-          <div
-            class="portfolio-card relative w-[280px] h-[400px] shrink-0 rounded-[24px] overflow-hidden border border-black/10 group shadow-md bg-white">
-            <img src="pessoa-4.jpg" alt="Marcelo Rossi"
-              class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-            <div class="glass-review-box space-y-1">
-              <div class="flex items-center gap-1 text-amber-500 text-[11px] mb-0.5">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                  class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-              </div>
-              <h4 class="text-[#1D1D1F] font-bold text-base tracking-tight font-sans">Marcelo Rossi</h4>
-              <div class="flex items-center gap-1.5 text-[#86868B] text-[11px] font-light pt-0.5 font-sans">
-                <i class="fa-solid fa-location-dot text-xs text-[#86868B]"></i> Rio de Janeiro, RJ
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 5 -->
-          <div
-            class="portfolio-card relative w-[280px] h-[400px] shrink-0 rounded-[24px] overflow-hidden border border-black/10 group shadow-md bg-white">
-            <img src="pessoa-5.jpg!d" alt="Henrique Prado"
-              class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-            <div class="glass-review-box space-y-1">
-              <div class="flex items-center gap-1 text-amber-500 text-[11px] mb-0.5">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                  class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-              </div>
-              <h4 class="text-[#1D1D1F] font-bold text-base tracking-tight font-sans">Henrique Prado</h4>
-              <div class="flex items-center gap-1.5 text-[#86868B] text-[11px] font-light pt-0.5 font-sans">
-                <i class="fa-solid fa-location-dot text-xs text-[#86868B]"></i> Brasília, DF
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 6 -->
-          <div
-            class="portfolio-card relative w-[280px] h-[400px] shrink-0 rounded-[24px] overflow-hidden border border-black/10 group shadow-md bg-white">
-            <img src="pessoa-6.jpg" alt="Thiago Vasconcelos"
-              class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-            <div class="glass-review-box space-y-1">
-              <div class="flex items-center gap-1 text-amber-500 text-[11px] mb-0.5">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                  class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-              </div>
-              <h4 class="text-[#1D1D1F] font-bold text-base tracking-tight font-sans">Thiago Vasconcelos</h4>
-              <div class="flex items-center gap-1.5 text-[#86868B] text-[11px] font-light pt-0.5 font-sans">
-                <i class="fa-solid fa-location-dot text-xs text-[#86868B]"></i> Campinas, SP
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 7 -->
-          <div
-            class="portfolio-card relative w-[280px] h-[400px] shrink-0 rounded-[24px] overflow-hidden border border-black/10 group shadow-md bg-white">
-            <img src="pessoa-7.jpg" alt="Eduardo Martins"
-              class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-            <div class="glass-review-box space-y-1">
-              <div class="flex items-center gap-1 text-amber-500 text-[11px] mb-0.5">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                  class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-              </div>
-              <h4 class="text-[#1D1D1F] font-bold text-base tracking-tight font-sans">Eduardo Martins</h4>
-              <div class="flex items-center gap-1.5 text-[#86868B] text-[11px] font-light pt-0.5 font-sans">
-                <i class="fa-solid fa-location-dot text-xs text-[#86868B]"></i> Florianópolis, SC
-              </div>
-            </div>
-          </div>
 
 
-          <!-- SET 2 (DUPLICADO PARA LOOP INFINITO PERFEITO) -->
-          <!-- Card 1 Cloned -->
-          <div
-            class="portfolio-card relative w-[280px] h-[400px] shrink-0 rounded-[24px] overflow-hidden border border-black/10 group shadow-md bg-white">
-            <img src="pessoa-1.jpg" alt="Ricardo Silveira"
-              class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-            <div class="glass-review-box space-y-1">
-              <div class="flex items-center gap-1 text-amber-500 text-[11px] mb-0.5">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                  class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-              </div>
-              <h4 class="text-[#1D1D1F] font-bold text-base tracking-tight font-sans">Ricardo Silveira</h4>
-              <div class="flex items-center gap-1.5 text-[#86868B] text-[11px] font-light pt-0.5 font-sans">
-                <i class="fa-solid fa-location-dot text-xs text-[#86868B]"></i> São Paulo, SP
-              </div>
-            </div>
-          </div>
 
-          <!-- Card 2 Cloned -->
-          <div
-            class="portfolio-card relative w-[280px] h-[400px] shrink-0 rounded-[24px] overflow-hidden border border-black/10 group shadow-md bg-white">
-            <img src="pessoa-2.jpg" alt="Gabriel Mendonça"
-              class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-            <div class="glass-review-box space-y-1">
-              <div class="flex items-center gap-1 text-amber-500 text-[11px] mb-0.5">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                  class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-              </div>
-              <h4 class="text-[#1D1D1F] font-bold text-base tracking-tight font-sans">Gabriel Mendonça</h4>
-              <div class="flex items-center gap-1.5 text-[#86868B] text-[11px] font-light pt-0.5 font-sans">
-                <i class="fa-solid fa-location-dot text-xs text-[#86868B]"></i> Curitiba, PR
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 3 Cloned -->
-          <div
-            class="portfolio-card relative w-[280px] h-[400px] shrink-0 rounded-[24px] overflow-hidden border border-black/10 group shadow-md bg-white">
-            <img src="pessoa-3.jpg" alt="Felipe Alencar"
-              class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-            <div class="glass-review-box space-y-1">
-              <div class="flex items-center gap-1 text-amber-500 text-[11px] mb-0.5">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                  class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-              </div>
-              <h4 class="text-[#1D1D1F] font-bold text-base tracking-tight font-sans">Felipe Alencar</h4>
-              <div class="flex items-center gap-1.5 text-[#86868B] text-[11px] font-light pt-0.5 font-sans">
-                <i class="fa-solid fa-location-dot text-xs text-[#86868B]"></i> Belo Horizonte, MG
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 4 Cloned -->
-          <div
-            class="portfolio-card relative w-[280px] h-[400px] shrink-0 rounded-[24px] overflow-hidden border border-black/10 group shadow-md bg-white">
-            <img src="pessoa-4.jpg" alt="Marcelo Rossi"
-              class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-            <div class="glass-review-box space-y-1">
-              <div class="flex items-center gap-1 text-amber-500 text-[11px] mb-0.5">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                  class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-              </div>
-              <h4 class="text-[#1D1D1F] font-bold text-base tracking-tight font-sans">Marcelo Rossi</h4>
-              <div class="flex items-center gap-1.5 text-[#86868B] text-[11px] font-light pt-0.5 font-sans">
-                <i class="fa-solid fa-location-dot text-xs text-[#86868B]"></i> Rio de Janeiro, RJ
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 5 Cloned -->
-          <div
-            class="portfolio-card relative w-[280px] h-[400px] shrink-0 rounded-[24px] overflow-hidden border border-black/10 group shadow-md bg-white">
-            <img src="pessoa-5.jpg!d" alt="Henrique Prado"
-              class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-            <div class="glass-review-box space-y-1">
-              <div class="flex items-center gap-1 text-amber-500 text-[11px] mb-0.5">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                  class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-              </div>
-              <h4 class="text-[#1D1D1F] font-bold text-base tracking-tight font-sans">Henrique Prado</h4>
-              <div class="flex items-center gap-1.5 text-[#86868B] text-[11px] font-light pt-0.5 font-sans">
-                <i class="fa-solid fa-location-dot text-xs text-[#86868B]"></i> Brasília, DF
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 6 Cloned -->
-          <div
-            class="portfolio-card relative w-[280px] h-[400px] shrink-0 rounded-[24px] overflow-hidden border border-black/10 group shadow-md bg-white">
-            <img src="pessoa-6.jpg" alt="Thiago Vasconcelos"
-              class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-            <div class="glass-review-box space-y-1">
-              <div class="flex items-center gap-1 text-amber-500 text-[11px] mb-0.5">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                  class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-              </div>
-              <h4 class="text-[#1D1D1F] font-bold text-base tracking-tight font-sans">Thiago Vasconcelos</h4>
-              <div class="flex items-center gap-1.5 text-[#86868B] text-[11px] font-light pt-0.5 font-sans">
-                <i class="fa-solid fa-location-dot text-xs text-[#86868B]"></i> Campinas, SP
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 7 Cloned -->
-          <div
-            class="portfolio-card relative w-[280px] h-[400px] shrink-0 rounded-[24px] overflow-hidden border border-black/10 group shadow-md bg-white">
-            <img src="pessoa-7.jpg" alt="Eduardo Martins"
-              class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-            <div class="glass-review-box space-y-1">
-              <div class="flex items-center gap-1 text-amber-500 text-[11px] mb-0.5">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                  class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-              </div>
-              <h4 class="text-[#1D1D1F] font-bold text-base tracking-tight font-sans">Eduardo Martins</h4>
-              <div class="flex items-center gap-1.5 text-[#86868B] text-[11px] font-light pt-0.5 font-sans">
-                <i class="fa-solid fa-location-dot text-xs text-[#86868B]"></i> Florianópolis, SC
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- SUBSEÇÃO: POR QUE NÓS? (COMPARATIVO APPLE LIGHT) -->
-      <div class="mt-16 sm:mt-24 pt-10">
-
-        <!-- Cabeçalho da Subseção -->
-        <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
-          <!-- Tag Superior (Pílula) -->
-          <div
-            class="bg-white text-[#1D1D1F] border border-black/10 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider inline-block mb-3 font-sans shadow-sm">
-            Por que nós?
-          </div>
-
-          <!-- Título Principal -->
-          <h3 class="text-3xl sm:text-5xl font-medium uppercase text-[#1D1D1F] tracking-tight leading-tight font-sans mb-3">
-            A Diferença da <span class="shimmer-silver-text font-black">Nossa Assessoria VIP</span>
-          </h3>
-
-          <!-- Subtítulo -->
-          <p class="text-[#86868B] text-sm sm:text-base font-light font-sans max-w-xl mx-auto mb-6">
-            Entenda por que nosso método de curadoria imobiliária entrega resultados muito superiores aos das imobiliárias tradicionais.
-          </p>
-
-          <!-- Botão Arredondado Slim -->
-          <div class="flex justify-center">
-            <a href="#appSection"
-              class="btn-silver-loading-bar group relative inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full overflow-hidden bg-[#1D1D1F] text-white font-extrabold text-[11px] uppercase tracking-widest transition-all duration-300 hover:scale-105 shadow-md font-sans">
-              <span class="relative z-10 text-white">Acessar o App</span>
-              <span
-                class="relative z-10 text-xs font-light text-white transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- Container dos 2 Cards de Comparação Estreitos -->
-        <div class="flex flex-col lg:flex-row items-stretch justify-center gap-6 sm:gap-8 max-w-5xl mx-auto">
-
-          <!-- Card 1 (Esquerda - Negativo / Imobiliárias Tradicionais) -->
-          <div
-            class="w-full max-w-[480px] mx-auto bg-white border border-rose-500/20 p-6 sm:p-7 rounded-[28px] shadow-[0_10px_30px_rgba(0,0,0,0.03)] relative overflow-hidden flex flex-col justify-between">
-            <div class="absolute -top-24 -left-24 w-64 h-64 bg-rose-500/5 rounded-full blur-3xl pointer-events-none">
-            </div>
-
-            <div>
-              <!-- Cabeçalho do Card Negativo -->
-              <div class="flex items-center justify-between mb-5 pb-4 border-b border-black/10">
-                <div>
-                  <span
-                    class="text-rose-600 text-[10px] sm:text-xs font-bold uppercase tracking-widest font-sans block mb-0.5">MÉTODOS
-                    COMUNS</span>
-                  <h4 class="text-lg sm:text-xl font-bold text-[#1D1D1F] tracking-tight font-sans">Imobiliárias Tradicionais
-                  </h4>
-                </div>
-                <div
-                  class="w-9 h-9 rounded-full bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-500 shrink-0">
-                  <i class="fa-solid fa-xmark text-base"></i>
-                </div>
-              </div>
-
-              <!-- Lista de 5 Itens Negativos Compactos -->
-              <ul class="space-y-3.5">
-                <li class="flex items-start gap-3">
-                  <span
-                    class="w-5 h-5 rounded-full bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-500 text-[10px] shrink-0 mt-0.5">✕</span>
-                  <span class="text-[#86868B] text-xs sm:text-sm font-sans font-light leading-snug">Atendimento genérico focado apenas em bater metas de vendas, sem entender sua real necessidade.</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <span
-                    class="w-5 h-5 rounded-full bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-500 text-[10px] shrink-0 mt-0.5">✕</span>
-                  <span class="text-[#86868B] text-xs sm:text-sm font-sans font-light leading-snug">Visitas improdutivas a imóveis que não condizem com o seu perfil ou padrão de exigência.</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <span
-                    class="w-5 h-5 rounded-full bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-500 text-[10px] shrink-0 mt-0.5">✕</span>
-                  <span class="text-[#86868B] text-xs sm:text-sm font-sans font-light leading-snug">Falta de transparência sobre problemas estruturais ou documentais do imóvel.</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <span
-                    class="w-5 h-5 rounded-full bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-500 text-[10px] shrink-0 mt-0.5">✕</span>
-                  <span class="text-[#86868B] text-xs sm:text-sm font-sans font-light leading-snug">Burocracia exaustiva repassada ao cliente e falta de suporte jurídico adequado.</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <span
-                    class="w-5 h-5 rounded-full bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-500 text-[10px] shrink-0 mt-0.5">✕</span>
-                  <span class="text-[#86868B] text-xs sm:text-sm font-sans font-light leading-snug">Nenhum acompanhamento ou suporte após a assinatura do contrato.</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- Card 2 (Direita - Positivo / Nossa Assessoria Imobiliária VIP) -->
-          <div
-            class="w-full max-w-[480px] mx-auto glass-card-positive p-6 sm:p-7 rounded-[28px] shadow-[0_10px_30px_rgba(0,0,0,0.04)] relative overflow-hidden flex flex-col justify-between border-emerald-500/30">
-            <div
-              class="absolute -top-24 -right-24 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none">
-            </div>
-
-            <div>
-              <!-- Cabeçalho do Card Positivo -->
-              <div class="flex items-center justify-between mb-5 pb-4 border-b border-black/10">
-                <div>
-                  <span
-                    class="text-emerald-600 text-[10px] sm:text-xs font-bold uppercase tracking-widest font-sans block mb-0.5">PADRÃO
-                    INTERNACIONAL VIP</span>
-                  <h4 class="text-lg sm:text-xl font-bold text-[#1D1D1F] tracking-tight font-sans">Nossa Assessoria Imobiliária VIP
-                  </h4>
-                </div>
-                <div
-                  class="w-9 h-9 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 shrink-0">
-                  <i class="fa-solid fa-check shimmer-silver-icon text-base"></i>
-                </div>
-              </div>
-
-              <!-- Lista de 5 Itens Positivos Compactos -->
-              <ul class="space-y-3.5">
-                <li class="flex items-start gap-3">
-                  <span
-                    class="w-5 h-5 rounded-full bg-black/5 border border-black/10 flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
-                    <span class="shimmer-silver-icon font-black text-[10px]">✓</span>
-                  </span>
-                  <span class="text-[#1D1D1F] text-xs sm:text-sm font-sans font-medium leading-snug">Mapeamento detalhado do seu perfil para apresentar apenas imóveis que superem suas expectativas.</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <span
-                    class="w-5 h-5 rounded-full bg-black/5 border border-black/10 flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
-                    <span class="shimmer-silver-icon font-black text-[10px]">✓</span>
-                  </span>
-                  <span class="text-[#1D1D1F] text-xs sm:text-sm font-sans font-medium leading-snug">Acesso a um portfólio exclusivo (Off-Market) de propriedades que não estão listadas publicamente.</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <span
-                    class="w-5 h-5 rounded-full bg-black/5 border border-black/10 flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
-                    <span class="shimmer-silver-icon font-black text-[10px]">✓</span>
-                  </span>
-                  <span class="text-[#1D1D1F] text-xs sm:text-sm font-sans font-medium leading-snug">Análise criteriosa e verificação prévia da planta, estrutura e vizinhança de cada propriedade.</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <span
-                    class="w-5 h-5 rounded-full bg-black/5 border border-black/10 flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
-                    <span class="shimmer-silver-icon font-black text-[10px]">✓</span>
-                  </span>
-                  <span class="text-[#1D1D1F] text-xs sm:text-sm font-sans font-medium leading-snug">Assessoria jurídica e financeira completa, garantindo uma transação 100% blindada e sem riscos.</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <span
-                    class="w-5 h-5 rounded-full bg-black/5 border border-black/10 flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
-                    <span class="shimmer-silver-icon font-black text-[10px]">✓</span>
-                  </span>
-                  <span class="text-[#1D1D1F] text-xs sm:text-sm font-sans font-medium leading-snug">Suporte contínuo pós-venda, auxiliando na transição, documentação e até projetos de interior.</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- FOOTER CLEAN APPLE LIGHT -->
-  <footer
-    class="relative border-t border-black/10 py-16 sm:py-20 px-6 font-sans text-xs text-[#86868B] bg-[#F5F5F7] overflow-hidden">
+  <!-- SESSÃO 6: FOOTER & CONTATO (DARK GLASSMORPHISM COM IMAGEM DE FUNDO RESPONSIVA) -->
+  <footer id="contato"
+    class="relative border-t border-white/10 py-16 sm:py-20 px-6 font-sans text-xs text-white bg-cover bg-center bg-no-repeat overflow-hidden bg-black"
+    style="background-image: url('imagem-de-fundo.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    
+    <!-- Overlay Escuro Vitrificado para Garantir Legibilidade de Alto Luxo -->
+    <div class="absolute inset-0 bg-black/80 backdrop-blur-[4px] pointer-events-none z-0"></div>
 
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 mb-12 relative z-10">
       <!-- Col 1 -->
       <div class="space-y-4">
         <div class="flex items-center gap-3">
           <div
-            class="w-9 h-9 rounded-xl bg-[#1D1D1F] text-white font-bold flex items-center justify-center font-sans shadow-sm">
+            class="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 text-black font-extrabold flex items-center justify-center font-sans shadow-lg shadow-amber-500/20">
             A3</div>
-          <span class="font-bold text-lg text-[#1D1D1F] font-sans tracking-tight">A3 ESTÉTICA</span>
+          <span class="font-bold text-lg text-white font-sans tracking-tight">A3 MOTORS</span>
         </div>
-        <p class="text-[#86868B] text-xs leading-relaxed font-sans font-light">
-          Estúdio de alta performance dedicado à preservação e elevação estética de supercarros e veículos especiais.
+        <p class="text-zinc-300 text-xs leading-relaxed font-sans font-light">
+          Concessionária e estúdio de alta performance dedicado à curadoria e venda de supercarros e veículos de alto padrão.
         </p>
       </div>
 
       <!-- Col 2 -->
       <div>
-        <h5 class="text-[#1D1D1F] font-bold mb-4 uppercase tracking-wider font-sans text-xs">// LOCALIZAÇÃO
+        <h5 class="text-amber-400 font-bold mb-4 uppercase tracking-wider font-sans text-xs">// LOCALIZAÇÃO
         </h5>
-        <p class="text-[#86868B] leading-relaxed font-sans font-light">
+        <p class="text-zinc-300 leading-relaxed font-sans font-light">
           Av. Europa, 1200 - Jardins<br>
           São Paulo - SP, 01449-000<br>
-          <span class="text-[#1D1D1F] font-normal">Atendimento exclusivamente com agendamento prévio.</span>
+          <span class="text-white font-semibold mt-1 block">Atendimento exclusivamente com agendamento prévio.</span>
         </p>
       </div>
 
       <!-- Col 3 -->
       <div>
-        <h5 class="text-[#1D1D1F] font-bold mb-4 uppercase tracking-wider font-sans text-xs">// HORÁRIOS</h5>
-        <p class="text-[#86868B] leading-relaxed font-sans font-light">
+        <h5 class="text-amber-400 font-bold mb-4 uppercase tracking-wider font-sans text-xs">// HORÁRIOS</h5>
+        <p class="text-zinc-300 leading-relaxed font-sans font-light">
           Segunda a Sexta: 08:00 - 19:00<br>
           Sábado: 08:00 - 14:00<br>
-          <span class="text-[#1D1D1F] font-normal">Domingo: Fechado (Recebimento VIP)</span>
+          <span class="text-white font-semibold mt-1 block">Domingo: Fechado (Recebimento VIP)</span>
         </p>
       </div>
 
       <!-- Col 4 -->
       <div>
-        <h5 class="text-[#1D1D1F] font-bold mb-4 uppercase tracking-wider font-sans text-xs">// REDES &
-          CONTATO</h5>
-        <div class="flex gap-4 text-lg text-[#1D1D1F]">
+        <h5 class="text-amber-400 font-bold mb-4 uppercase tracking-wider font-sans text-xs">// REDES & CONTATO</h5>
+        <div class="flex gap-4 text-lg text-white">
           <a href="#"
-            class="w-10 h-10 rounded-xl bg-white border border-black/10 flex items-center justify-center text-[#1D1D1F] hover:bg-[#1D1D1F] hover:text-white transition-all shadow-sm"><i
+            class="w-10 h-10 rounded-xl bg-white/[0.06] border border-white/15 flex items-center justify-center text-white hover:bg-amber-500 hover:text-black hover:border-amber-500 transition-all shadow-md backdrop-blur-md"><i
               class="fa-brands fa-instagram"></i></a>
           <a href="#"
-            class="w-10 h-10 rounded-xl bg-white border border-black/10 flex items-center justify-center text-[#1D1D1F] hover:bg-[#1D1D1F] hover:text-white transition-all shadow-sm"><i
+            class="w-10 h-10 rounded-xl bg-white/[0.06] border border-white/15 flex items-center justify-center text-white hover:bg-amber-500 hover:text-black hover:border-amber-500 transition-all shadow-md backdrop-blur-md"><i
               class="fa-brands fa-whatsapp"></i></a>
           <a href="#"
-            class="w-10 h-10 rounded-xl bg-white border border-black/10 flex items-center justify-center text-[#1D1D1F] hover:bg-[#1D1D1F] hover:text-white transition-all shadow-sm"><i
+            class="w-10 h-10 rounded-xl bg-white/[0.06] border border-white/15 flex items-center justify-center text-white hover:bg-amber-500 hover:text-black hover:border-amber-500 transition-all shadow-md backdrop-blur-md"><i
               class="fa-brands fa-youtube"></i></a>
         </div>
       </div>
     </div>
 
     <div
-      class="max-w-7xl mx-auto pt-8 border-t border-black/10 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] text-[#86868B] relative z-10 font-sans">
-      <div>© 2026 A3 Estética Automotiva. Todos os direitos reservados.</div>
+      class="max-w-7xl mx-auto pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] text-zinc-400 relative z-10 font-sans">
+      <div>© 2026 A3 Motors. Todos os direitos reservados.</div>
       <div class="flex gap-6">
-        <a href="#" class="hover:text-[#1D1D1F] transition-colors">Termos de Privacidade</a>
-        <a href="#" class="hover:text-[#1D1D1F] transition-colors">Garantia Ceramic Coating</a>
+        <a href="#" class="hover:text-white transition-colors">Termos de Privacidade</a>
+        <a href="#" class="hover:text-white transition-colors">Garantia Cautelar</a>
       </div>
     </div>
   </footer>
