@@ -129,20 +129,20 @@ body {
   box-shadow: var(--shadow-apple-hover);
 }
 
-/* Portfolio Hover Cards */
 .portfolio-card {
   position: relative;
   border-radius: 1.25rem;
   overflow: hidden;
   background: #FFFFFF;
-  border: 1px solid var(--border-apple-subtle);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .portfolio-card:hover {
   border-color: rgba(0, 0, 0, 0.15);
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-apple-hover);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 
 /* Custom Scrollbar - Apple Clean */
